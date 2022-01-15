@@ -9,4 +9,6 @@ FROM openjdk:11-jre
 RUN mkdir /app
 WORKDIR /app
 COPY --from=build-stage /src/target/web-0.0.1-SNAPSHOT.jar /app/web.jar
-ENTRYPOINT ["java", "-jar", "web.jar", "--spring.profiles.active=prod"]
+RUN adduser --system webuser
+USER webuser
+CMD ["java", "-jar", "web.jar", "--spring.profiles.active=prod"]
