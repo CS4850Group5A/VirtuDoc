@@ -1,0 +1,13 @@
+spring:
+    application:
+      name: web
+server:
+  port: 8080
+
+---
+spring:
+  profiles: prod
+  application:
+    name: web
+server:
+  port: ${PORT}
