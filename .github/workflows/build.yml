@@ -7,6 +7,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0.27
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: virtudoc
+        ports: [ '3306:3306' ]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
