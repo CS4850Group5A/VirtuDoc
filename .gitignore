@@ -14,7 +14,7 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### SSL certificate files ###
+proxy/cert/*.crt
+proxy/cert/*.key
+proxy/cert/*.pfx
