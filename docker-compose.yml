@@ -5,10 +5,26 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      - db
     ports:
       - '8080:8080'
     volumes:
     - ./:/app
+    environment:
+      JDBC_DATABASE_URL: jdbc:mysql://db:3306/virtudoc?user=root&password=virtudoc
+      JDBC_DATABASE_USERNAME: root
+      JDBC_DATABASE_PASSWORD: virtudoc
+  db:
+    image: mysql:8.0.27
+    ports:
+      - "33306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: virtudoc
+      MYSQL_DATABASE: virtudoc
   proxy:
     build:
       context: ./proxy
@@ -21,3 +37,5 @@ services:
     volumes:
       - ./proxy/cert:/cert
     restart: always
+volumes:
+  dbdata:

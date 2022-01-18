@@ -1,6 +1,19 @@
 spring:
-    application:
-      name: web
+  application:
+    name: web
+  datasource:
+    url: jdbc:h2:mem:virtudoc
+    username: h2user
+    password: virtudoc
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    database: h2
+  h2:
+    console:
+      enabled: true
 server:
   port: 8080
 logging:
@@ -9,8 +22,56 @@ logging:
 
 ---
 spring:
+  profiles: dev-managed
+  application:
+    name: web
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+server:
+  port: 8080
+logging:
+  level:
+    root: DEBUG
+
+---
+spring:
+  profiles: test
+  application:
+    name: web
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+server:
+  port: 8080
+
+---
+spring:
   profiles: prod
   application:
     name: web
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
 server:
   port: ${PORT}
