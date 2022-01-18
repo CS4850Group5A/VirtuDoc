@@ -43,6 +43,24 @@ logging:
 
 ---
 spring:
+  profiles: test
+  application:
+    name: web
+  datasource:
+    url: ${JDBC_DATABASE_URL}
+    username: ${JDBC_DATABASE_USERNAME}
+    password: ${JDBC_DATABASE_PASSWORD}
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: mysql
+server:
+  port: 8080
+
+---
+spring:
   profiles: prod
   application:
     name: web
