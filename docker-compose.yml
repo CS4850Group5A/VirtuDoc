@@ -25,5 +25,17 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: virtudoc
       MYSQL_DATABASE: virtudoc
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: proxy.Dockerfile
+    depends_on:
+      - web
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./proxy/cert:/cert
+    restart: always
 volumes:
   dbdata:
