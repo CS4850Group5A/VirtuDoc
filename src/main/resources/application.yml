@@ -16,6 +16,9 @@ spring:
       enabled: true
 server:
   port: 8080
+  tomcat:
+    threads:
+      max: 4
 logging:
   level:
     root: DEBUG
