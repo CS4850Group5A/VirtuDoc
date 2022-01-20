@@ -1,6 +1,6 @@
 setup:
   addons:
-    - plan: jawsdb:kitefin
+    - plan: heroku-postgresql:hobby-dev
 build:
   docker:
     web: prod.Dockerfile

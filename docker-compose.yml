@@ -12,19 +12,25 @@ services:
     volumes:
     - ./:/app
     environment:
-      JDBC_DATABASE_URL: jdbc:mysql://db:3306/virtudoc?user=root&password=virtudoc
+      JDBC_DATABASE_URL: jdbc:postgresql://db:5432/virtudoc
       JDBC_DATABASE_USERNAME: root
       JDBC_DATABASE_PASSWORD: virtudoc
   db:
-    image: mysql:8.0.27
+    image: postgres:13.5-alpine
     ports:
-      - "33306:3306"
+      - "55432:5432"
     volumes:
       - dbdata:/var/lib/mysql
     restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
+      timeout: 30s
+      interval: 10s
+      retries: 10
     environment:
-      MYSQL_ROOT_PASSWORD: virtudoc
-      MYSQL_DATABASE: virtudoc
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: virtudoc
+      POSTGRES_DB: virtudoc
   proxy:
     build:
       context: ./proxy
