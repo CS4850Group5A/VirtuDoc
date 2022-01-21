@@ -9,11 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:8.0.27
+        image: postgres:13.5-alpine
         env:
-          MYSQL_ROOT_PASSWORD: virtudoc
-          MYSQL_DATABASE: virtudoc
-        ports: [ '3306:3306' ]
+          POSTGRES_USER: root
+          POSTGRES_PASSWORD: virtudoc
+          POSTGRES_DB: virtudoc
+        ports: [ '5432:5432' ]
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -35,7 +36,7 @@ jobs:
       - name: Run JUnit tests
         run: mvn test -B -T1
         env:
-          JDBC_DATABASE_URL: jdbc:mysql://localhost:3306/virtudoc?user=root&password=virtudoc
+          JDBC_DATABASE_URL: jdbc:postgresql://localhost:5432/virtudoc
           JDBC_DATABASE_USERNAME: root
           JDBC_DATABASE_PASSWORD: virtudoc
       - name: Check slug size
