@@ -15,6 +15,7 @@ services:
       JDBC_DATABASE_URL: jdbc:postgresql://db:5432/virtudoc
       JDBC_DATABASE_USERNAME: root
       JDBC_DATABASE_PASSWORD: virtudoc
+      SENDGRID_API_KEY: MOCK
   db:
     image: postgres:13.5-alpine
     ports:
