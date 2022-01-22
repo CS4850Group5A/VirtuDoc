@@ -1,44 +1,67 @@
 package com.virtudoc.web.service;
 
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
-import com.sendgrid.SendGrid;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
+import com.virtudoc.web.dto.EmailDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
-import java.io.IOException;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import java.util.Set;
 
+/**
+ * Abstraction layer for sending emails to users. Works independent of underlying SMTP/API implementation. Class is a
+ * normal service object that can be injected into any controller or service.
+ *
+ * @author ARMmaster17
+ */
 @Service
 public class MailService {
-    public void SendEmail(String recipient) throws Exception { // TODO: Replace with mail DTO object
-        Email from = new Email("test@examle.com");
-        Email to = new Email("test2@example.com");
-        String subject = "test subject";
-        Content content = new Content("text/plain", "test content");
-        Mail mail = new Mail(from, subject, to, content);
+    @Autowired
+    private SpringTemplateEngine templateEngine;
 
-        // TODO: Use empty var instead of mock value?
-        if (System.getenv("SENDGRID_API_KEY").equals("MOCK")) { // TODO: Use Spring config file instead of env var?
-            // TODO: Print message contents to the screen.
-        } else {
-            SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY")); // TODO: Don't re-initialize this object every time?
-            Request request = new Request();
-            try {
-                request.setMethod(Method.POST);
-                request.setEndpoint("mail/send");
-                request.setBody(mail.build());
-                Response response = sg.api(request);
-                System.out.println(response.getStatusCode());
-                if (response.getStatusCode() != 200) {
-                    throw new Exception("Sendgrid API returned non-OK status code.");
-                }
-            } catch (IOException e) {
-                throw new Exception("Unable to communicate with Sendgrid API.", e);
-            }
+    @Autowired
+    private JavaMailSender emailSender;
+
+    @Autowired
+    private Validator validator;
+
+    /**
+     * Sends an email, using information from the given EmailDTO object. Automatically performs validation.
+     * @param email Data Transfer Object with information needed to construct email message.
+     * @see EmailDTO
+     */
+    public void SendEmail(final EmailDTO email) throws Exception {
+        validateEmailDTO(email);
+        emailSender.send(convertEmailDTO(email));
+    }
+
+    private MimeMessage convertEmailDTO(final EmailDTO email) throws MessagingException {
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_RELATED, StandardCharsets.UTF_8.name());
+        helper.setFrom("no-reply@virtudoc.herokuapp.com");
+        helper.setTo(email.getRecipient());
+        helper.setSubject(email.getSubject());
+        helper.setText(this.getTemplateHTML(email), true);
+        return message;
+    }
+
+    private String getTemplateHTML(final EmailDTO email) {
+        Context templateEngineContext = new Context(Locale.getDefault(), email.getTemplateVariables());
+        return this.templateEngine.process(email.getTemplatePath(), templateEngineContext);
+    }
+
+    private void validateEmailDTO(final EmailDTO email) throws Exception {
+        Set<ConstraintViolation<EmailDTO>> constraintViolations = validator.validate(email);
+        if (constraintViolations.size() > 0) {
+            throw new Exception("invalid EmailDTO object");
         }
-        // TODO: Write unit tests
     }
 }
