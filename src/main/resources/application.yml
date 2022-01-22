@@ -14,6 +14,16 @@ spring:
   h2:
     console:
       enabled: true
+  mail:
+    default-encoding: UTF-8
+    host: localhost
+    username: fake
+    password: fake
+    port: 25
+    protocol: smtp
+    test-connection: false
+test:
+  mail: false
 server:
   port: 8080
 logging:
@@ -46,6 +56,8 @@ spring:
     port: ${SMTP_PORT}
     protocol: smtp
     test-connection: true
+test:
+  mail: true
 server:
   port: 8080
 logging:
@@ -78,6 +90,8 @@ spring:
     port: ${SMTP_PORT}
     protocol: smtp
     test-connection: true
+test:
+  mail: true
 server:
   port: 8080
 
