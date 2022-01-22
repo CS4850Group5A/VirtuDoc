@@ -37,7 +37,7 @@ jobs:
       - name: Compile Java source
         run: mvn compiler:testCompile -B -Dmaven.test.skip=true -Dspring.profiles.active=test -T4 -q
       - name: Run JUnit tests
-        run: mvn test -B -Dmaven.test.skip=true -Dspring.profiles.active=test -T1
+        run: mvn test -B -Dspring.profiles.active=test -T1
         env:
           JDBC_DATABASE_URL: jdbc:postgresql://localhost:5432/virtudoc
           JDBC_DATABASE_USERNAME: root
