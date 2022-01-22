@@ -15,7 +15,7 @@ public class MailServiceTest {
 
     @Test
     public void testSendEmail() throws Exception {
-        EmailDTO emailDTO = new EmailDTO("test@example.com", "s", "mail/test");
+        EmailDTO emailDTO = new EmailDTO("test@example.com", "test subject", "mail/test");
         mailService.SendEmail(emailDTO);
     }
 }
