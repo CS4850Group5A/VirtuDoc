@@ -11,6 +11,7 @@ services:
       - '8080:8080'
     volumes:
     - ./:/app
+    - ./.m2-cache:/root/.m2
     environment:
       JDBC_DATABASE_URL: jdbc:postgresql://db:5432/virtudoc
       JDBC_DATABASE_USERNAME: root

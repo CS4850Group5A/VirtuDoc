@@ -36,3 +36,7 @@ build/
 proxy/cert/*.crt
 proxy/cert/*.key
 proxy/cert/*.pfx
+
+### .m2 Maven cache ###
+.m2-cache/*
+!.m2-cache/.keep
