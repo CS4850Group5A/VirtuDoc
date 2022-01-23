@@ -14,6 +14,16 @@ spring:
   h2:
     console:
       enabled: true
+  mail:
+    default-encoding: UTF-8
+    host: localhost
+    username: fake
+    password: fake
+    port: 25
+    protocol: smtp
+    test-connection: false
+test:
+  mail: false
 server:
   port: 8080
 logging:
@@ -38,6 +48,16 @@ spring:
       ddl-auto: update
     show-sql: true
     database: mysql
+  mail:
+    default-encoding: UTF-8
+    host: ${SMTP_SERVER}
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    port: ${SMTP_PORT}
+    protocol: smtp
+    test-connection: true
+test:
+  mail: true
 server:
   port: 8080
 logging:
@@ -62,6 +82,16 @@ spring:
       ddl-auto: update
     show-sql: true
     database: mysql
+  mail:
+    default-encoding: UTF-8
+    host: ${SMTP_SERVER}
+    username: ${SMTP_USERNAME}
+    password: ${SMTP_PASSWORD}
+    port: ${SMTP_PORT}
+    protocol: smtp
+    test-connection: true
+test:
+  mail: true
 server:
   port: 8080
 
@@ -82,5 +112,19 @@ spring:
     hibernate:
       ddl-auto: update
     database: mysql
+  mail:
+    default-encoding: UTF-8
+    host: ${MAILGUN_SMTP_SERVER}
+    username: ${MAILGUN_SMTP_LOGIN}
+    password: ${MAILGUN_SMTP_PASSWORD}
+    port: ${MAILGUN_SMTP_PORT}
+    protocol: smtp
+    test-connection: true
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 server:
   port: ${PORT}
