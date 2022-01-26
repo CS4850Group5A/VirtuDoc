@@ -34,6 +34,10 @@ jobs:
           distribution: 'adopt'
           java-package: jdk
           java-version: 11
+      - name: Install Google Chrome
+        run: |
+          chmod +x ./cicd/installchrome.sh
+          ./cicd/installchrome.sh
       - name: Compile Java source
         run: mvn compiler:testCompile -B -Dmaven.test.skip=true -Dspring.profiles.active=test -T4 -q
       - name: Run JUnit tests
@@ -54,3 +58,5 @@ jobs:
         with:
           files: ./target/surefire-reports/*.xml
           report_individual_runs: "true"
+      - name: Build the production image
+        run: docker build -f prod.Dockerfile -t virtudoc-web .
