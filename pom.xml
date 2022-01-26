@@ -92,7 +92,10 @@
 			<artifactId>selenium-api</artifactId>
 			<version>3.141.59</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
