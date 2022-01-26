@@ -9,6 +9,7 @@ services:
       - db
     ports:
       - '8080:8080'
+      - '5005:5005'
     volumes:
     - ./:/app
     - ./.m2-cache:/root/.m2
@@ -20,10 +21,11 @@ services:
       SMTP_USERNAME: testuser@dev.local
       SMTP_PASSWORD: testpassword
       SMTP_PORT: 25
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n
   db:
     image: postgres:13.5-alpine
     ports:
-      - "55432:5432"
+      - "5433:5432"
     volumes:
       - dbdata:/var/lib/mysql
     restart: unless-stopped
