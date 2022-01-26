@@ -2,8 +2,7 @@ package com.virtudoc.web;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
@@ -14,10 +13,11 @@ public class SampleE2ETest {
     @LocalServerPort
     private int port;
 
+    @Autowired
+    private WebDriver driver;
+
     @Test
     public void testDriver() {
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
         driver.get("http://localhost:" + port);
         driver.manage().timeouts().implicitlyWait(500, TimeUnit.MILLISECONDS);
         driver.quit();
