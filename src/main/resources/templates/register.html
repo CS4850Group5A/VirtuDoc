@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Create New Account</title>
+    <link rel="stylesheet" href="login_account.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+<div class="logo_img">
+    <img class="logo" src="VirtuDocLogo.png" alt="logo">
+    <br>
+    <div class="container">
+        <div class="title">Create New Account</div>
+        <div class="content">
+            <form action="#">
+                <div class="status_details">
+                    <input type="radio" name="status" id="dot_1">
+                    <input type="radio" name="status" id="dot_2">
+                    <input type="radio" name="status" id="dot_3">
+                    <span class="status_title">Who Are You?</span>
+                    <div class="category">
+                        <label for="dot_1">
+                            <span class="dot one"></span>
+                            <span class="status">Patient</span>
+                        </label>
+                        <label for="dot_2">
+                            <span class="dot two"></span>
+                            <span class="status">Doctor</span>
+                        </label>
+                        <label for="dot_3">
+                            <span class="dot three"></span>
+                            <span class="status">Adminstrator</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="user_details">
+                    <div class="input_box">
+                        <span class="details">Username</span>
+                        <input type="text" placeholder="Enter your username" required>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">Email</span>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">First Name</span>
+                        <input type="text" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">Last Name</span>
+                        <input type="text" placeholder="Enter your last name" required>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">Password</span>
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">Confirm Password</span>
+                        <input type="password" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">Gender</span>
+                        <select class="gender_select" name="gender" id="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="input_box">
+                        <span class="details">Date of Birth</span>
+                        <input type="date" placeholder="" required>
+                    </div>
+                </div>
+                <div class="button_1">
+                    <input type="submit" value="Create Account">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
