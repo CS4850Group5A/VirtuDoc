@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  font-weight: bold;
+  text-align: center;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.header {
+  background: #ffc629;
+}
+
+.main {
+  text-align: left;
+  background: #f6f6f6;
+}
+
+.left {
+  background: #f6f6f6;
+}
+
+body {
+ margin: 8px;
+ font-weight: 300;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#wrapperChat{
+    margin: 0 auto;
+    padding-bottom: 25px;
+    background: #b0b3b2;
+    max-width: 100%;
+    border: 1px solid #212121;
+    border-radius: 4px;
+}
+
+#menu {
+    padding: 15px 25px;
+    display: flex;
+}
+
+#chatbox {
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    padding: 10px;
+    background: #fff;
+	height: 550px;
+    border: 1px solid #a7a7a7;
+    overflow: auto;
+    border-radius: 4px;
+    border-bottom: 4px solid #a7a7a7;
+  }
+#mess {
+    padding: 15px 25px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#usermsg {
+    flex: 1;
+    border-radius: 4px;
+}
+
+#submitmsg{
+    background: #ffc629;
+    color: white;
+    padding: 4px 10px;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+
+
+.list-wrapper {
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.list {
+  border-radius: 2px;
+  list-style: none;
+  padding: 5px;
+  background:#ffffff;
+}
+
+.list-item {
+  background: aliceblue;
+  display: flex;
+  margin: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+@media all and (min-width: 500px) {
+  .aside { flex: 1 0 0; }
+}
+
+@media all and (min-width: 800px) {
+  .main { flex: 3 0px; }
+  .left { order: 1; }
+  .main { order: 2; }
+}
+
+</style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<title>Message</title>
+<body>
+
+<div class="wrapper">
+  <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #ffc629;">
+    <a href="#" class="pull-left"><img src="https://img.icons8.com/ios-filled/50/000000/caduceus.png" /></a>
+    <a class="navbar-brand" href="#">VirtuDoc</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/message}">Messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Reports</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Appointments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/video}">Videos</a>
+        </li>
+        <button type="button" class="btn btn-light">Log Out</button>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div id="wrapperChat">
+      <div id="menu">
+        <p class="welcome">Welcome<b></b></p>
+      </div>
+
+      <div id="chatbox"></div>
+      <form name="message" id="mess" action="">
+        <input name="usermsg" type="text" id="usermsg" />
+        <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
+      </form>
+    </div>
+  </div>
+
+  <aside class="aside left">
+    <div class="list-wrapper">
+      <ul class="list">
+        <li class="list-item">
+          <div>
+            <img src="{{user.src}}"  class="list-item-image">
+          </div>
+          <div class="list-item-content">
+            <h4>Name</h4>
+          </div>
+        </li>
+
+        <li class="list-item">
+          <div>
+            <img src="{{user.src}}"  class="list-item-image">
+          </div>
+          <div class="list-item-content">
+            <h4>Name</h4>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </aside>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>

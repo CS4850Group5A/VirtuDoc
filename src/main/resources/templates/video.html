@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  font-weight: bold;
+  text-align: center;
+  min-width: 800px;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.header {
+  background: #ffc629;
+}
+
+.main {
+  text-align: left;
+  background: #f6f6f6;
+  min-width: 800px;
+}
+
+.left {
+  background: #f6f6f6;
+}
+
+#topVids {
+    width: 800px;
+    height: auto;
+    margin: 0 auto;
+}
+#home1 {
+    width: 47.5%;
+    height: 300px;
+    float: left;
+    margin-right: 5%;
+}
+
+#home2 {
+    width: 47.5%;
+    height: 300px;
+    float: left;
+}
+
+#btn1 {
+margin: 1px;
+width: 300px;
+height: 40px;
+}
+
+@media all and (min-width: 500px) {
+  .aside { flex: 1 0 0; }
+}
+@media all and (min-width: 800px) {
+  .main    { flex: 3 0px; }
+  .left { order: 1; }
+  .main    { order: 2; }
+}
+</style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<title>Video</title>
+<body>
+
+<div class="wrapper">
+  <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #ffc629;">
+    <a href="#" class="pull-left"><img src="https://img.icons8.com/ios-filled/50/000000/caduceus.png" /></a>
+    <a class="navbar-brand" href="#">VirtuDoc</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/message}">Messages</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Reports</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Appointments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/video}">Videos</a>
+        </li>
+        <button type="button" class="btn btn-light">Log Out</button>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div id="topVids">
+      <video id="home1" width="500" height="400" poster="https://i.ibb.co/h9SC2sY/Placeholder.png" autoplay>
+        <source type="video/mp4"  />
+      </video>
+      <video id="home2" width="400" height="300" poster="https://i.ibb.co/h9SC2sY/Placeholder.png" autoplay>
+        <source type="video/mp4" />
+      </video>
+
+      <div class="vid3">
+        <center>
+          <video controls style="width: 80vh; height: 40vh; id=Video">
+            <source src="somefile.mp4" type="video/mp4">
+          </video>
+        </center>
+      </div>
+    </div>
+  </div>
+
+  <aside class="aside left">
+    <button id="btn1" onclick="" type="button">Play Video one</button><br>
+  </aside>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
