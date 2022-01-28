@@ -1,5 +1,12 @@
 FROM openjdk:11.0.13-jdk-bullseye
-
+RUN apt-get update
+RUN apt-get install dos2unix -y
+WORKDIR /
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN touch /docker-entrypoint.sh
+RUN dos2unix /entrypoint.sh /docker-entrypoint.sh
+RUN rm /entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 RUN mkdir /app
 WORKDIR /app
-CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.arguments=--spring.profiles.active=dev-managed"]
+CMD ["/docker-entrypoint.sh"]
