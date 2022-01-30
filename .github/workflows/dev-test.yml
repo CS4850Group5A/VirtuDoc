@@ -1,0 +1,14 @@
+name: Dev Stack Tests
+on:
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Start dev stack
+        run: docker-compose up --detach
+      - name: Run tests
+        run: echo "TODO..."
