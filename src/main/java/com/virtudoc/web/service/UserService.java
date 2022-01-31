@@ -1,9 +1,9 @@
 package com.virtudoc.web.service;
 
-import com.virtudoc.web.entity.UserEntity;
+import com.virtudoc.web.entity.UserAccount;
 
 public interface UserService {
-    void save(UserEntity user);
+    void save(UserAccount user);
 
-    UserEntity findByUsername(String username);
+    UserAccount findByUsername(String username);
 }

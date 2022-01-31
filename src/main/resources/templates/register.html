@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title> Create New Account</title>
@@ -14,11 +14,11 @@
     <div class="container">
         <div class="title">Create New Account</div>
         <div class="content">
-            <form action="#">
+            <form th:object="${user}" th:action="@{/register}" method="post">
                 <div class="status_details">
-                    <input type="radio" name="status" id="dot_1">
-                    <input type="radio" name="status" id="dot_2">
-                    <input type="radio" name="status" id="dot_3">
+                    <input type="radio" name="status" id="dot_1" value="PATIENT" th:field="{role}">
+                    <input type="radio" name="status" id="dot_2" value="DOCTOR" th:field="{role}">
+                    <input type="radio" name="status" id="dot_3" value="ADMIN" th:field="{role}">
                     <span class="status_title">Who Are You?</span>
                     <div class="category">
                         <label for="dot_1">
@@ -38,43 +38,44 @@
                 <div class="user_details">
                     <div class="input_box">
                         <span class="details">Username</span>
-                        <input type="text" placeholder="Enter your username" required>
+                        <input type="text" placeholder="Enter your username" th:field="{username}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Email</span>
-                        <input type="email" placeholder="Enter your email" required>
+                        <input type="email" placeholder="Enter your email" th:field="{email}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">First Name</span>
-                        <input type="text" placeholder="Enter your first name" required>
+                        <input type="text" placeholder="Enter your first name" th:field="{firstName}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Last Name</span>
-                        <input type="text" placeholder="Enter your last name" required>
+                        <input type="text" placeholder="Enter your last name" th:field="{lastName}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Password</span>
-                        <input type="password" placeholder="Enter your password" required>
+                        <input type="password" placeholder="Enter your password" th:field="{password}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Confirm Password</span>
-                        <input type="password" placeholder="Confirm your password" required>
+                        <input type="password" placeholder="Confirm your password" th:field="{confirmPassword}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Gender</span>
-                        <select class="gender_select" name="gender" id="gender">
+                        <select class="gender_select" name="gender" id="gender" th:field="{gender}">
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
                     </div>
                     <div class="input_box">
                         <span class="details">Date of Birth</span>
-                        <input type="date" placeholder="" required>
+                        <input type="date" placeholder="" th:field="{birthDate}" required>
                     </div>
                 </div>
                 <div class="button_1">
                     <input type="submit" value="Create Account">
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
         </div>
     </div>
