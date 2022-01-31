@@ -1,7 +1,6 @@
 package com.virtudoc.web.entity;
 
 import com.virtudoc.web.dto.NewUserDTO;
-import org.apache.catalina.User;
 import javax.validation.constraints.Email;
 import java.util.Date;
 import javax.persistence.*;
