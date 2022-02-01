@@ -46,3 +46,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password");
     }
 }
+
