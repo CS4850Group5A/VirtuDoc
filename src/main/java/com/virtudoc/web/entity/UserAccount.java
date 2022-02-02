@@ -19,7 +19,7 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull
+
     private String role;
 
     @NotNull
@@ -33,8 +33,7 @@ public class UserAccount {
     @Size(min = 1, max = 32)
     private String username;
 
-    @NotNull
-    @NotEmpty
+
     @Column(unique = true)
     @Email
     @Size(max = 320) // Specified in RFC 2821 and RFC 3693.
