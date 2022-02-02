@@ -40,19 +40,16 @@ public class UserAccount {
     @Size(max = 320) // Specified in RFC 2821 and RFC 3693.
     private String email;
 
-    @NotNull
-    @NotEmpty
+
     private String firstName;
 
-    @NotNull
-    @NotEmpty
+
     private String lastName;
 
-    @NotNull
-    @NotEmpty
+
     private String gender;
 
-    @NotNull
+
     private Date birthDate;
 
     /**
@@ -82,7 +79,7 @@ public class UserAccount {
      * @see NewUserDTO
      */
     public UserAccount(NewUserDTO userDTO) throws Exception {
-        if (userDTO.getPassword().equals(userDTO.getConfirmedPassword())) {
+        if (!userDTO.getPassword().equals(userDTO.getConfirmedPassword())) {
             throw new Exception("passwords do not match");
         }
 
