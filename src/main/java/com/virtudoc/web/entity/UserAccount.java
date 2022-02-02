@@ -1,5 +1,8 @@
 package com.virtudoc.web.entity;
 
+import com.virtudoc.web.dto.NewUserDTO;
+import javax.validation.constraints.Email;
+import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -16,7 +19,7 @@ public class UserAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotNull
+
     private String role;
 
     @NotNull
@@ -29,6 +32,24 @@ public class UserAccount {
     @Column(unique = true)
     @Size(min = 1, max = 32)
     private String username;
+
+
+    @Column(unique = true)
+    @Email
+    @Size(max = 320) // Specified in RFC 2821 and RFC 3693.
+    private String email;
+
+
+    private String firstName;
+
+
+    private String lastName;
+
+
+    private String gender;
+
+
+    private Date birthDate;
 
     /**
      * Required for serialization. Do not use directly.
@@ -47,6 +68,28 @@ public class UserAccount {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    /**
+     * Constructor for UserAccount class. Utilizes the NewUserDTO to ensure that protected fields
+     * such as ROLE are not exposed in the controller.
+     * @param userDTO DTO object from frontend Model.
+     * @throws Exception Given password pair does not match.
+     * @see NewUserDTO
+     */
+    public UserAccount(NewUserDTO userDTO) throws Exception {
+        if (!userDTO.getPassword().equals(userDTO.getConfirmedPassword())) {
+            throw new Exception("passwords do not match");
+        }
+
+        this.role = userDTO.getRole();
+        this.password = userDTO.getPassword();
+        this.username = userDTO.getUsername();
+        this.email = userDTO.getEmail();
+        this.firstName = userDTO.getFirstName();
+        this.lastName = userDTO.getLastName();
+        this.gender = userDTO.getGender();
+        this.birthDate = userDTO.getBirthDate();
     }
 
     public String getUsername() {
@@ -89,5 +132,45 @@ public class UserAccount {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 }
