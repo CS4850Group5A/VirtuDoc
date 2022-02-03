@@ -63,6 +63,14 @@ server:
 logging:
   level:
     root: DEBUG
+cloud:
+  aws:
+    credentials:
+      access-key: virtudoc
+      secret-key: virtudoc
+file:
+  bucket: ${AWS_BUCKET}
+  endpoint: ${AWS_ENDPOINT}
 
 ---
 spring:
@@ -126,5 +134,9 @@ spring:
           auth: true
           starttls:
             enable: true
+  servlet:
+    multipart:
+      max-file-size: 4MB
+      max-request-size: 4MB
 server:
   port: ${PORT}
