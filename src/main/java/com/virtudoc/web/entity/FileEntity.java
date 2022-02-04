@@ -34,6 +34,13 @@ public class FileEntity {
     private Date uploadDate;
 
     /**
+     * For use by Hibernate framework serialize. Do not use.
+     */
+    public FileEntity() {
+
+    }
+
+    /**
      * For internal use inside the FileService class only. Do not use directly.
      * @param filePath .
      * @param storageType .

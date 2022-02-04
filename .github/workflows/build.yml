@@ -18,6 +18,15 @@ jobs:
       email:
         image: rnwood/smtp4dev:3.1.3-ci20211206101
         ports: [ '2525:25' ]
+      minio:
+        image: quay.io/minio/minio:RELEASE.2022-01-28T02-28-16Z
+        ports: [ '9000:9000' ]
+      env:
+        MINIO_ROOT_USER: virtudoc
+        MINIO_ROOT_PASSWORD: virtudoc
+        MINIO_ACCESS_KEY: virtudoc
+        MINIO_SECRET_KEY: virtudoc
+      options: --entrypoint "server --address 0.0.0.0:9000 /data"
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
@@ -50,6 +59,10 @@ jobs:
           SMTP_USERNAME: testuser@dev.local
           STMTP_PASSWORD: testpassword
           SMTP_PORT: 2525
+          AWS_ACCESS_KEY_ID: virtudoc
+          AWS_SECRET_ACCESS_KEY: virtudoc
+          AWS_BUCKET: virtudoc
+          AWS_ENDPOINT: http://minio:9000
       - name: Check slug size
         run: echo "Raw slug size of $(du -sh ./ | awk -F '\t' '{print $1}')/500MB (without compression)"
       - name: Publish unit test results

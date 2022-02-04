@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.EnabledIf;
 
-@EnabledIf(value = "#{'${test.mail}' == 'true'}", loadContext = true) // Only run on GHA or Compose-managed stack.
+@EnabledIf(value = "#{'${test.integration}' == 'true'}", loadContext = true) // Only run on GHA or Compose-managed stack.
 @SpringBootTest
 public class MailServiceTest {
     @Autowired

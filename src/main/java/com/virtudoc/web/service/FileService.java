@@ -2,11 +2,13 @@ package com.virtudoc.web.service;
 
 import com.virtudoc.web.entity.FileEntity;
 import com.virtudoc.web.repository.FileRepository;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.util.Date;
 
 /**
  * Service for managing user-uploaded files (e.g. PDF, images, etc...). This is an abstract class that will
@@ -26,6 +28,9 @@ public class FileService {
     @Autowired
     private FileRepository fileRepository;
 
+    @Autowired
+    private Logger logger;
+
     /**
      * Creates a file from a MIME stream from a user after submitting an HTML form with a file upload function. Use this
      * method instead of FileRepository.create().
@@ -34,8 +39,12 @@ public class FileService {
      * @throws Exception Error with underlying ephemeral or block storage layer.
      */
     public FileEntity CreateFile(MultipartFile file) throws Exception {
-        // TODO: Audit entry
-        return blockStorageInterface.PutFile(file);
+        String filePath = blockStorageInterface.PutFile(file);
+        FileEntity newFile = new FileEntity(filePath, blockStorageInterface.GetStorageId(), new Date());
+        fileRepository.save(newFile);
+        // TODO: This should have the actual user ID once authentication/ACL/RBA is fully implemented.
+        logger.info("AUDIT: User uploaded file {} to {} storage", filePath, blockStorageInterface.GetStorageId());
+        return newFile;
     }
 
     /**
@@ -46,8 +55,8 @@ public class FileService {
      * @return Stream that can be sent directly to client in response, or redirected to another storage system.
      */
     public InputStream GetFile(FileEntity file) throws Exception {
-        // TODO: Audit entry
-        return blockStorageInterface.GetFile(file);
+        logger.info("AUDIT: User accessed file {} from {} storage", file.getFilePath(), blockStorageInterface.GetStorageId());
+        return blockStorageInterface.GetFile(file.getFilePath());
     }
 
     /**
@@ -56,8 +65,16 @@ public class FileService {
      * @param file File to delete.
      */
     public void DeleteFile(FileEntity file) throws Exception {
-        // TODO: Audit entry
-        blockStorageInterface.DeleteFile(file);
+        blockStorageInterface.DeleteFile(file.getFilePath());
         fileRepository.delete(file);
+        logger.info("AUDIT: User deleted file {} from {} storage", file.getFilePath(), blockStorageInterface.GetStorageId());
+    }
+
+    /**
+     * Counts the number of unique files stored in the storage implementation layer.
+     * @return Number of files found.
+     */
+    public Integer FileCount() {
+        return blockStorageInterface.CountObjects();
     }
 }

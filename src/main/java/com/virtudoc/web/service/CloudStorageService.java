@@ -4,9 +4,9 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
-import com.virtudoc.web.entity.FileEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +21,7 @@ import java.io.InputStream;
  */
 @Service
 @Profile(value={"prod", "test", "dev-managed"})
+@Primary
 public class CloudStorageService extends IBlockStorageService {
     @Autowired
     private AmazonS3Client amazonS3Client;
@@ -39,7 +40,7 @@ public class CloudStorageService extends IBlockStorageService {
      * @throws Exception Error saving the temporary file or uploading to the cloud provider.
      */
     @Override
-    public FileEntity PutFile(MultipartFile uploadedFile) throws Exception {
+    public String PutFile(MultipartFile uploadedFile) throws Exception {
         String fileName = generateFileName();
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(uploadedFile.getSize());
@@ -51,30 +52,39 @@ public class CloudStorageService extends IBlockStorageService {
             // Throwing a blanket exception to prevent internal infrastructure URIs from leaking in a fatal crash.
             throw new Exception("error communicating with cloud block storage provider");
         }
-        // TODO: Move this function up to the FileService class.
-        return generateFileEntry(fileName);
+        return fileName;
     }
 
     /**
      * Gets a MIME stream of the decrypted contents of a file from the underlying S3-backed datastore.
-     * @param file Saved file to retrieve.
+     * @param fileName Saved file to retrieve.
      * @return MIME stream to read file contents from.
      * @throws Exception Error communicating with S3-backed datastore.
      */
     @Override
-    public InputStream GetFile(FileEntity file) throws Exception {
-        S3Object object = amazonS3Client.getObject(cloudFileBucket, file.getFilePath());
+    public InputStream GetFile(String fileName) throws Exception {
+        S3Object object = amazonS3Client.getObject(cloudFileBucket, fileName);
         return object.getObjectContent().getDelegateStream();
     }
 
     /**
      * Deletes a file from the S3-backed datastore.
-     * @param file File to delete.
+     * @param fileName File to delete.
      * @throws Exception IO error communicating with the S3-backed datastore.
      */
     @Override
-    public void DeleteFile(FileEntity file) throws Exception {
-        amazonS3Client.deleteObject(cloudFileBucket, file.getFilePath());
+    public void DeleteFile(String fileName) throws Exception {
+        amazonS3Client.deleteObject(cloudFileBucket, fileName);
+    }
+
+    /**
+     * Used for testing and auditing purposes. Counts the number of unique
+     * objects in the cloud storage layer.
+     * @return
+     */
+    @Override
+    public Integer CountObjects() {
+        return amazonS3Client.listObjects(cloudFileBucket).getMaxKeys();
     }
 
     /**
@@ -82,7 +92,7 @@ public class CloudStorageService extends IBlockStorageService {
      * @return Storage type.
      */
     @Override
-    protected String getStorageId() {
+    public String GetStorageId() {
         return "block";
     }
 }
