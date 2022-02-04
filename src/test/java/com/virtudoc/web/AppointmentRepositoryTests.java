@@ -31,4 +31,15 @@ public class AppointmentRepositoryTests {
         Assertions.assertThat(savedApt).isNotNull();
         Assertions.assertThat(savedApt.getAppointmentId()).isGreaterThan(0);
     }
+
+    @Test
+    public void testListAll() {
+        Iterable<Appointment> apts = repo.findAll();
+        Assertions.assertThat(apts).hasSizeGreaterThan(0);
+
+        for (Appointment apt : apts) {
+            System.out.println(apt);
+        }
+    }
+
 }
