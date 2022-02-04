@@ -21,11 +21,11 @@ jobs:
       minio:
         image: quay.io/minio/minio:RELEASE.2022-01-28T02-28-16Z
         ports: [ '9000:9000' ]
-      env:
-        MINIO_ROOT_USER: virtudoc
-        MINIO_ROOT_PASSWORD: virtudoc
-        MINIO_ACCESS_KEY: virtudoc
-        MINIO_SECRET_KEY: virtudoc
+        env:
+          MINIO_ROOT_USER: virtudoc
+          MINIO_ROOT_PASSWORD: virtudoc
+          MINIO_ACCESS_KEY: virtudoc
+          MINIO_SECRET_KEY: virtudoc
       options: --entrypoint "server --address 0.0.0.0:9000 /data"
     steps:
       - name: Checkout source code
