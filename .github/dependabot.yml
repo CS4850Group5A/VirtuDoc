@@ -10,8 +10,12 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 5
+    reviewers:
+      - "ARMmaster17"
   - package-ecosystem: "docker"
     directory: "/proxy"
     schedule:
       interval: "daily"
     open-pull-requests-limit: 5
+    reviewers:
+      - "ARMmaster17"
