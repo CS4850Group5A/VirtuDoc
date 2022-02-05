@@ -76,6 +76,15 @@ jobs:
         run: |
           gem install bundler
           bundle install
+      - name: Wait for stack to come online
+        uses: juliangruber/sleep-action@v1
+        with:
+          time: 1m
+      - name: Import self-signed certificates
+        working-directory: ./proxy/cert
+        run: |
+          cp virtudoc-https.crt /usr/local/share/ca-certificates/virtudoc-https.crt
+          sudo update-ca-certificates
       - name: Run dev stack tests
         working-directory: ./cicd/dev
         run: bundle exec rspec --format RspecJunitFormatter --out rspec.xml spec
