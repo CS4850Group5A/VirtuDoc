@@ -78,7 +78,7 @@ jobs:
           bundle install
       - name: Run dev stack tests
         working-directory: ./cicd/dev
-        run: bundle exec --format RspecJunitFormatter --out rspec.xml rspec spec
+        run: bundle exec rspec --format RspecJunitFormatter --out rspec.xml spec
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v2
