@@ -75,8 +75,7 @@ jobs:
         working-directory: ./cicd/dev
         run: |
           gem install bundler
-          bundle install --retry 3
-      # TODO: Verify that compose stack has started
+          bundle install
       - name: Run dev stack tests
         working-directory: ./cicd/dev
         run: bundle exec --format RspecJunitFormatter --out rspec.xml rspec spec
