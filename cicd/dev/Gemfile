@@ -8,5 +8,6 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rspec'
+gem 'rspec_junit_formatter'
 gem 'rest-client'
 gem 'json'

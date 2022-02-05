@@ -1,7 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    childprocess (4.1.0)
     diff-lcs (1.5.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -14,14 +13,12 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2020.1104)
     netrc (0.11.0)
-    phantomjs (2.1.1.0)
     rest-client (2.1.0-x64-mingw32)
       ffi (~> 1.9)
       http-accept (>= 1.7.0, < 2.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    rexml (3.2.5)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -35,11 +32,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.3)
-    rubyzip (2.3.2)
-    selenium-webdriver (4.1.0)
-      childprocess (>= 0.5, < 5.0)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2)
+    rspec_junit_formatter (0.5.1)
+      rspec-core (>= 2, < 4, != 2.12.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7-x64-mingw32)
@@ -49,10 +43,9 @@ PLATFORMS
 
 DEPENDENCIES
   json
-  phantomjs
   rest-client
   rspec
-  selenium-webdriver
+  rspec_junit_formatter
 
 BUNDLED WITH
    2.3.5
