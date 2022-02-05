@@ -2,6 +2,7 @@ version: '3'
 
 services:
   web:
+    image: virtudoc/web
     build:
       context: .
       dockerfile: Dockerfile
@@ -37,6 +38,7 @@ services:
       POSTGRES_PASSWORD: virtudoc
       POSTGRES_DB: virtudoc
   proxy:
+    image: virtudoc/proxy
     build:
       context: ./proxy
       dockerfile: proxy.Dockerfile
