@@ -61,5 +61,12 @@ jobs:
         with:
           files: ./target/surefire-reports/*.xml
           report_individual_runs: "true"
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: target/screenshots/
+          retention-days: 4
+          if-no-files-found: error
       - name: Build the production image
         run: docker build -f prod.Dockerfile -t virtudoc-web .
