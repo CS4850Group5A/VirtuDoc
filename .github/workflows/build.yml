@@ -56,7 +56,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v2
         with:
-          name: Dev stack test results
+          name: Java test results
           path: ./target/surefire-reports/*.xml
       - name: Build the production image
         run: docker build -f prod.Dockerfile -t virtudoc-web .
@@ -68,9 +68,9 @@ jobs:
       - name: Start dev stack
         run: docker-compose up --detach
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.2
+          ruby-version: 2.7
       - name: Install Ruby dependencies
         working-directory: ./cicd/dev
         run: |
@@ -86,8 +86,7 @@ jobs:
           name: Dev stack test results
           path: ./cicd/dev/rspec.xml
   test-results:
-    name: "Publish Test Results"
-    needs: [ "build", "dev-stack" ]
+    needs: [build, dev-stack]
     runs-on: ubuntu-latest
     if: always()
     steps:
