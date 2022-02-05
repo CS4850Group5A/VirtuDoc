@@ -52,11 +52,51 @@ jobs:
           SMTP_PORT: 2525
       - name: Check slug size
         run: echo "Raw slug size of $(du -sh ./ | awk -F '\t' '{print $1}')/500MB (without compression)"
-      - name: Publish unit test results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+      - name: Upload test results
         if: always()
+        uses: actions/upload-artifact@v2
         with:
-          files: ./target/surefire-reports/*.xml
-          report_individual_runs: "true"
+          name: Dev stack test results
+          path: ./target/surefire-reports/*.xml
       - name: Build the production image
         run: docker build -f prod.Dockerfile -t virtudoc-web .
+  dev-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Start dev stack
+        run: docker-compose up --detach
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7.2
+      - name: Install Ruby dependencies
+        working-directory: ./cicd/dev
+        run: |
+          gem install bundler
+          bundle install --retry 3
+      # TODO: Verify that compose stack has started
+      - name: Run dev stack tests
+        working-directory: ./cicd/dev
+        run: bundle exec --format RspecJunitFormatter --out rspec.xml rspec spec
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Dev stack test results
+          path: ./cicd/dev/rspec.xml
+  test-results:
+    name: "Publish Test Results"
+    needs: [ build, dev-stack ]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: artifacts/**/*.xml

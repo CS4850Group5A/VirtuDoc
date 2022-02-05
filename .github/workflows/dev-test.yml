@@ -5,12 +5,3 @@ on:
   pull_request:
     branches: [ main ]
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source code
-        uses: actions/checkout@v2
-      - name: Start dev stack
-        run: docker-compose up --detach
-      - name: Run tests
-        run: echo "TODO..."

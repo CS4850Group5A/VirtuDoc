@@ -3,7 +3,6 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-#require 'selenium-webdriver'
 require 'rest-client'
 require 'json'
 
@@ -18,8 +17,6 @@ RSpec.configure do |config|
     # `true` in RSpec 4.
     mocks.verify_partial_doubles = true
   end
-
-  #@driver = Selenium::WebDriver.for(:chrome)
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
   config.order = :random
