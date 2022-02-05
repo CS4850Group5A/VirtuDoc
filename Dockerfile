@@ -1,16 +1,12 @@
-FROM alpine:3.14
-RUN  apk update \
-  && apk upgrade \
-  && apk add ca-certificates \
-  && update-ca-certificates \
-  && apk add --update coreutils && rm -rf /var/cache/apk/*   \
-  && apk add --update openjdk11 tzdata curl unzip bash dos2unix \
-  && apk add --no-cache nss \
-  && rm -rf /var/cache/apk/*
+FROM openjdk:11.0.13-jdk-bullseye
+RUN apt-get update
+RUN apt-get install dos2unix -y
 WORKDIR /
-COPY mvnw /
-RUN dos2unix -o /mvnw
-RUN chmod +x /mvnw
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN touch /docker-entrypoint.sh
+RUN dos2unix /entrypoint.sh /docker-entrypoint.sh
+RUN rm /entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 RUN mkdir /app
 WORKDIR /app
-CMD ["/mvnw", "spring-boot:run", "-Dspring-boot.run.arguments=--spring.profiles.active=dev-managed"]
+CMD ["/docker-entrypoint.sh"]
