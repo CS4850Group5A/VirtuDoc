@@ -1,5 +1,6 @@
 package com.virtudoc.web.service;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -24,7 +25,7 @@ import java.io.InputStream;
 @Primary
 public class CloudStorageService extends IBlockStorageService {
     @Autowired
-    private AmazonS3Client amazonS3Client;
+    private AmazonS3 amazonS3Client;
 
     @Value("${file.bucket}")
     private String cloudFileBucket;
