@@ -87,7 +87,7 @@ jobs:
           path: ./cicd/dev/rspec.xml
   test-results:
     name: "Publish Test Results"
-    needs: [ build, dev-stack ]
+    needs: [ "build", "dev-stack" ]
     runs-on: ubuntu-latest
     if: always()
     steps:
