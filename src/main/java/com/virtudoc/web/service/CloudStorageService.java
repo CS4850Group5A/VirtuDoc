@@ -47,13 +47,14 @@ public class CloudStorageService extends IBlockStorageService {
         metadata.setContentLength(uploadedFile.getSize());
         PutObjectRequest request = new PutObjectRequest(cloudFileBucket, fileName, uploadedFile.getInputStream(), metadata);
         try {
+            if (!amazonS3Client.doesBucketExistV2(cloudFileBucket)) {
+                amazonS3Client.createBucket(cloudFileBucket);
+            }
             amazonS3Client.putObject(request);
         } catch (Exception e) {
             logger.error("error occurred when communicating with S3", e);
             // Throwing a blanket exception to prevent internal infrastructure URIs from leaking in a fatal crash.
-            //throw new Exception("error communicating with cloud block storage provider");
-            throw e;
-            // TODO: Undo after testing
+            throw new Exception("error communicating with cloud block storage provider");
         }
         return fileName;
     }
