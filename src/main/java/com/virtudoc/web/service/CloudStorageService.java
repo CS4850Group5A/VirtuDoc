@@ -51,7 +51,9 @@ public class CloudStorageService extends IBlockStorageService {
         } catch (Exception e) {
             logger.error("error occurred when communicating with S3", e);
             // Throwing a blanket exception to prevent internal infrastructure URIs from leaking in a fatal crash.
-            throw new Exception("error communicating with cloud block storage provider");
+            //throw new Exception("error communicating with cloud block storage provider");
+            throw e;
+            // TODO: Undo after testing
         }
         return fileName;
     }
