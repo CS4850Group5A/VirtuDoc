@@ -1,5 +1,7 @@
 package com.virtudoc.web.entity;
 
+import com.virtudoc.web.annotation.Preseed;
+
 import javax.persistence.*;
 
 @Entity
