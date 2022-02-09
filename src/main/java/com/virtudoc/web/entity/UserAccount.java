@@ -51,6 +51,9 @@ public class UserAccount {
 
     private Date birthDate;
 
+
+    private boolean verified;
+
     /**
      * Required for serialization. Do not use directly.
      */
@@ -173,4 +176,8 @@ public class UserAccount {
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
+
+    public void verify(){ this.verified = true; }
+
+    public boolean isVerified(){ return verified; }
 }
