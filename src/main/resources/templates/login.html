@@ -1,15 +1,138 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>VirtuDoc Login</title>
-  <link rel="stylesheet" type="text/css" href="static/login_account.css">
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    body{
+      height: 100%;
+      display:grid;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 10px 50px;
+      background: white;
+    }
+
+    .logo{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: auto;
+    }
+
+    .container{
+      max-width: 800px;
+      width: 100%;
+      background-color: #fff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #fcc629;
+    }
+
+    .container .title{
+      font-size: 25px;
+      font-weight: 500;
+      position: relative;
+      text-align: center;
+    }
+
+    .user_details_login .input_box_login input{
+      height: 45px;
+      width: 100%;
+      outline: none;
+      font-size: 16px;
+      border-radius: 5px;
+      padding-left: 15px;
+      border: 1px solid #ccc;
+      border-bottom-width: 2px;
+      transition: all 0.3s ease;
+    }
+
+    form .input_box_login span.details_login{
+      display: block;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .user_details_login .input_box_login input:focus,
+    .user_details .input_box input:valid{
+      border-color: #fcc629;
+    }
+
+    .content form .user_details_login{
+      display: grid;
+      justify-content: space-between;
+      margin: 20px 0 12px 0;
+    }
+
+    form .user_details_login .input_box_login{
+      margin-bottom: 15px;
+      width: 100%;
+    }
+
+    .user_details .input_box input{
+      height: 45px;
+      width: 100%;
+      outline: none;
+      font-size: 16px;
+      border-radius: 5px;
+      padding-left: 15px;
+      border: 1px solid #ccc;
+      border-bottom-width: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .user_details .input_box input:focus,
+    .user_details .input_box input:valid{
+      border-color: #fcc629;
+    }
+
+    form .category label{
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    form .button{
+      height: 45px;
+      width: 120%;
+    }
+
+    form .button input{
+      height: 100%;
+      width: 45%;
+      border-radius: 5px;
+      border: none;
+      color:black;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    form .button input:hover{
+      background: #ffc629;
+    }
+
+    @media(max-width: 585px){
+      .container{
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 <div class="logo_img">
-  <img class="logo" src="static/VirtuDocLogo.png" alt="logo">
+  <img class="logo" src="https://i.ibb.co/61XR5tG/Virtu-Doc-Logo.png" alt="logo">
   <br>
   <div class="container">
     <div class="title">Login</div>
@@ -26,7 +149,8 @@
           </div>
           <div class="button">
          <span class="details"> <input type="submit" name="submit" value="Login">
-           <input type="button" onclick="window.location.href='register.html';" value="Create Account"/></span>
+           <input type="button" onclick="window.location.href='register.html'" value="Create Account"/>
+         </span>
           </div>
         </div>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
