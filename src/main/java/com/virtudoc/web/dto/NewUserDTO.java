@@ -12,6 +12,7 @@ public class NewUserDTO {
     private String lastName;
     private String gender;
     private Date birthDate;
+    private boolean verified;
 
     public String getRole() {
         return role;
@@ -84,4 +85,8 @@ public class NewUserDTO {
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
+
+    public void verify(){ this.verified = true; }
+
+    public boolean isVerified(){ return verified; }
 }
