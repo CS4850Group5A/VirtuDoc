@@ -6,6 +6,7 @@ import com.virtudoc.web.entity.UserAccount;
 import com.virtudoc.web.repository.AppointmentRepository;
 import com.virtudoc.web.repository.RoleRepository;
 import com.virtudoc.web.repository.SampleEntityRepository;
+import com.virtudoc.web.repository.UserAccountRepository;
 import com.virtudoc.web.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -30,6 +31,9 @@ public class DatabaseSeedRunner implements CommandLineRunner {
     private AuthenticationService authenticationService;
 
     @Autowired
+    private UserAccountRepository userAccountRepository;
+
+    @Autowired
     private AppointmentRepository appointmentRepository;
 
     @Autowired
@@ -40,23 +44,25 @@ public class DatabaseSeedRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //region Roles
+        if (userAccountRepository.count() == 0) { // Do not run migrations unless this is an empty DB.
+            //region Roles
 
-        //endregion
+            //endregion
 
-        //region User Accounts
-        // If you need more granular control over fields in the UserAccount object, use the DTO constructor instead.
-        authenticationService.RegisterNewAccount(new UserAccount("doctor1", "virtudoc", "DOCTOR"));
-        authenticationService.RegisterNewAccount(new UserAccount("admin1", "virtudoc", "ADMIN"));
-        authenticationService.RegisterNewAccount(new UserAccount("patient1", "virtudoc", "PATIENT"));
-        //endregion
+            //region User Accounts
+            // If you need more granular control over fields in the UserAccount object, use the DTO constructor instead.
+            authenticationService.RegisterNewAccount(new UserAccount("doctor1", "virtudoc", "DOCTOR"));
+            authenticationService.RegisterNewAccount(new UserAccount("admin1", "virtudoc", "ADMIN"));
+            authenticationService.RegisterNewAccount(new UserAccount("patient1", "virtudoc", "PATIENT"));
+            //endregion
 
-        //region Appointments
+            //region Appointments
 
-        //endregion
+            //endregion
 
-        //region SampleEntities
+            //region SampleEntities
 
-        //endregion
+            //endregion
+        }
     }
 }
