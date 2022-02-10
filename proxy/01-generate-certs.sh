@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 CERTIFICATE_PATH=/cert/virtudoc-https.crt
 KEY_PATH=/cert/virtudoc-https.key
@@ -20,7 +20,7 @@ if [ ! -e $ROOT_PACKAGE_PATH ]; then
     -batch
   openssl pkcs12 \
     -export \
-    -out /cert/virtudoc-https.pfx \
+    -out $ROOT_PACKAGE_PATH \
     -inkey $KEY_PATH \
     -in $CERTIFICATE_PATH \
     -passout pass:""

@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 // The following endpoints do not require authentication.
                 .antMatchers("/", "/sampleentity/mail", "/sampleentity/all",
-                        "/login", "/register", "/notifications","/message","/video")
+                        "/login", "/register", "/notifications")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
