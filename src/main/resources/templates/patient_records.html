@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,8 +15,11 @@
         <div class="container-fluid">
           <div class="col-md-1 text-center d-none d-md-block">
             <img class="img-fluid" src="static/Doctors Symbol.png" />
-          </div>    
-            <h1 ><a href="#home" class="navbar-brand mb-0 h1 fs-2">Virtudoc</a></h1>
+          </div>
+            <a th:href="@{/video}" class="btn btn-info btn-outline-dark bg-light">Video</a>
+            <a th:href="@{/message}" class="btn btn-info btn-outline-dark bg-light">Message</a>
+            <a th:href="@{/appointments}" class="btn btn-info btn-outline-dark bg-light">Appointments</a>
+            <a th:href="@{/notifications}" class="btn btn-info btn-outline-dark bg-light">Home</a>
             
             <ul class="navbar-nav ms-auto">
                 <li>
