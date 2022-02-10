@@ -4,6 +4,9 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+permissions:
+  checks: write
+  pull-requests: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -58,11 +61,68 @@ jobs:
           AWS_ENDPOINT: http://localhost:9000
       - name: Check slug size
         run: echo "Raw slug size of $(du -sh ./ | awk -F '\t' '{print $1}')/500MB (without compression)"
-      - name: Publish unit test results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+      - name: Upload test results
         if: always()
+        uses: actions/upload-artifact@v2
         with:
+          name: Java test results
+          path: ./target/surefire-reports/*.xml
           files: ./target/surefire-reports/*.xml
           report_individual_runs: "true"
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: target/screenshots/
+          retention-days: 4
+          if-no-files-found: error
       - name: Build the production image
         run: docker build -f prod.Dockerfile -t virtudoc-web .
+  dev-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Start dev stack
+        run: docker-compose up --detach
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+      - name: Install Ruby dependencies
+        working-directory: ./cicd/dev
+        run: |
+          gem install bundler
+          bundle install
+      - name: Wait for stack to come online
+        uses: juliangruber/sleep-action@v1
+        with:
+          time: 1m
+      - name: Import self-signed certificates
+        working-directory: ./proxy/cert
+        run: |
+          sudo cp virtudoc-https.crt /usr/local/share/ca-certificates/virtudoc-https.crt
+          sudo update-ca-certificates
+      - name: Run dev stack tests
+        working-directory: ./cicd/dev
+        run: bundle exec rspec --format RspecJunitFormatter --out rspec.xml spec
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Dev stack test results
+          path: ./cicd/dev/rspec.xml
+  test-results:
+    needs: [build, dev-stack]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: artifacts/**/*.xml
