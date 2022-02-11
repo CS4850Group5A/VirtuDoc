@@ -1,24 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title> Create New Account</title>
-    <link rel="stylesheet" href="login_account.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body{
+            height: 100%;
+            display:grid;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 10px 50px;
+            background: white;
+        }
+
+        .logo{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+        }
+
+        .container{
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #fcc629;
+        }
+
+        .container .title{
+            font-size: 25px;
+            font-weight: 500;
+            position: relative;
+            text-align: center;
+        }
+
+        .content form .user_details{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
+        }
+
+        form .user_details .input_box{
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+        form .input_box span.details{
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        .user_details .input_box input{
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+        .user_details .input_box input:focus,
+        .user_details .input_box input:valid{
+            border-color: #fcc629;
+        }
+        form .status_details .status_title{
+            font-size: 20px;
+            font-weight: 500;
+        }
+        form .category{
+            display: flex;
+            width: 80%;
+            margin: 14px 0 ;
+            justify-content: space-between;
+        }
+        form .category label{
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        form .category label .dot{
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background: #d9d9d9;
+            border: 5px solid transparent;
+            transition: all 0.3s ease;
+        }
+        #dot_1:checked ~ .category label .one,
+        #dot_2:checked ~ .category label .two,
+        #dot_3:checked ~ .category label .three{
+            background: #fcc629;
+            border-color: #d9d9d9;
+        }
+        form input[type="radio"]{
+            display: none;
+        }
+        .gender_select{
+            background-color: white;
+            font-size: 16px;
+            font-weight: 500;
+            color: black;
+            height: 45px;
+            width: 100%;
+            outline: none;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+        }
+
+        form .button_1{
+            height: 45px;
+            width: 100%;
+        }
+
+        form .button_1 input{
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            color:black;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        form .button_1 input:hover{
+            background: #ffc629;
+        }
+
+        @media(max-width: 585px){
+            .container{
+                max-width: 100%;
+            }
+
+            form .category{
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 <div class="logo_img">
-    <img class="logo" src="VirtuDocLogo.png" alt="logo">
+    <img class="logo" src="https://i.ibb.co/61XR5tG/Virtu-Doc-Logo.png" alt="logo">
     <br>
     <div class="container">
         <div class="title">Create New Account</div>
         <div class="content">
-            <form action="#">
+            <form th:object="${user}" th:action="@{/register}" method="post">
                 <div class="status_details">
-                    <input type="radio" name="status" id="dot_1">
-                    <input type="radio" name="status" id="dot_2">
-                    <input type="radio" name="status" id="dot_3">
+                    <input type="radio" name="status" id="dot_1" value="PATIENT" th:field="*{role}">
+                    <input type="radio" name="status" id="dot_2" value="DOCTOR" th:field="*{role}">
+                    <input type="radio" name="status" id="dot_3" value="ADMIN" th:field="*{role}">
                     <span class="status_title">Who Are You?</span>
                     <div class="category">
                         <label for="dot_1">
@@ -31,52 +178,54 @@
                         </label>
                         <label for="dot_3">
                             <span class="dot three"></span>
-                            <span class="status">Adminstrator</span>
+                            <span class="status">Administrator</span>
                         </label>
                     </div>
                 </div>
                 <div class="user_details">
                     <div class="input_box">
                         <span class="details">Username</span>
-                        <input type="text" placeholder="Enter your username" required>
+                        <input type="text" placeholder="Enter your username" th:field="*{username}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Email</span>
-                        <input type="email" placeholder="Enter your email" required>
+                        <input type="email" placeholder="Enter your email" th:field="*{email}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">First Name</span>
-                        <input type="text" placeholder="Enter your first name" required>
+                        <input type="text" placeholder="Enter your first name" th:field="*{firstName}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Last Name</span>
-                        <input type="text" placeholder="Enter your last name" required>
+                        <input type="text" placeholder="Enter your last name" th:field="*{lastName}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Password</span>
-                        <input type="password" placeholder="Enter your password" required>
+                        <input type="password" placeholder="Enter your password" th:field="*{password}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Confirm Password</span>
-                        <input type="password" placeholder="Confirm your password" required>
+                        <input type="password" placeholder="Confirm your password" th:field="*{confirmedPassword}" required>
                     </div>
                     <div class="input_box">
                         <span class="details">Gender</span>
-                        <select class="gender_select" name="gender" id="gender">
+                        <select class="gender_select" name="gender" id="gender" th:field="*{gender}">
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                         </select>
                     </div>
                     <div class="input_box">
                         <span class="details">Date of Birth</span>
-                        <input type="date" placeholder="" required>
+                        <input type="date" placeholder="" th:field="*{birthDate}" required>
                     </div>
                 </div>
                 <div class="button_1">
                     <input type="submit" value="Create Account">
                 </div>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
         </div>
+
     </div>
 </div>
 </body>

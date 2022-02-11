@@ -10,12 +10,11 @@
 }
 
 .wrapper > * {
-  padding: 10px;
   flex: 1 100%;
 }
 
 .header {
-  background: #ffc629;
+
 }
 
 .main {
@@ -105,6 +104,94 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.chat .chat-history {
+    padding: 30px 30px 20px;
+    border-bottom: 2px solid white;
+    overflow-y: scroll;
+    height: 600px;
+}
+
+.chat .chat-history .message-data {
+    margin-bottom: 15px;
+}
+
+.chat .chat-history .message-data-time {
+    padding-left: 6px;
+}
+
+.chat .chat-history .message {
+    color: white;
+    padding: 18px 20px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 7px;
+    margin-bottom: 30px;
+    width: 90%;
+    position: relative;
+    text-align: left;
+}
+
+.chat .chat-history .message:after {
+    bottom: 100%;
+    left: 7%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #444753;
+    border-width: 10px;
+    margin-left: -10px;
+    text-align: left;
+}
+
+.chat .chat-history .my-message {
+    background:#444753;
+    text-align: left;
+}
+
+.chat .chat-history .other-message {
+    background: #ffc629;
+    text-align: right;
+}
+
+.chat .chat-history .other-message:after {
+    border-bottom-color: #ffc629;
+    text-align: right;
+    left: 93%;
+}
+
+.chat .chat-message {
+    padding: 30px;
+}
+
+.chat .chat-message textarea {
+    width: 100%;
+    border: none;
+    padding: 10px 20px;
+    font: 14px/22px "Lato", Arial, sans-serif;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    resize: none;
+}
+
+
+.chat .chat-message button {
+    float: right;
+    color: #94C2ED;
+    font-size: 16px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background: #F2F5F8;
+}
+
+.chat .chat-message button:hover {
+    color: #75b1e8;
+}
+
 @media all and (min-width: 500px) {
   .aside { flex: 1 0 0; }
 }
@@ -121,81 +208,92 @@ body {
 </head>
 <title>Message</title>
 <body>
-
 <div class="wrapper">
-  <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #ffc629;">
-    <a href="#" class="pull-left"><img src="https://img.icons8.com/ios-filled/50/000000/caduceus.png" /></a>
-    <a class="navbar-brand" href="#">VirtuDoc</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/message}">Messages</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Reports</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Appointments</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/video}">Videos</a>
-        </li>
-        <button type="button" class="btn btn-light">Log Out</button>
-      </ul>
-    </div>
-  </nav>
+  <div class="header">
+    <nav class="navbar navbar-expand-lg bg-warning navbar-dark py-1">
+      <div class="container-fluid">
+        <div class="col-md-1 text-center d-none d-md-block">
+          <img class="img-fluid" src="static/Doctors Symbol.png" />
+        </div>
+        <h1 ><a href="#home" class="navbar-brand mb-0 h1 fs-2">Virtudoc</a></h1>
+        <ul class="navbar-nav ms-auto">
+          <li>
+            <!-- Add navbar buttons here -->
+            <a th:href="@{/video}" class="btn btn-info btn-outline-dark bg-light">Video</a>
+            <a th:href="@{/message}" class="btn btn-info btn-outline-dark bg-light">Message</a>
+            <a th:href="@{/notifications}" class="btn btn-info btn-outline-dark bg-light">Home</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 
   <div class="main">
     <div id="wrapperChat">
-      <div id="menu">
-        <p class="welcome">Welcome<b></b></p>
-      </div>
+      <div class="chat">
+        <div class="chat-header clearfix">
+          <div class="chat-about">
+            <div id="selectedUserId" class="chat-with"></div>
+            <div class="chat-num-messages"></div>
+          </div>
+        </div> <!-- end chat-header -->
+        <div class="chat-history">
+          <ul>
 
-      <div id="chatbox"></div>
-      <form name="message" id="mess" action="">
-        <input name="usermsg" type="text" id="usermsg" />
-        <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
-      </form>
+
+            <li>
+              <div class="message-data">
+                <span class="message-data-name"></span>
+                <span class="message-data-time">6:17 PM, Today</span>
+                <span class="message-data-name">Bill</span>
+              </div>
+              <div class="message my-message">
+                Hi
+              </div>
+            </li>
+
+            <li class="clearfix">
+              <div class="message-data align-right">
+                <span class="message-data-time">6:17 PM, Today</span>
+                <span class="message-data-name">You</span>
+              </div>
+              <div class="message other-message float-right">
+                Good morning.
+
+              </div>
+            </li>
+          </ul>
+        </div> <!-- end chat-history -->
+
+        <div class="chat-message clearfix">
+          <textarea id="message-to-send" name="message-to-send" placeholder="Type your message" rows="3"></textarea>
+          <button id="sendBtn">Send</button>
+        </div> <!-- end chat-message -->
+      </div>
     </div>
   </div>
 
-  <aside class="aside left">
+  <div class="aside left">
     <div class="list-wrapper">
-      <ul class="list">
-        <li class="list-item">
-          <div>
-            <img src="{{user.src}}"  class="list-item-image">
+      <div class="people-list" id="people-list">
+        <ul id="usersList" class="list"><a href="#" onclick="selectUser('John')"><li class="clearfix">
+          <div class="about">
+            <div id="userNameAppender_John" class="name">John</div>
+            <div class="status">
+              <i class="fa fa-circle offline"></i>
+            </div>
           </div>
-          <div class="list-item-content">
-            <h4>Name</h4>
+        </li></a><a href="#" onclick="selectUser('Bill')"><li class="clearfix">
+          <div class="about">
+            <div id="userNameAppender_Bill" class="name">Bill</div>
+            <div class="status">
+              <i class="fa fa-circle offline"></i>
+            </div>
           </div>
-        </li>
-
-        <li class="list-item">
-          <div>
-            <img src="{{user.src}}"  class="list-item-image">
-          </div>
-          <div class="list-item-content">
-            <h4>Name</h4>
-          </div>
-        </li>
-      </ul>
+        </li></a></ul>
+      </div>
     </div>
-  </aside>
+  </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
 </body>
 </html>

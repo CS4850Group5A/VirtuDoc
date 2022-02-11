@@ -32,7 +32,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // By default, all requests must have authorization.
                 .authorizeRequests()
                 // The following endpoints do not require authentication.
-                .antMatchers("/", "/sampleentity/mail", "/sampleentity/all", "/notifications")
+                .antMatchers("/", "/sampleentity/mail", "/sampleentity/all",
+                        "/login", "/register", "/notifications", "/debug/health","/message","/video")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -46,3 +47,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password");
     }
 }
+
