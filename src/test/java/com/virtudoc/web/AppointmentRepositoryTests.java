@@ -21,9 +21,7 @@ public class AppointmentRepositoryTests {
     public void testAddNew() {
         Appointment apt = new Appointment();
         apt.setEmail("test@test.com");
-        apt.setPatientName("Patient 1");
         apt.setSymptoms("Covid");
-        apt.setDoctorName("Doctor 1");
         apt.setLocation("Kennesaw");
         apt.setDate("Feb 3");
         apt.setReasonForVisit("Reason for Visit");

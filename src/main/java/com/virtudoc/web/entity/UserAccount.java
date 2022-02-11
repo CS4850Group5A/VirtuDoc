@@ -51,6 +51,18 @@ public class UserAccount {
 
     private Date birthDate;
 
+    @ManyToOne
+    @JoinColumn(name = "access_role_id")
+    private Role accessRole;
+
+    public Role getAccessRole() {
+        return accessRole;
+    }
+
+    public void setAccessRole(Role accessRole) {
+        this.accessRole = accessRole;
+    }
+
     /**
      * Required for serialization. Do not use directly.
      */

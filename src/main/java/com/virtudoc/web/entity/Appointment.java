@@ -15,13 +15,7 @@ public class Appointment {
     private String email;
 
     @Column(nullable = false)
-    private String patientName;
-
-    @Column(nullable = false)
     private String symptoms;
-
-    @Column(nullable = false)
-    private String doctorName;
 
     @Column(nullable = false)
     private String location;
@@ -32,6 +26,30 @@ public class Appointment {
 
     @Column(nullable = false)
     private String reasonForVisit;
+
+    @OneToOne(optional = false, orphanRemoval = true)
+    @JoinColumn(name = "patient_account_id", nullable = false)
+    private UserAccount patientAccount;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_account_id", nullable = false)
+    private UserAccount userAccount;
+
+    public UserAccount getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccount userAccount) {
+        this.userAccount = userAccount;
+    }
+
+    public UserAccount getPatientAccount() {
+        return patientAccount;
+    }
+
+    public void setPatientAccount(UserAccount patientAccount) {
+        this.patientAccount = patientAccount;
+    }
 
     public Appointment() {
     }
@@ -52,28 +70,12 @@ public class Appointment {
         this.email = email;
     }
 
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
-    }
-
     public String getSymptoms() {
         return symptoms;
     }
 
     public void setSymptoms(String symptoms) {
         this.symptoms = symptoms;
-    }
-
-    public String getDoctorName() {
-        return doctorName;
-    }
-
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
     }
 
     public String getLocation() {
@@ -105,9 +107,7 @@ public class Appointment {
         return "Appointment{" +
                 "appointmentId=" + appointmentId +
                 ", email='" + email + '\'' +
-                ", patientName='" + patientName + '\'' +
                 ", symptoms='" + symptoms + '\'' +
-                ", doctorName='" + doctorName + '\'' +
                 ", location='" + location + '\'' +
                 ", date='" + date + '\'' +
                 ", reasonForVisit='" + reasonForVisit + '\'' +
