@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class appointmentController {
 
 	
-	@GetMapping("/appointments")
+	@GetMapping("/appointment")
 	String getAppointment() {
-		return "appointments";
+		return "appointment";
 	}
 	@GetMapping("/submit")
 	String getSubmit() {
-		return "confirmation";
+		return "AppointmentCreation";
 	}
 }
