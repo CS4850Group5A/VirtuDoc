@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  font-weight: bold;
+  text-align: center;
+  min-width: 800px;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.header {
+  background: #ffc629;
+}
+
+.main {
+  text-align: left;
+  background: #f6f6f6;
+  min-width: 800px;
+}
+
+.left {
+  background: #f6f6f6;
+}
+
+#topVids {
+    width: 800px;
+    height: auto;
+    margin: 0 auto;
+}
+#home1 {
+    width: 47.5%;
+    height: 300px;
+    float: left;
+    margin-right: 5%;
+}
+
+#home2 {
+    width: 47.5%;
+    height: 300px;
+    float: left;
+}
+
+#btn1 {
+margin: 1px;
+width: 300px;
+height: 40px;
+}
+
+@media all and (min-width: 500px) {
+  .aside { flex: 1 0 0; }
+}
+@media all and (min-width: 800px) {
+  .main    { flex: 3 0px; }
+  .left { order: 1; }
+  .main    { order: 2; }
+}
+</style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<title>Video</title>
+<body>
+
+<div class="wrapper">
+  <nav class="navbar navbar-expand-lg bg-warning navbar-dark py-1">
+    <div class="container-fluid">
+      <div class="col-md-1 text-center d-none d-md-block">
+        <img class="img-fluid" src="https://drive.google.com/uc?export=view&id=1VwJ7BhDW8pz5fyNdtsNqCwrASjBDmqmh" />
+      </div>
+      <h1 ><a href="#home" class="navbar-brand mb-0 h1 fs-2">Virtudoc</a></h1>
+      <ul class="navbar-nav ms-auto">
+        <li>
+          <!-- Add navbar buttons here -->
+          <a th:href="@{/video}" class="btn btn-info btn-outline-dark bg-light">Video</a>
+          <a th:href="@{/message}" class="btn btn-info btn-outline-dark bg-light">Message</a>
+          <a th:href="@{/notifications}" class="btn btn-info btn-outline-dark bg-light">Home</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div id="topVids">
+      <video id="home1" width="500" height="400" poster="https://i.ibb.co/h9SC2sY/Placeholder.png" autoplay>
+        <source type="video/mp4"  />
+      </video>
+      <video id="home2" width="400" height="300" poster="https://i.ibb.co/h9SC2sY/Placeholder.png" autoplay>
+        <source type="video/mp4" />
+      </video>
+
+      <div class="vid3">
+        <center>
+          <video controls style="width: 80vh; height: 40vh; id=Video">
+            <source src="somefile.mp4" type="video/mp4">
+          </video>
+        </center>
+      </div>
+    </div>
+  </div>
+
+  <aside class="aside left">
+    <button id="btn1" onclick="" type="button">Play Video one</button><br>
+  </aside>
+</div>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  font-weight: bold;
+  text-align: center;
+}
+
+.wrapper > * {
+  flex: 1 100%;
+}
+
+.header {
+
+}
+
+.main {
+  text-align: left;
+  background: #f6f6f6;
+}
+
+.left {
+  background: #f6f6f6;
+}
+
+body {
+ margin: 8px;
+ font-weight: 300;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#wrapperChat{
+    margin: 0 auto;
+    padding-bottom: 25px;
+    background: #b0b3b2;
+    max-width: 100%;
+    border: 1px solid #212121;
+    border-radius: 4px;
+}
+
+#menu {
+    padding: 15px 25px;
+    display: flex;
+}
+
+#chatbox {
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 25px;
+    padding: 10px;
+    background: #fff;
+	height: 550px;
+    border: 1px solid #a7a7a7;
+    overflow: auto;
+    border-radius: 4px;
+    border-bottom: 4px solid #a7a7a7;
+  }
+#mess {
+    padding: 15px 25px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+#usermsg {
+    flex: 1;
+    border-radius: 4px;
+}
+
+#submitmsg{
+    background: #ffc629;
+    color: white;
+    padding: 4px 10px;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+
+
+.list-wrapper {
+  max-width: 400px;
+  margin: 10px auto;
+}
+
+.list {
+  border-radius: 2px;
+  list-style: none;
+  padding: 5px;
+  background:#ffffff;
+}
+
+.list-item {
+  background: aliceblue;
+  display: flex;
+  margin: 30px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chat .chat-history {
+    padding: 30px 30px 20px;
+    border-bottom: 2px solid white;
+    overflow-y: scroll;
+    height: 600px;
+}
+
+.chat .chat-history .message-data {
+    margin-bottom: 15px;
+}
+
+.chat .chat-history .message-data-time {
+    padding-left: 6px;
+}
+
+.chat .chat-history .message {
+    color: white;
+    padding: 18px 20px;
+    line-height: 26px;
+    font-size: 16px;
+    border-radius: 7px;
+    margin-bottom: 30px;
+    width: 90%;
+    position: relative;
+    text-align: left;
+}
+
+.chat .chat-history .message:after {
+    bottom: 100%;
+    left: 7%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: #444753;
+    border-width: 10px;
+    margin-left: -10px;
+    text-align: left;
+}
+
+.chat .chat-history .my-message {
+    background:#444753;
+    text-align: left;
+}
+
+.chat .chat-history .other-message {
+    background: #ffc629;
+    text-align: right;
+}
+
+.chat .chat-history .other-message:after {
+    border-bottom-color: #ffc629;
+    text-align: right;
+    left: 93%;
+}
+
+.chat .chat-message {
+    padding: 30px;
+}
+
+.chat .chat-message textarea {
+    width: 100%;
+    border: none;
+    padding: 10px 20px;
+    font: 14px/22px "Lato", Arial, sans-serif;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    resize: none;
+}
+
+
+.chat .chat-message button {
+    float: right;
+    color: #94C2ED;
+    font-size: 16px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    background: #F2F5F8;
+}
+
+.chat .chat-message button:hover {
+    color: #75b1e8;
+}
+
+@media all and (min-width: 500px) {
+  .aside { flex: 1 0 0; }
+}
+
+@media all and (min-width: 800px) {
+  .main { flex: 3 0px; }
+  .left { order: 1; }
+  .main { order: 2; }
+}
+
+</style>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<title>Message</title>
+<body>
+<div class="wrapper">
+  <div class="header">
+    <nav class="navbar navbar-expand-lg bg-warning navbar-dark py-1">
+      <div class="container-fluid">
+        <div class="col-md-1 text-center d-none d-md-block">
+          <img class="img-fluid" src="https://drive.google.com/uc?export=view&id=1VwJ7BhDW8pz5fyNdtsNqCwrASjBDmqmh" />
+        </div>
+        <h1 ><a href="#home" class="navbar-brand mb-0 h1 fs-2">Virtudoc</a></h1>
+        <ul class="navbar-nav ms-auto">
+          <li>
+            <!-- Add navbar buttons here -->
+            <a th:href="@{/video}" class="btn btn-info btn-outline-dark bg-light">Video</a>
+            <a th:href="@{/message}" class="btn btn-info btn-outline-dark bg-light">Message</a>
+            <a th:href="@{/notifications}" class="btn btn-info btn-outline-dark bg-light">Home</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="main">
+    <div id="wrapperChat">
+      <div class="chat">
+        <div class="chat-header clearfix">
+          <div class="chat-about">
+            <div id="selectedUserId" class="chat-with"></div>
+            <div class="chat-num-messages"></div>
+          </div>
+        </div> <!-- end chat-header -->
+        <div class="chat-history">
+          <ul>
+
+
+            <li>
+              <div class="message-data">
+                <span class="message-data-name"></span>
+                <span class="message-data-time">6:17 PM, Today</span>
+                <span class="message-data-name">Bill</span>
+              </div>
+              <div class="message my-message">
+                Hi
+              </div>
+            </li>
+
+            <li class="clearfix">
+              <div class="message-data align-right">
+                <span class="message-data-time">6:17 PM, Today</span>
+                <span class="message-data-name">You</span>
+              </div>
+              <div class="message other-message float-right">
+                Good morning.
+
+              </div>
+            </li>
+          </ul>
+        </div> <!-- end chat-history -->
+
+        <div class="chat-message clearfix">
+          <textarea id="message-to-send" name="message-to-send" placeholder="Type your message" rows="3"></textarea>
+          <button id="sendBtn">Send</button>
+        </div> <!-- end chat-message -->
+      </div>
+    </div>
+  </div>
+
+  <div class="aside left">
+    <div class="list-wrapper">
+      <div class="people-list" id="people-list">
+        <ul id="usersList" class="list"><a href="#" onclick="selectUser('John')"><li class="clearfix">
+          <div class="about">
+            <div id="userNameAppender_John" class="name">John</div>
+            <div class="status">
+              <i class="fa fa-circle offline"></i>
+            </div>
+          </div>
+        </li></a><a href="#" onclick="selectUser('Bill')"><li class="clearfix">
+          <div class="about">
+            <div id="userNameAppender_Bill" class="name">Bill</div>
+            <div class="status">
+              <i class="fa fa-circle offline"></i>
+            </div>
+          </div>
+        </li></a></ul>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
