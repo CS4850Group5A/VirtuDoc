@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -51,15 +51,10 @@
         font-size: 20px;
     }
 
-    .container {
-        margin-top: 50px;
-
-    }
-
     .container div {
         margin-bottom: 10px;
     }
-    #Doctor, #Location, #Symptoms, #Comment {
+    #doctor, #location, #symptoms, #reasonForVisit {
         width: 100%;
         height: 50px;
     }
@@ -79,6 +74,7 @@
     }
 
 
+
 </style>
 
 <body>
@@ -92,7 +88,7 @@
         <ul class="navbar-nav ms-auto">
             <li>
                 <!-- Add navbar buttons here -->
-                <a href="#home" class="btn btn-info btn-outline-dark bg-light">Home</a>
+                <a th:href="@{/notifications}" class="btn btn-info btn-outline-dark bg-light">Home</a>
             </li>
         </ul>
     </div>
@@ -117,41 +113,35 @@
 </div>
 
 
-<form action="submit" method="post">
+<form action="#" th:action="@{/appointment}" method="post" th:object="${appointment}">
 
     <div>
-        <label for="Name">Name*</label>
-        <input type="text" id="Name" name="FullName"
-               placeholder="Full Name" required>
+        <label for="name">Name*</label>
+        <input type="text" id="name" name="patientName"
+               placeholder="Full Name" th:field="*{patientName}" required>
     </div>
 
     <div>
-        <label for="Email">Email*</label>
-        <input type="text" id="Email" name="Email"
-               placeholder="Preferred Email Address" required>
+        <label for="email">Email*</label>
+        <input type="text" id="email" name="email"
+               placeholder="Preferred Email Address" th:field="*{email}" required>
     </div>
 
-    <div>
-        <label for="Phone">Phone*</label>
-        <input type="tel" id="Phone" name="Phone" placeholder="Format:123-456-7890"
-               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-               required>
-    </div>
 
     <div>
-        <label for="Symptoms">Symptoms</label>
-        <select id="Symptoms" name="Symptoms">
-            <option value=" "></option>
-            <option value="Covid-19 Symptoms">Covid-19 Symptoms</option>
+        <label for="symptoms">Symptoms</label>
+        <select id="symptoms" name="symptoms" th:field="*{symptoms}">
+            <option hidden selected value="-- Select Symptoms --"> -- Select Symptoms -- </option>
+            <option value="Covid-19 Symptoms">Covid-19</option>
             <option value="Stomach Aches/Diarrhea/Chils">Stomach Aches/Diarrhea/Chills</option>
             <option value="Backpain/Jointpain">Backpain/Jointpain</option>
         </select>
     </div>
 
     <div>
-        <label for="Doctor">Requested Doctor</label>
-        <select id="Doctor" name="Doctor">
-            <option value=" "></option>
+        <label for="doctor">Requested Doctor</label>
+        <select id="doctor" name="doctor" th:field="*{doctorName}" required>
+            <option hidden  selected value=" -- Select Doctor --"> -- Select a Doctor -- </option>
             <option value="John Smith">John Smith</option>
             <option value="Peggy Sue">Peggy Sue</option>
             <option value="Jane Doe">Jane Doe</option>
@@ -159,37 +149,37 @@
     </div>
 
     <div>
-        <label for="Location">Location</label>
-        <select id="Location" name="Location">
-            <option value=" "></option>
-            <option value="Marietta"> Marietta Location</option>
-            <option value="Kennesaw">Kennesaw Location</option>
-            <option value="Buckhead">Buckhead Location</option>
+        <label for="location">Location</label>
+        <select id="location" name="location" th:field="*{location}" required>
+            <option hidden selected value=" -- Select Location --"> -- Select Location -- </option>
+            <option value="Marietta"> Marietta</option>
+            <option value="Kennesaw">Kennesaw </option>
+            <option value="Buckhead">Buckhead</option>
         </select>
     </div>
 
     <div>
-        <label for="AppointmentDate"> Date</label>
-        <input type="date" id="AppointmentDate" name="AppointmentDate"
+        <label for="date"> Date</label>
+        <input type="date" id="date" name="date" th:field="*{date}"
                value="Select a date"
-               min="2022-02-01" max="2022-4-31">
+               min="2022-02-01" max="2023-4-31" required>
 
     </div>
 
     <div>
-        <label for="AppointmentTime">Time</label>
-        <input type="time" id="AppointmentTime" name="AppointmentTime"
-               value="Select a time slot">
+        <label for="time">Time</label>
+        <input type="time" id="time" name="time" th:field="*{time}"
+               value="Select a time slot" required>
     </div>
 
     <div>
-        <label for="Comment"></label>
-        <textarea id="Comment" name="Comment"
-                  placeholder="Further explain why you are visiting us today" style="height:100px"></textarea>
+        <label for="reasonForVisit"></label>
+        <textarea id="reasonForVisit" name="reasonForVisit" th:field="*{reasonForVisit}"
+                  placeholder="Further explain why you are visiting us today" style="height:100px" required></textarea>
     </div>
 
 
-    <button type="submit">Submit</button>
+    <button type="submit">Submit></button>
 
 </form>
 

@@ -1,10 +1,8 @@
 package com.virtudoc.web.dto;
-import java.util.Date;
 
 public class newAppointmentDTO {
     private String patientName;
     private String email;
-    private String phone;
     private String symptoms;
     private String doctorName;
     private String location;
@@ -17,37 +15,30 @@ public class newAppointmentDTO {
         return patientName;
     }
 
-    public void setPatientName(String patientName) {
+    public void setPatientName(String FullName) {
 
-        this.patientName = patientName;
+        this.patientName = FullName;
     }
+
     public String getEmail() {
 
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String Email) {
 
-        this.email = email;
+        this.email = Email;
     }
 
-    public String getPhone() {
 
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-
-        this.phone = phone;
-    }
     public String getSymptoms() {
 
         return symptoms;
     }
 
-    public void setSymptoms(String symptoms) {
+    public void setSymptoms(String Symptoms) {
 
-        this.symptoms = symptoms;
+        this.symptoms = Symptoms;
     }
 
     public String getDoctorName() {
@@ -55,9 +46,9 @@ public class newAppointmentDTO {
         return doctorName;
     }
 
-    public void setDoctorName(String doctorName) {
+    public void setDoctorName(String Doctor) {
 
-        this.doctorName = doctorName;
+        this.doctorName = Doctor;
     }
 
     public String getLocation() {
@@ -65,9 +56,9 @@ public class newAppointmentDTO {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(String Location) {
 
-        this.location = location;
+        this.location = Location;
     }
 
     public String getDate() {
@@ -75,9 +66,9 @@ public class newAppointmentDTO {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(String AppointmentDate) {
 
-        this.date = date;
+        this.date = AppointmentDate;
     }
 
     public String getTime() {
@@ -85,9 +76,9 @@ public class newAppointmentDTO {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(String AppointmentTime) {
 
-        this.time=time;
+        this.time = AppointmentTime;
     }
 
     public String getReasonForVisit() {
@@ -95,8 +86,25 @@ public class newAppointmentDTO {
         return reasonForVisit;
     }
 
-    public void setReasonForVisit(String reasonForVisit) {
+    public void setReasonForVisit(String Comment) {
 
-        this.reasonForVisit = reasonForVisit;
+        this.reasonForVisit = Comment;
+    }
+
+
+// Override toString()
+
+    @Override
+    public String toString() {
+        return "newAppointmentDTO{" +
+                "patientName='" + patientName + '\'' +
+                ", email='" + email + '\'' +
+                ", symptoms='" + symptoms + '\'' +
+                ", doctorName='" + doctorName + '\'' +
+                ", location='" + location + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", reasonForVisit='" + reasonForVisit + '\'' +
+                '}';
     }
 }
