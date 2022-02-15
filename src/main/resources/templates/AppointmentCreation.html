@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -16,7 +16,15 @@
         padding-top: 150px;
         padding-bottom: 150px;
     }
+span {
 
+    text-align: center;
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    line-height: 16px;
+    margin-bottom: 10px;
+}
 </style>
 
 
@@ -31,7 +39,7 @@
         <ul class="navbar-nav ms-auto">
             <li>
                 <!-- Add navbar buttons here -->
-                <a href="#home" class="btn btn-info btn-outline-dark bg-light">Home</a>
+                <a th:href="@{/notifications}" class="btn btn-info btn-outline-dark bg-light">Home</a>
             </li>
         </ul>
     </div>
@@ -44,19 +52,17 @@
 
 
 <div class="container">
-    <div id="AppointmentCreation.html"></div>
-    <script>
 
-        const apptResults = document.getElementById('AppointmentCreation.html')
-        new URLSearchParams(window.location.search).forEach((value, name) =>
-        {
-            apptResults.append(`${name}: ${value}`)
-            apptResults.append(document.createElement('br'))
-            apptResults.append(document.createElement('br'))
+    <span>Full name:</span><span th:text="${appointment.patientName}"></span><br/>
+    <span>Email:</span><span th:text="${appointment.email}"></span><br/>
+    <span>Symptoms:</span><span th:text="${appointment.symptoms}"></span><br/>
+    <span>Doctor:</span><span th:text="${appointment.doctorName}"></span><br/>
+    <span>Location:</span><span th:text="${appointment.location}"></span><br/>
+    <span>Appointment Date:</span><span th:text="${appointment.date}"></span><br/>
+    <span>Appointment Time:</span><span th:text="${appointment.time}"></span><br/>
+    <span>Reason for Visit:</span><span th:text="${appointment.reasonForVisit}"></span><br/>
 
 
-        })
-    </script>
 </div>
 </body>
 </html>
