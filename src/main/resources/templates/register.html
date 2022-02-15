@@ -161,7 +161,7 @@
     <div class="container">
         <div class="title">Create New Account</div>
         <div class="content">
-            <form th:object="${user}" th:action="@{/register}" method="post">
+            <form th:object="${user}" th:action="@{/register}" onsubmit="alert('A verification email has been sent. (In Progress)');" method="post">
                 <div class="status_details">
                     <input type="radio" name="status" id="dot_1" value="PATIENT" th:field="*{role}">
                     <input type="radio" name="status" id="dot_2" value="DOCTOR" th:field="*{role}">
@@ -230,3 +230,6 @@
 </div>
 </body>
 </html>
+<script>
+
+</script>
