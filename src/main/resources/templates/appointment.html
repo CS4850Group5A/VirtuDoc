@@ -79,21 +79,27 @@
 
 <body>
 
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-warning navbar-dark py-1">
     <div class="container-fluid">
         <div class="col-md-1 text-center d-none d-md-block">
-            <img class="img-fluid" src="static/Doctors Symbol.png" />
+            <img class="img-fluid" src="https://drive.google.com/uc?export=view&id=1VwJ7BhDW8pz5fyNdtsNqCwrASjBDmqmh" />
         </div>
-        <h1 ><a href="#home" class="navbar-brand mb-0 h1 fs-2">Virtudoc</a></h1>
+
+        <h1 ><a href="#home" class="navbar-brand">Virtudoc</a></h1>
+
         <ul class="navbar-nav ms-auto">
             <li>
-                <!-- Add navbar buttons here -->
+                <a th:href="@{/appointment}" class="btn btn-info btn-outline-dark bg-light">Appointment</a>
+                <a th:href="@{/admin_records}" class="btn btn-info btn-outline-dark bg-light">Records</a>
+                <a th:href="@{/video}" class="btn btn-info btn-outline-dark bg-light">Video</a>
+                <a th:href="@{/message}" class="btn btn-info btn-outline-dark bg-light">Message</a>
                 <a th:href="@{/notifications}" class="btn btn-info btn-outline-dark bg-light">Home</a>
             </li>
         </ul>
+
     </div>
 </nav>
-
 
 
 
