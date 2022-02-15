@@ -28,6 +28,7 @@ public class AppointmentRepositoryTests {
         apt.setDate("Feb 3");
         apt.setTime("01:30 PM");
         apt.setReasonForVisit("Reason for Visit");
+        apt.setTime("01:30 PM");
         Appointment savedApt = repo.save(apt);
         Assertions.assertThat(savedApt).isNotNull();
         Assertions.assertThat(savedApt.getAppointmentId()).isGreaterThan(0);
