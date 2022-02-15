@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Appointment {
     //Primary Key
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int appointmentId;
 
     //Foreign Key, links appointments table to parent user table
@@ -124,3 +124,5 @@ public class Appointment {
 
 }
 
+
+© 2022

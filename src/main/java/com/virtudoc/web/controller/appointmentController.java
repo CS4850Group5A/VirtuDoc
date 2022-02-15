@@ -38,7 +38,8 @@ public class appointmentController {
 
 	@PostMapping("/appointment")
 	public String submitForm(@ModelAttribute("appointment") Appointment appointment) {
-		System.out.println(appointment);
+
 		return "appointmentCreation";
 	}
 }
+
