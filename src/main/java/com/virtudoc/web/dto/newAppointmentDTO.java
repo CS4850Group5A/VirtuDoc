@@ -4,7 +4,6 @@ import java.util.Date;
 public class newAppointmentDTO {
     private String patientName;
     private String email;
-    private String phone;
     private String symptoms;
     private String doctorName;
     private String location;
@@ -31,15 +30,6 @@ public class newAppointmentDTO {
         this.email = email;
     }
 
-    public String getPhone() {
-
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-
-        this.phone = phone;
-    }
     public String getSymptoms() {
 
         return symptoms;

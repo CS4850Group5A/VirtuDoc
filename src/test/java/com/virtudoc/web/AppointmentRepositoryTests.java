@@ -26,6 +26,7 @@ public class AppointmentRepositoryTests {
         apt.setDoctorName("Doctor 1");
         apt.setLocation("Kennesaw");
         apt.setDate("Feb 3");
+        apt.setTime("01:30 PM");
         apt.setReasonForVisit("Reason for Visit");
         Appointment savedApt = repo.save(apt);
         Assertions.assertThat(savedApt).isNotNull();
