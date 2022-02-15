@@ -27,6 +27,7 @@ public class AppointmentRepositoryTests {
         apt.setLocation("Kennesaw");
         apt.setDate("Feb 3");
         apt.setReasonForVisit("Reason for Visit");
+        apt.setTime("01:30 PM");
         Appointment savedApt = repo.save(apt);
         Assertions.assertThat(savedApt).isNotNull();
         Assertions.assertThat(savedApt.getAppointmentId()).isGreaterThan(0);
@@ -43,3 +44,4 @@ public class AppointmentRepositoryTests {
 //    }
 
 }
+
