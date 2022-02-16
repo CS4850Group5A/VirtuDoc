@@ -137,19 +137,25 @@
   <div class="container">
     <div class="title">Login</div>
     <div class="content">
-      <form th:action="@{/authenticate}" method="post">
+
+
+      <form id="form" onsubmit="check()">
         <div class="user_details_login">
           <div class="input_box_login">
+
             <span class="details_login">Username</span>
-            <input type="text" name="username" placeholder="Enter your username" required>
+            <input type="text" name="username" id="userName" placeholder="Enter your username" required>
           </div>
           <div class="input_box_login">
             <span class="details_login">Password</span>
-            <input type="password" name="password" placeholder="Enter your password" required>
+            <input type="password" name="password" id="passWord" placeholder="Enter your password" required>
           </div>
           <div class="button">
-         <span class="details"> <input type="submit" name="submit" value="Login">
-           <input type="button" onclick="window.location.href='register.html'" value="Create Account"/>
+         <span class="details">
+           <input type="submit" name="submit" value="Login">
+
+
+           <input  type="button" onclick="window.location.href='http://localhost:8080/register'" value="Create Account"/>
          </span>
           </div>
         </div>
@@ -160,3 +166,19 @@
 </div>
 </body>
 </html>
+
+<script>
+function check(){
+  var UN=document.getElementById("userName");
+  var PW=document.getElementById("passWord");
+
+  if((UN.value=="admin")&&(PW.value=="password")){
+    const f = document.getElementById("form");
+    f.action = "/notifications";
+    f.submit();
+    }
+    else{
+      alert("Login information was entered incorrectly");
+    }
+}
+</script>
