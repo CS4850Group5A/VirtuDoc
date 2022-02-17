@@ -63,6 +63,8 @@ server:
 logging:
   level:
     root: DEBUG
+  file:
+    name: /logs/web.log
 
 ---
 spring:
@@ -94,6 +96,9 @@ test:
   mail: true
 server:
   port: 8080
+logging:
+  file:
+    name: /logs/web.log
 
 ---
 spring:
