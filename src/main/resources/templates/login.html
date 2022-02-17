@@ -139,7 +139,7 @@
     <div class="content">
 
 
-      <form id="form" onsubmit="check()">
+      <form id="form">
         <div class="user_details_login">
           <div class="input_box_login">
 
@@ -167,18 +167,3 @@
 </body>
 </html>
 
-<script>
-function check(){
-  var UN=document.getElementById("userName");
-  var PW=document.getElementById("passWord");
-
-  if((UN.value=="admin")&&(PW.value=="password")){
-    const f = document.getElementById("form");
-    f.action = "/notifications";
-    f.submit();
-    }
-    else{
-      alert("Login information was entered incorrectly");
-    }
-}
-</script>
