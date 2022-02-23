@@ -15,4 +15,8 @@ public class AppointmentService {
     public List<Appointment> listAll() {
         return (List<Appointment>) repo.findAll();
     }
+
+    public void delete(Integer id) {
+        repo.deleteById(id);
+    }
 }
