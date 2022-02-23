@@ -52,7 +52,7 @@
                             <p th:text="'Location: ' + ${appointment.location}" />
                         </div>
                     </div>
-                    <a href="#" class="btn btn-danger">Cancel Appointment</a>
+                    <a th:href="@{'/notifications/delete/' + ${appointment.appointmentId}}" class="btn btn-danger">Cancel Appointment</a>
                     <a href="/video" class="btn btn-secondary">Join Virtual Call</a>
                 </blockquote>
             </div>
