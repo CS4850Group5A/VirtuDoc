@@ -1,0 +1,26 @@
+name: Javadoc
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  javadoc-push:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Setup Java 11 JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-package: jdk
+          java-version: 11
+      - name: Generate Javadocs
+        run: mvn javadoc:javadoc -B -Dmaven.test.skip=true -T4 -q
+      - name: Upload Javadocs
+        if: github.ref == 'refs/heads/main' # Only deploy on push
+        uses: JamesIves/github-pages-deploy-action@v4.2.3
+        with:
+          branch: gh-pages
+          folder: ./target/site/apidocs

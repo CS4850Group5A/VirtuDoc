@@ -70,6 +70,8 @@ server:
 logging:
   level:
     root: DEBUG
+  file:
+    name: /logs/web.log
 cloud:
   aws:
     credentials:
@@ -131,6 +133,9 @@ cloud:
 file:
   bucket: ${AWS_BUCKET}
   endpoint: ${AWS_ENDPOINT}
+logging:
+  file:
+    name: /logs/web.log
 
 ---
 spring:

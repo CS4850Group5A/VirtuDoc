@@ -1,0 +1,13 @@
+###########
+# DEVOPS ##
+###########
+# TODO: If at least one other person wants to help with devops reviews, I'll swap this to use the @CS4850Group5A/DevOps team instead.
+## Docker files
+docker-compose.yml     @ARMmaster17
+Dockefile              @ARMmaster17
+prod.Dockerfile        @ARMmaster17
+proxy/proxy.Dockerfile @ARMmaster17
+## Github Actions
+.github/workflows/*    @ARMmaster17
+
+# Add more entries here...
