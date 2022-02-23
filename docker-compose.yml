@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - db
+      - minio
       - email
     ports:
       - '8080:8080'
@@ -23,6 +24,10 @@ services:
       SMTP_USERNAME: testuser@dev.local
       SMTP_PASSWORD: testpassword
       SMTP_PORT: 25
+      AWS_ACCESS_KEY_ID: virtudoc
+      AWS_SECRET_ACCESS_KEY: virtudoc
+      AWS_BUCKET: virtudoc
+      AWS_ENDPOINT: http://minio:9000
   db:
     image: postgres:13.5-alpine
     ports:
@@ -56,6 +61,24 @@ services:
     image: rnwood/smtp4dev:3.1.3-ci20211206101
     ports:
       - "3000:80"
+  minio:
+    image: quay.io/minio/minio:RELEASE.2022-01-28T02-28-16Z
+    volumes:
+      - s3data:/data
+    ports:
+      - "9001:9001"
+      - "9000:9000"
+    environment:
+      MINIO_ROOT_USER: virtudoc
+      MINIO_ROOT_PASSWORD: virtudoc
+      MINIO_ACCESS_KEY: virtudoc
+      MINIO_SECRET_KEY: virtudoc
+    command: server --console-address ":9001" --address 0.0.0.0:9000 /data
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
   elasticsearch:
     container_name: elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
@@ -119,3 +142,4 @@ services:
 volumes:
   dbdata:
   logdata:
+  s3data:

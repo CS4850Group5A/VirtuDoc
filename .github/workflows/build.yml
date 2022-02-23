@@ -41,6 +41,8 @@ jobs:
         run: |
           chmod +x ./cicd/installchrome.sh
           ./cicd/installchrome.sh
+      - name: Start Minio
+        run: docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=virtudoc" -e "MINIO_SECRET_KEY=virtudoc" quay.io/minio/minio server /data
       - name: Compile Java source
         run: mvn compiler:testCompile -B -Dmaven.test.skip=true -Dspring.profiles.active=test -T4 -q
       - name: Run JUnit tests
@@ -53,6 +55,10 @@ jobs:
           SMTP_USERNAME: testuser@dev.local
           STMTP_PASSWORD: testpassword
           SMTP_PORT: 2525
+          AWS_ACCESS_KEY_ID: virtudoc
+          AWS_SECRET_ACCESS_KEY: virtudoc
+          AWS_BUCKET: virtudoc
+          AWS_ENDPOINT: http://localhost:9000
       - name: Check slug size
         run: echo "Raw slug size of $(du -sh ./ | awk -F '\t' '{print $1}')/500MB (without compression)"
       - name: Upload test results
