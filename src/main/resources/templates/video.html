@@ -14,7 +14,9 @@
   padding: 10px;
   flex: 1 100%;
 }
-
+H1 {
+margin-right: auto;
+}
 .header {
   background: #ffc629;
 }
@@ -69,29 +71,35 @@ height: 40px;
 <body>
 
 <div class="wrapper">
+
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-warning navbar-dark py-1">
     <div class="container-fluid">
       <div class="col-md-1 text-center d-none d-md-block">
-        <img class="img-fluid" src="static/Doctors Symbol.png" />
+        <img class="img-fluid" src="/img/doctors_symbol.png" />
       </div>
-      <h1 ><a href="#home" class="navbar-brand mb-0 h1 fs-2">Virtudoc</a></h1>
+
+      <h1 ><a th:href="@{/notifications}" class="navbar-brand">Virtudoc</a></h1>
+
       <ul class="navbar-nav ms-auto">
         <li>
-          <!-- Add navbar buttons here -->
+          <a th:href="@{/appointment}" class="btn btn-info btn-outline-dark bg-light">Appointment</a>
+          <a th:href="@{/admin_records}" class="btn btn-info btn-outline-dark bg-light">Records</a>
           <a th:href="@{/video}" class="btn btn-info btn-outline-dark bg-light">Video</a>
           <a th:href="@{/message}" class="btn btn-info btn-outline-dark bg-light">Message</a>
           <a th:href="@{/notifications}" class="btn btn-info btn-outline-dark bg-light">Home</a>
         </li>
       </ul>
+
     </div>
   </nav>
 
   <div class="main">
     <div id="topVids">
-      <video id="home1" width="500" height="400" poster="https://i.ibb.co/h9SC2sY/Placeholder.png" autoplay>
+      <video id="home1" width="500" height="400" poster="/img/placeholder.png" autoplay>
         <source type="video/mp4"  />
       </video>
-      <video id="home2" width="400" height="300" poster="https://i.ibb.co/h9SC2sY/Placeholder.png" autoplay>
+      <video id="home2" width="400" height="300" poster="/img/placeholder.png" autoplay>
         <source type="video/mp4" />
       </video>
 
