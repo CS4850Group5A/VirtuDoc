@@ -15,7 +15,7 @@ import java.util.Map;
  * reset the app in the event of a soft Spring-layer crash.
  */
 @Controller
-@Profile(value={"dev-managed"})
+@Profile("!prod")
 @RequestMapping(path="/debug")
 public class DebugController {
     @GetMapping("/health")
