@@ -41,6 +41,8 @@ jobs:
         run: |
           chmod +x ./cicd/installchrome.sh
           ./cicd/installchrome.sh
+      - name: Start Minio
+        run: docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=virtudoc" -e "MINIO_SECRET_KEY=virtudoc" quay.io/minio/minio server /data
       - name: Compile Java source
         run: mvn compiler:testCompile -B -Dmaven.test.skip=true -Dspring.profiles.active=test -T4 -q
       - name: Run JUnit tests
@@ -53,15 +55,22 @@ jobs:
           SMTP_USERNAME: testuser@dev.local
           STMTP_PASSWORD: testpassword
           SMTP_PORT: 2525
+          AWS_ACCESS_KEY_ID: virtudoc
+          AWS_SECRET_ACCESS_KEY: virtudoc
+          AWS_BUCKET: virtudoc
+          AWS_ENDPOINT: http://localhost:9000
       - name: Check slug size
         run: echo "Raw slug size of $(du -sh ./ | awk -F '\t' '{print $1}')/500MB (without compression)"
-      - name: Publish unit test results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+      - name: Upload test results
         if: always()
+        uses: actions/upload-artifact@v2
         with:
+          name: Java test results
+          path: ./target/surefire-reports/*.xml
           files: ./target/surefire-reports/*.xml
           report_individual_runs: "true"
       - name: Upload screenshots
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: screenshots
@@ -70,3 +79,50 @@ jobs:
           if-no-files-found: error
       - name: Build the production image
         run: docker build -f prod.Dockerfile -t virtudoc-web .
+  dev-stack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+      - name: Start dev stack
+        run: docker-compose up --detach
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+      - name: Install Ruby dependencies
+        working-directory: ./cicd/dev
+        run: |
+          gem install bundler
+          bundle install
+      - name: Wait for stack to come online
+        uses: juliangruber/sleep-action@v1
+        with:
+          time: 1m
+      - name: Import self-signed certificates
+        working-directory: ./proxy/cert
+        run: |
+          sudo cp virtudoc-https.crt /usr/local/share/ca-certificates/virtudoc-https.crt
+          sudo update-ca-certificates
+      - name: Run dev stack tests
+        working-directory: ./cicd/dev
+        run: bundle exec rspec --format RspecJunitFormatter --out rspec.xml spec
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Dev stack test results
+          path: ./cicd/dev/rspec.xml
+  test-results:
+    needs: [build, dev-stack]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+        with:
+          path: artifacts
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        with:
+          files: artifacts/**/*.xml

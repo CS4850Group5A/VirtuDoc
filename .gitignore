@@ -40,3 +40,7 @@ proxy/cert/*.pfx
 ### .m2 Maven cache ###
 .m2-cache/*
 !.m2-cache/.keep
+
+### Ephemeral Filesystem ###
+tmpfs/*
+!tmpfs/.keep
