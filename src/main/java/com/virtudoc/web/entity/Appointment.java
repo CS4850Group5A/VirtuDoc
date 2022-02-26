@@ -8,7 +8,8 @@ public class Appointment {
     //Primary Key
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int appointmentId;
+    @Column(nullable = false, updatable = false)
+    private Long appointmentId;
 
     //Foreign Key, links appointments table to parent user table
     @Column(nullable = false)
@@ -39,12 +40,8 @@ public class Appointment {
     public Appointment() {
     }
 
-    public int getAppointmentId() {
+    public Long getAppointmentId() {
         return appointmentId;
-    }
-
-    public void setAppointmentId(int appointmentId) {
-        this.appointmentId = appointmentId;
     }
 
     public String getEmail() {
