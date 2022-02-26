@@ -17,7 +17,8 @@ import javax.validation.constraints.Size;
 public class UserAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(nullable = false, updatable = false)
+    private Long id;
 
 
     private String role;
@@ -138,7 +139,7 @@ public class UserAccount {
         this.role = role;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
