@@ -1,8 +1,10 @@
 package com.virtudoc.web.controller;
 
+import com.virtudoc.web.dto.EmailDTO;
 import com.virtudoc.web.dto.NewUserDTO;
 import com.virtudoc.web.entity.UserAccount;
 import com.virtudoc.web.service.AuthenticationService;
+import com.virtudoc.web.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -17,10 +19,14 @@ public class UserAccountController {
     @Autowired
     private AuthenticationService authenticationService;
 
+    @Autowired
+    private MailService mailService;
+
     @GetMapping("/login")
     String login() {
         return "login";
     }
+
 
     @GetMapping("/register")
     String register(Model model) {
@@ -35,7 +41,16 @@ public class UserAccountController {
         } catch (Exception e) {
             return "redirect:/register";
         }
-        return "redirect:/login";
+        EmailDTO newUserEmail = new EmailDTO(userDTO.getEmail(), "Verify your E-mail", "/mail/welcome.html");
+        try {
+            mailService.SendEmail(newUserEmail);
+        } catch (Exception e) {
+            // TODO: merge in with the main branch and log an exception here using SLF4J that an error occured with the email service.
+            // also potentially delete the un-verified account.
+            return "redirect:/register";
+        }
+        return "redirect:/login"; // TODO: change to "check your emails" page
     }
+
 
 }
