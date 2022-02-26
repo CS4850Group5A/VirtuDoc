@@ -52,7 +52,24 @@ public class CurrentAppointmentsController {
 //        ));
 
         //Pull appointments from DB
-        List<Appointment> allAppointments = service.listAll();
+        List<Appointment> allAppointments;
+
+        //Logged in user's role - either patient/doctor/admin
+        String role = "doctor";
+
+        //Logged in user's name, used to query appointments
+        String name = "doctor1";
+
+        if (role.equals("patient")) {
+            allAppointments = service.listCustomerAppointments(name);
+        }
+        else if (role.equals("doctor")) {
+            allAppointments = service.listDoctorAppointments(name);
+        }
+        else {
+            allAppointments = service.listAll();
+        }
+
         model.addAttribute("appointments", allAppointments);
 
         return "current_appointments";
