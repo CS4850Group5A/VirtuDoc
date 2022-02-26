@@ -52,6 +52,10 @@ public class UserAccount {
 
     private Date birthDate;
 
+    private boolean isVerified;
+
+    private boolean isDeactivated;
+
     /**
      * Required for serialization. Do not use directly.
      */
@@ -69,6 +73,8 @@ public class UserAccount {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.isVerified = false;
+        this.isDeactivated = true;
     }
 
     /**
@@ -91,6 +97,8 @@ public class UserAccount {
         this.lastName = userDTO.getLastName();
         this.gender = userDTO.getGender();
         this.birthDate = userDTO.getBirthDate();
+        this.isVerified = userDTO.isVerified();
+        this.isDeactivated = userDTO.isDeactivated();
     }
 
     public String getUsername() {
@@ -173,5 +181,24 @@ public class UserAccount {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public boolean isVerified()
+    {
+        return isVerified;
+    }
+
+    public void setVerified(boolean isVerified)
+    {
+        this.isVerified = isVerified;
+    }
+
+    public boolean isDeactivated()
+    {
+        return isDeactivated;
+    }
+
+    public void setDeactivated(boolean isDeactivated){
+        this.isDeactivated = isDeactivated;
     }
 }
