@@ -12,6 +12,8 @@ public class NewUserDTO {
     private String lastName;
     private String gender;
     private Date birthDate;
+    private boolean isVerified;
+    private boolean isDeactivated;
 
     public String getRole() {
         return role;
@@ -83,5 +85,20 @@ public class NewUserDTO {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public boolean isVerified() {return isVerified;}
+
+    public void setVerified(boolean isVerified)
+    {
+        this.isVerified = isVerified;
+    }
+    public void setDeactivated()
+    {
+        this.isDeactivated = isDeactivated;
+    }
+    public boolean isDeactivated()
+    {
+        return isDeactivated;
     }
 }
