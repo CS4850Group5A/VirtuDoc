@@ -152,11 +152,16 @@
             }
         }
     </style>
+    <script type="text/javascript">
+        function showMessage() {
+            alert("Please check your email to verify your account. ");
+        }
+    </script>
 </head>
 
 <body>
 <div class="logo_img">
-    <img class="logo" src="https://i.ibb.co/61XR5tG/Virtu-Doc-Logo.png" alt="logo">
+    <img class="logo" src="/img/logo.png" alt="logo">
     <br>
     <div class="container">
         <div class="title">Create New Account</div>
@@ -220,12 +225,11 @@
                     </div>
                 </div>
                 <div class="button_1">
-                    <input type="submit" value="Create Account">
+                    <input type="submit"  value="Create Account" onclick="showMessage()">
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
         </div>
-
     </div>
 </div>
 </body>

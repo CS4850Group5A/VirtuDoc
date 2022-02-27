@@ -14,7 +14,9 @@
   padding: 10px;
   flex: 1 100%;
 }
-
+H1 {
+margin-right: auto;
+}
 .header {
   background: #ffc629;
 }
@@ -69,16 +71,18 @@ height: 40px;
 <body>
 
 <div class="wrapper">
+
   <div th:insert="fragments/navbar :: navbar">
 
   </div>
 
+
   <div class="main">
     <div id="topVids">
-      <video id="home1" width="500" height="400" poster="https://i.ibb.co/h9SC2sY/Placeholder.png" autoplay>
+      <video id="home1" width="500" height="400" poster="/img/placeholder.png" autoplay>
         <source type="video/mp4"  />
       </video>
-      <video id="home2" width="400" height="300" poster="https://i.ibb.co/h9SC2sY/Placeholder.png" autoplay>
+      <video id="home2" width="400" height="300" poster="/img/placeholder.png" autoplay>
         <source type="video/mp4" />
       </video>
 

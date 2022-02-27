@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIPAA Consent</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body{
+            height: 100%;
+            display:grid;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 10px 50px;
+            background: white;
+        }
+
+        .logo{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .container{
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #fcc629;
+        }
+
+        .sublist{
+            padding-left: 4em;
+            text-align: left;
+        }
+        .section_2_list{
+            padding-left: 2em;
+            text-align: left;
+        }
+
+        .buttons:hover{
+            background: #ffc629;
+        }
+
+        .buttons{
+            height: 45px;
+            width: 49%;
+            background-color: white;
+            border-radius: 5px;
+            border: solid;
+        }
+        .welcome{
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #fcc629;
+        }
+        .thanks{
+            font-size: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <img class="logo" src="/img/logo.png" alt="logo"><br>
+    <div class="welcome">
+        <p class="thanks">Thanks for signing up! Just one more step to complete your account creation.
+            Please read the HIPAA consent form and sign below to get started.</p> <br>
+        <p><b>* Please note:</b> If you do not accept the terms listed, VirtuDoc will not be able to service you
+        and your account will be de-activated.</p>
+    </div>
+    <br><br><br>
+      <!-- HIPAA Consent-->
+      <div class="container">
+      <div>
+        <h1> HIPAA Consent Form </h1><br>
+          <h2>Section I</h2>
+          <p>I, User, give my permission for VirtuDoc to share the information listed in
+          Section II of this document with the person(s) or organization(s) I have specified in Section III
+          of this document.
+          </p><br>
+          <h2>Section II</h2>
+          <p>I would like to give the above healthcare organization permission to:</p>
+          <ul class="section_2_list">
+            <li>Disclose my complete health record including, but not limited to, diagnoses,
+              lab test results, treatment, and billing records for all conditions.</li>
+            <li>Disclose my complete health record including the following information:
+            <ul class="sublist">
+                <li>Mental health records</li>
+                <li>Communicable diseases including, but not limited to, HIV and AIDS</li>
+                <li>Alcohol/drug abuse treatment records</li>
+                <li>Genetic information</li>
+            </ul>
+          </ul><br>
+
+          <h2>Section III</h2>
+          <p>
+          I give authorization for the health information detailed in section II of this document to be
+          shared with the following individual(s) or organization(s) <br>
+          Organization: VirtuDoc Inc.<br>
+          Address: 1100 South Marietta Pkwy SE, Marietta, GA 30060 <br>
+          I understand that the person(s)/organization(s) listed above may not be covered by
+          state/federal rules governing privacy and security of data and may be permitted to further
+          share the information that is provided to them.
+          </p>
+          <br>
+
+          <h2> Section IV</h2>
+          <p>
+          I understand that I am permitted to revoke this authorization to share my health data at any
+          time and can do so by submitting a request in writing to:
+          <br>
+          Organization: VirtuDoc Inc. <br>
+          Address: 1100 South Marietta Pkwy SE, Marietta, GA 30060 <br>
+          I understand that:
+          </p>
+          <p>
+  <ul>
+      <li>In the event that my information has already been shared by the time my
+      authorization is revoked, it may be too late to cancel permission to share my health
+      data.</li>
+      <li>I understand that I do not need to give any further permission for the information
+      detailed in Section II to be shared with the person(s) or organization(s) listed in section
+      III.</li>
+      <li>I understand that the <b>failure to sign/submit this authorization or the cancellation of
+      this authorization will prevent me from receiving any treatment or benefits available at VirtuDoc</b>,
+      provided this information is required to determine if I am
+      eligible to receive those treatments or benefits or to pay for the services I receive. </li>
+  </ul>
+          <br>
+          </p>
+          <h2>Section V: Signature</h2>
+          <p>
+          <b>I, User, understand that by signing below I have read and agreed to the terms
+          included in the HIPAA Consent form above.</b>
+          </p>
+          <br>
+      </div>
+      <div>
+        <form action="#" class="Signature">
+          <label>Full Name: </label>
+          <input type="text" name="full_name"/>
+          <br><br>
+
+          <input class="buttons" type="button" value="E-Sign and Finish"/>
+          <input class="buttons" type="button" value="Do not consent and Deactivate">
+        </form>
+      </div>
+      </div>
+
+
+
+</body>
+</html>
