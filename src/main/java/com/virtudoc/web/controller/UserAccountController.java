@@ -36,6 +36,8 @@ public class UserAccountController {
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute NewUserDTO userDTO, Errors errors) {
+        System.out.println("================================");
+        System.out.println(userDTO);
         try {
             authenticationService.RegisterNewAccount(new UserAccount(userDTO));
         } catch (Exception e) {
@@ -47,8 +49,10 @@ public class UserAccountController {
         } catch (Exception e) {
             // TODO: merge in with the main branch and log an exception here using SLF4J that an error occured with the email service.
             // also potentially delete the un-verified account.
+            System.out.println(e.getStackTrace());
             return "redirect:/register";
         }
+        System.out.println("================================");
         return "redirect:/login"; // TODO: change to "check your emails" page
     }
 
