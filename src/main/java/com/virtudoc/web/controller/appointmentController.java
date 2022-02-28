@@ -39,7 +39,7 @@ public class appointmentController {
 	@PostMapping("/appointment")
 	public String submitForm(@ModelAttribute("appointment") Appointment appointment) {
 
-		return "appointmentCreation";
+		return "AppointmentCreation";
 	}
 }
 

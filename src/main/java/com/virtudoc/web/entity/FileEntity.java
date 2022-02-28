@@ -1,9 +1,6 @@
 package com.virtudoc.web.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -21,7 +18,8 @@ import java.util.Date;
 public class FileEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(nullable = false, updatable = false)
+    private Long id;
 
     @NotNull
     @NotEmpty
@@ -60,7 +58,7 @@ public class FileEntity {
         return filePath;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

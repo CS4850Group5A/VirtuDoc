@@ -6,10 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SampleEntityControllerTests {
+public class HealthEndpointTests {
     @LocalServerPort
     private int port;
 
@@ -17,7 +15,8 @@ public class SampleEntityControllerTests {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void controllerShouldRenderListOfEntities() throws Exception {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/sampleentity/all", String.class)).contains("[]");
+    public void testHealthEndpoint() throws Exception {
+        String body = this.restTemplate.getForObject("http://localhost:" + port + "/debug/health", String.class);
+        assert(body.equals("{\"health\":\"OK\"}"));
     }
 }
