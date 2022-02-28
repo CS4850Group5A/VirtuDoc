@@ -70,30 +70,14 @@ height: 40px;
 <title>Video</title>
 <body>
 
-<div class="wrapper">
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-warning navbar-dark py-1">
-    <div class="container-fluid">
-      <div class="col-md-1 text-center d-none d-md-block">
-        <img class="img-fluid" src="/img/doctors_symbol.png" />
-      </div>
+  <div th:insert="fragments/navbar :: navbar">
 
-      <h1 ><a th:href="@{/notifications}" class="navbar-brand">Virtudoc</a></h1>
+  </div>
 
-      <ul class="navbar-nav ms-auto">
-        <li>
-          <a th:href="@{/appointment}" class="btn btn-info btn-outline-dark bg-light">Appointment</a>
-          <a th:href="@{/admin_records}" class="btn btn-info btn-outline-dark bg-light">Records</a>
-          <a th:href="@{/video}" class="btn btn-info btn-outline-dark bg-light">Video</a>
-          <a th:href="@{/message}" class="btn btn-info btn-outline-dark bg-light">Message</a>
-          <a th:href="@{/notifications}" class="btn btn-info btn-outline-dark bg-light">Home</a>
-        </li>
-      </ul>
 
-    </div>
-  </nav>
 
+  <div class="wrapper">
   <div class="main">
     <div id="topVids">
       <video id="home1" width="500" height="400" poster="/img/placeholder.png" autoplay>
