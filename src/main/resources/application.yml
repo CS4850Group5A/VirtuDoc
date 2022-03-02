@@ -23,12 +23,19 @@ spring:
     protocol: smtp
     test-connection: false
 test:
-  mail: false
+  integration: false
 server:
   port: 8080
 logging:
   level:
     root: DEBUG
+cloud:
+  aws:
+    region:
+      static: us-east-1
+      auto: false
+    stack:
+      auto: false
 
 ---
 spring:
@@ -57,12 +64,29 @@ spring:
     protocol: smtp
     test-connection: true
 test:
-  mail: true
+  integration: true
 server:
   port: 8080
 logging:
   level:
     root: DEBUG
+  file:
+    name: /logs/web.log
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+    region:
+      static: us-east-1
+      auto: false
+    s3:
+      endpoint: ${AWS_ENDPOINT}
+    stack:
+      auto: false
+file:
+  bucket: ${AWS_BUCKET}
+  endpoint: ${AWS_ENDPOINT}
 
 ---
 spring:
@@ -91,9 +115,27 @@ spring:
     protocol: smtp
     test-connection: true
 test:
-  mail: true
+  integration: true
 server:
   port: 8080
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+    region:
+      static: us-east-1
+      auto: false
+    s3:
+      endpoint: ${AWS_ENDPOINT}
+    stack:
+      auto: false
+file:
+  bucket: ${AWS_BUCKET}
+  endpoint: ${AWS_ENDPOINT}
+logging:
+  file:
+    name: /logs/web.log
 
 ---
 spring:
@@ -126,5 +168,23 @@ spring:
           auth: true
           starttls:
             enable: true
+  servlet:
+    multipart:
+      max-file-size: 4MB
+      max-request-size: 4MB
 server:
   port: ${PORT}
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+    region:
+      auto: true
+    s3:
+      endpoint: ${AWS_ENDPOINT}
+    stack:
+      auto: false
+file:
+  bucket: ${AWS_BUCKET}
+  endpoint: ${AWS_ENDPOINT}

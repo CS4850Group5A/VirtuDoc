@@ -7,8 +7,9 @@ import javax.persistence.*;
 public class Appointment {
     //Primary Key
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int appointmentId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false, updatable = false)
+    private Long appointmentId;
 
     //Foreign Key, links appointments table to parent user table
     @Column(nullable = false)
@@ -30,18 +31,17 @@ public class Appointment {
     @Column(nullable = false)
     private String date;
 
+    @Column(nullable = false) //Added time var
+    private String time;
+
     @Column(nullable = false)
     private String reasonForVisit;
 
     public Appointment() {
     }
 
-    public int getAppointmentId() {
+    public Long getAppointmentId() {
         return appointmentId;
-    }
-
-    public void setAppointmentId(int appointmentId) {
-        this.appointmentId = appointmentId;
     }
 
     public String getEmail() {
@@ -92,6 +92,10 @@ public class Appointment {
         this.date = date;
     }
 
+    public String getTime() { return time; }
+
+    public void setTime(String time) { this.time=time; }
+
     public String getReasonForVisit() {
         return reasonForVisit;
     }
@@ -110,7 +114,11 @@ public class Appointment {
                 ", doctorName='" + doctorName + '\'' +
                 ", location='" + location + '\'' +
                 ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
                 ", reasonForVisit='" + reasonForVisit + '\'' +
                 '}';
     }
+
 }
+
+
