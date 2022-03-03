@@ -100,9 +100,9 @@ public class FileService {
     public InputStream GetFile(FileEntity file) throws Exception {
         logger.info("AUDIT: User accessed public file {} from {} storage", file.getFilePath(), blockStorageInterface.GetStorageId());
         if (file.getOwner() == null) {
-            throw new FileAccessNotPermitted(file.getFilePath(), "PUBLIC");
+            return getFile(file);
         }
-        return getFile(file);
+        throw new FileAccessNotPermitted(file.getFilePath(), "PUBLIC");
     }
 
     /**
@@ -130,7 +130,7 @@ public class FileService {
      */
     public InputStream GetFile(FileEntity file, UserAccount accessUser) throws Exception {
         logger.info("AUDIT: User accessed file {} from {} storage", file.getFilePath(), blockStorageInterface.GetStorageId());
-        if (file.getOwner() == null || file.getOwner().equals(accessUser)) { // TODO: Use complex ACL check for doctors.
+        if (file.getOwner() == null || file.getOwner().getUsername().equals(accessUser.getUsername())) { // TODO: Use complex ACL check for doctors.
             return getFile(file);
         }
         throw new FileAccessNotPermitted(file.getFilePath(), accessUser.getUsername());

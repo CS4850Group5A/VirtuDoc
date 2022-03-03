@@ -97,8 +97,12 @@ public class FileServiceTest {
         MultipartFile file = new MockMultipartFile("test.txt", "testcontent".getBytes(StandardCharsets.UTF_8));
         authenticationService.RegisterNewAccount(new UserAccount("readprivatefile_test1", "none", "PATIENT"));
         UserAccount testUser = userAccountRepository.findByUsername("readprivatefile_test1").get(0); // Reload to get instance with populated ID.
+        assertNotNull(testUser);
         FileEntity fileEntry = fileService.CreateFile(file, testUser);
+        assertNotNull(fileEntry);
+        assertEquals(testUser, fileEntry.getOwner());
         InputStream contentStream = fileService.GetFile(fileEntry, testUser);
+        assertNotNull(contentStream);
         InputStreamReader isr = new InputStreamReader(contentStream, StandardCharsets.UTF_8);
         BufferedReader br = new BufferedReader(isr);
         assertEquals("testcontent", br.readLine());
@@ -110,7 +114,9 @@ public class FileServiceTest {
         MultipartFile file = new MockMultipartFile("test.txt", "testcontent".getBytes(StandardCharsets.UTF_8));
         authenticationService.RegisterNewAccount(new UserAccount("readprivatefile_test1", "none", "PATIENT"));
         UserAccount testUser = userAccountRepository.findByUsername("readprivatefile_test1").get(0); // Reload to get instance with populated ID.
+        assertNotNull(testUser);
         FileEntity fileEntry = fileService.CreateFile(file, testUser);
+        assertNotNull(fileEntry);
         assertThrows(FileAccessNotPermitted.class, () -> fileService.GetFile(fileEntry));
     }
 
@@ -120,8 +126,11 @@ public class FileServiceTest {
         authenticationService.RegisterNewAccount(new UserAccount("readprivatefile_test1", "none", "PATIENT"));
         authenticationService.RegisterNewAccount(new UserAccount("readprivatefile_test2", "none", "PATIENT"));
         UserAccount testUser1 = userAccountRepository.findByUsername("readprivatefile_test1").get(0); // Reload to get instance with populated ID.
+        assertNotNull(testUser1);
         UserAccount testUser2 = userAccountRepository.findByUsername("readprivatefile_test2").get(0); // Reload to get instance with populated ID.
+        assertNotNull(testUser2);
         FileEntity fileEntry = fileService.CreateFile(file, testUser1);
+        assertNotNull(fileEntry);
         assertThrows(FileAccessNotPermitted.class, () -> fileService.GetFile(fileEntry, testUser2));
     }
 }
