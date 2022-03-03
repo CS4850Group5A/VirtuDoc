@@ -68,6 +68,7 @@ public class FileServiceTest {
     @Test
     public void CreatesPublicFile() throws Exception {
         MultipartFile file = new MockMultipartFile("test.txt", "testcontent".getBytes(StandardCharsets.UTF_8));
+        assertNotNull(file);
         FileEntity fileEntry = fileService.CreateFile(file);
         // Check the file entry was saved in the database.
         assertNotEquals(0, fileEntry.getId());
@@ -84,6 +85,7 @@ public class FileServiceTest {
     @Test
     public void ReadPublicFile() throws Exception {
         MultipartFile file = new MockMultipartFile("test.txt", "testcontent".getBytes(StandardCharsets.UTF_8));
+        assertNotNull(file);
         FileEntity fileEntry = fileService.CreateFile(file);
         InputStream contentStream = fileService.GetFile(fileEntry);
         InputStreamReader isr = new InputStreamReader(contentStream, StandardCharsets.UTF_8);
