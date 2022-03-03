@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,6 +54,15 @@ public class FileServiceTest {
         // There is a glitch with Minio where the file count is always 1000. Good luck to anyone else who
         // tries to track down this bug. This error should not appear on S3, but tests are done with Minio.
         //assertEquals(0, fileService.FileCount());
+
+        List<UserAccount> testuser1 = userAccountRepository.findByUsername("readprivatefile_test1");
+        if (testuser1.size() > 0) {
+            userAccountRepository.delete(testuser1.get(0));
+        }
+        List<UserAccount> testuser2 = userAccountRepository.findByUsername("readprivatefile_test2");
+        if (testuser2.size() > 0) {
+            userAccountRepository.delete(testuser2.get(0));
+        }
     }
 
     @Test
@@ -87,18 +97,12 @@ public class FileServiceTest {
         MultipartFile file = new MockMultipartFile("test.txt", "testcontent".getBytes(StandardCharsets.UTF_8));
         authenticationService.RegisterNewAccount(new UserAccount("readprivatefile_test1", "none", "PATIENT"));
         UserAccount testUser = userAccountRepository.findByUsername("readprivatefile_test1").get(0); // Reload to get instance with populated ID.
-        try {
-            FileEntity fileEntry = fileService.CreateFile(file, testUser);
-            InputStream contentStream = fileService.GetFile(fileEntry, testUser);
-            InputStreamReader isr = new InputStreamReader(contentStream, StandardCharsets.UTF_8);
-            BufferedReader br = new BufferedReader(isr);
-            assertEquals("testcontent", br.readLine());
-            br.close();
-        } catch (Exception e) {
-            throw e; // Pass the exception up the stack to JUnit.
-        } finally {
-            userAccountRepository.delete(testUser);
-        }
+        FileEntity fileEntry = fileService.CreateFile(file, testUser);
+        InputStream contentStream = fileService.GetFile(fileEntry, testUser);
+        InputStreamReader isr = new InputStreamReader(contentStream, StandardCharsets.UTF_8);
+        BufferedReader br = new BufferedReader(isr);
+        assertEquals("testcontent", br.readLine());
+        br.close();
     }
 
     @Test
@@ -106,14 +110,8 @@ public class FileServiceTest {
         MultipartFile file = new MockMultipartFile("test.txt", "testcontent".getBytes(StandardCharsets.UTF_8));
         authenticationService.RegisterNewAccount(new UserAccount("readprivatefile_test1", "none", "PATIENT"));
         UserAccount testUser = userAccountRepository.findByUsername("readprivatefile_test1").get(0); // Reload to get instance with populated ID.
-        try {
-            FileEntity fileEntry = fileService.CreateFile(file, testUser);
-            assertThrows(FileAccessNotPermitted.class, () -> fileService.GetFile(fileEntry));
-        } catch (Exception e) {
-            throw e; // Pass the exception up the stack to JUnit.
-        } finally {
-            userAccountRepository.delete(testUser);
-        }
+        FileEntity fileEntry = fileService.CreateFile(file, testUser);
+        assertThrows(FileAccessNotPermitted.class, () -> fileService.GetFile(fileEntry));
     }
 
     @Test
@@ -123,14 +121,7 @@ public class FileServiceTest {
         authenticationService.RegisterNewAccount(new UserAccount("readprivatefile_test2", "none", "PATIENT"));
         UserAccount testUser1 = userAccountRepository.findByUsername("readprivatefile_test1").get(0); // Reload to get instance with populated ID.
         UserAccount testUser2 = userAccountRepository.findByUsername("readprivatefile_test2").get(0); // Reload to get instance with populated ID.
-        try {
-            FileEntity fileEntry = fileService.CreateFile(file, testUser1);
-            assertThrows(FileAccessNotPermitted.class, () -> fileService.GetFile(fileEntry, testUser2));
-        } catch (Exception e) {
-            throw e; // Pass the exception up the stack to JUnit.
-        } finally {
-            userAccountRepository.delete(testUser1);
-            userAccountRepository.delete(testUser2);
-        }
+        FileEntity fileEntry = fileService.CreateFile(file, testUser1);
+        assertThrows(FileAccessNotPermitted.class, () -> fileService.GetFile(fileEntry, testUser2));
     }
 }
