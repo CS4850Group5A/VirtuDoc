@@ -31,6 +31,9 @@ public class FileEntity {
 
     private Date uploadDate;
 
+    @ManyToOne
+    private UserAccount owner;
+
     /**
      * For use by Hibernate framework serialize. Do not use.
      */
@@ -48,6 +51,20 @@ public class FileEntity {
         this.filePath = filePath;
         this.storageType = storageType;
         this.uploadDate = uploadDate;
+    }
+
+    /**
+     * For internal use inside the FileService class only. Do not use directly.
+     * @param filePath .
+     * @param storageType .
+     * @param uploadDate .
+     * @param owner .
+     */
+    public FileEntity(@NotNull @NotEmpty String filePath, @NotNull @NotEmpty String storageType, Date uploadDate, UserAccount owner) {
+        this.filePath = filePath;
+        this.storageType = storageType;
+        this.uploadDate = uploadDate;
+        this.owner = owner;
     }
 
     /**
@@ -76,5 +93,13 @@ public class FileEntity {
      */
     public Date getUploadDate() {
         return uploadDate;
+    }
+
+    /**
+     * Gets the user account that owns the file.
+     * @return Owner.
+     */
+    public UserAccount getOwner() {
+        return owner;
     }
 }
