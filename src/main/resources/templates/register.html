@@ -152,11 +152,7 @@
             }
         }
     </style>
-    <script type="text/javascript">
-        function showMessage() {
-            alert("Please check your email to verify your account. ");
-        }
-    </script>
+
 </head>
 
 <body>
@@ -225,7 +221,7 @@
                     </div>
                 </div>
                 <div class="button_1">
-                    <input type="submit"  value="Create Account" onclick="showMessage()">
+                    <input type="submit"  value="Create Account">
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
