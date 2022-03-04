@@ -52,5 +52,10 @@ public class UserAccountController {
         return "redirect:/login"; // TODO: change to "check your emails" page
     }
 
+    @PostMapping("/welcome")
+    public String emailVerify()
+    {
+        return "redirect:/HIPPA_consent.html";
+    }
 
 }
