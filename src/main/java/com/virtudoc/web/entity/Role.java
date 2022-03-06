@@ -13,7 +13,7 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "role")
+    @ManyToMany()
     private Set<UserAccount> users;
 
     public Long getId() {
