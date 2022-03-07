@@ -112,7 +112,7 @@ function render(message, userName) {
         userName: userName
     };
 
-    s\etTimeout(function () {
+    setTimeout(function () {
         $chatHistoryList.append(templateResponse(contextResponse));
         scrollToBottom();
     }.bind(this), 1500);
@@ -130,17 +130,11 @@ function sendMessage(message) {
             time: getCurrentTime(),
             toUserName: selectedUser
         };
-        var contextResponse = {
-            messageOutput: getRandomItem(messageResponses),
-                      time: getCurrentTime(),
-                      userName: 'Doctor Smith'
-                      };
         $chatHistoryList.append(template(context));
         scrollToBottom();
         $textarea.val('');
-        $chatHistoryList.append(template(contextResponse));
-        scrollToBottom();
-        $textarea.val('');
+
+        setTimeout(autoResponses, 1500);
     }
 }
 
@@ -161,6 +155,18 @@ function addMessageEnter(event) {
     if (event.keyCode === 13) {
         addMessage();
     }
+}
+function autoResponses(){
+var template = Handlebars.compile($("#message-response-template").html());
+var contextResponse = {
+    response: getRandomItem(messageResponses),
+    time: getCurrentTime(),
+    userName: 'Doctor Smith'
+    };
+
+    $chatHistoryList.append(template(contextResponse));
+    scrollToBottom();
+    $textarea.val('');
 }
 const messageResponses = [
       'Hello this is doctor smith'
