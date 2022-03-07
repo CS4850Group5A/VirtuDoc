@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+
+  <!--    libs for stomp and sockjs-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
   <style>
 .wrapper {
   display: flex;
@@ -148,7 +154,7 @@ body {
     text-align: left;
 }
 
-.chat .chat-history .my-message {
+.chat .chat-history .my-message  {
     background:#444753;
     text-align: left;
 }
@@ -205,6 +211,12 @@ body {
 }
 
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>
+
+  <!--    libs for stomp and sockjs-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -217,6 +229,7 @@ body {
 
     </div>
 
+  </div>
 
   <div class="main">
     <div id="wrapperChat">
@@ -230,28 +243,6 @@ body {
         <div class="chat-history">
           <ul>
 
-
-            <li>
-              <div class="message-data">
-                <span class="message-data-name"></span>
-                <span class="message-data-time">6:17 PM, Today</span>
-                <span class="message-data-name">Bill</span>
-              </div>
-              <div class="message my-message">
-                Hi
-              </div>
-            </li>
-
-            <li class="clearfix">
-              <div class="message-data align-right">
-                <span class="message-data-time">6:17 PM, Today</span>
-                <span class="message-data-name">You</span>
-              </div>
-              <div class="message other-message float-right">
-                Good morning.
-
-              </div>
-            </li>
           </ul>
         </div> <!-- end chat-history -->
 
@@ -266,24 +257,44 @@ body {
   <div class="aside left">
     <div class="list-wrapper">
       <div class="people-list" id="people-list">
-        <ul id="usersList" class="list"><a href="#" onclick="selectUser('John')"><li class="clearfix">
-          <div class="about">
-            <div id="userNameAppender_John" class="name">John</div>
-            <div class="status">
-              <i class="fa fa-circle offline"></i>
-            </div>
-          </div>
-        </li></a><a href="#" onclick="selectUser('Bill')"><li class="clearfix">
-          <div class="about">
-            <div id="userNameAppender_Bill" class="name">Bill</div>
-            <div class="status">
-              <i class="fa fa-circle offline"></i>
-            </div>
-          </div>
-        </li></a></ul>
+        <div class="search">
+          <input id="userName" placeholder="search" type="text"/>
+          <button id="RegBTN" onclick="registration()">Enter the chat</button>
+          <button onclick="fetchAll()">Refresh</button>
+        </div>
+        <ul class="list" id="usersList">
+
+
+        </ul>
       </div>
     </div>
   </div>
 </div>
+
+<script id="message-template" type="text/x-handlebars-template">
+  <li class="clearfix">
+    <div class="message-data align-right">
+      <span class="message-data-time">{{time}}, Today</span> &nbsp; &nbsp;
+      <span class="message-data-name">You</span> <i class="fa fa-circle me"></i>
+    </div>
+    <div class="message other-message float-right">
+      {{messageOutput}}
+    </div>
+  </li>
+</script>
+
+<script id="message-response-template" type="text/x-handlebars-template">
+  <li>
+    <div class="message-data">
+      <span class="message-data-name"><i class="fa fa-circle online"></i> {{userName}}</span>
+      <span class="message-data-time">{{time}}, Today</span>
+    </div>
+    <div class="message my-message">
+      {{response}}
+    </div>
+  </li>
+</script>
+
+<script src="js/chat.js"></script>
 </body>
 </html>
