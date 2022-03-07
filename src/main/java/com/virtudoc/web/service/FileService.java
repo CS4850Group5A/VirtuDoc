@@ -85,7 +85,12 @@ public class FileService {
         String filePath = blockStorageInterface.PutFile(file);
         FileEntity newFile = new FileEntity(filePath, blockStorageInterface.GetStorageId(), new Date(), owner);
         fileRepository.save(newFile);
-        logger.info("AUDIT: User {} uploaded file {} to {} storage", owner.getUsername(), filePath, blockStorageInterface.GetStorageId());
+        if (owner != null) {
+            logger.info("AUDIT: User {} uploaded file {} to {} storage", owner.getUsername(), filePath, blockStorageInterface.GetStorageId());
+        } else {
+            logger.info("AUDIT: User PUBLIC uploaded file {} to {} storage", filePath, blockStorageInterface.GetStorageId());
+        }
+
         return newFile;
     }
 
@@ -98,7 +103,6 @@ public class FileService {
      * @throws Exception Error with underlying ephemeral or block storage layer.
      */
     public InputStream GetFile(FileEntity file) throws Exception {
-        logger.info("AUDIT: User accessed public file {} from {} storage", file.getFilePath(), blockStorageInterface.GetStorageId());
         if (file.getOwner() == null) {
             return getFile(file);
         }
@@ -129,8 +133,12 @@ public class FileService {
      * @throws Exception Error with underlying ephemeral or block storage layer.
      */
     public InputStream GetFile(FileEntity file, UserAccount accessUser) throws Exception {
-        logger.info("AUDIT: User accessed file {} from {} storage", file.getFilePath(), blockStorageInterface.GetStorageId());
         if (file.getOwner() == null || file.getOwner().getUsername().equals(accessUser.getUsername())) { // TODO: Use complex ACL check for doctors.
+            if (accessUser != null) {
+                logger.info("AUDIT: User {} accessed file {} from {} storage", accessUser.getUsername(), file.getFilePath(), blockStorageInterface.GetStorageId());
+            } else {
+                logger.info("AUDIT: User {} accessed file {} from {} storage", "PUBLIC", file.getFilePath(), blockStorageInterface.GetStorageId());
+            }
             return getFile(file);
         }
         throw new FileAccessNotPermitted(file.getFilePath(), accessUser.getUsername());
