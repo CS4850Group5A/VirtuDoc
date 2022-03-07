@@ -29,3 +29,6 @@ public class UserStorage {
         users.add(userName);
     }
 }
+/*
+This will be changed to fit the current project
+ */

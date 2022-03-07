@@ -7,6 +7,44 @@ let $button;
 let $textarea;
 let $chatHistoryList;
 
+//This will be removed
+function registration() {
+    let userName = document.getElementById("userName").value;
+    if(userName.length != 0 ){
+        var button = document.getElementById('RegBTN');
+        hideButton(button);
+        $.get(url + "/registration/" + userName, function (response) {
+            connectToChat(userName);
+        }).fail(function (error) {
+            if (error.status === 400) {
+                alert("Login is already busy!")
+            }
+        })
+    }
+}
+//This will be removed
+function hideButton(x)
+ {
+  x.style.display = 'none';
+ }
+//This will be removed
+function fetchAll() {
+    $.get(url + "/fetchAllUsers", function (response) {
+        let users = response;
+        let usersTemplateHTML = "";
+        for (let i = 0; i < users.length; i++) {
+            usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i] + '\')"><li class="clearfix">\n' +
+                '                <div class="about">\n' +
+                '                    <div id="userNameAppender_' + users[i] + '" class="name">' + users[i] + '</div>\n' +
+                '                    <div class="status">\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                '            </li></a>';
+        }
+        $('#usersList').html(usersTemplateHTML);
+    });
+}
+
 function connectToChat(userName) {
     console.log("connecting to chat...")
     let socket = new SockJS(url + '/chat');
@@ -25,6 +63,7 @@ function connectToChat(userName) {
     });
 }
 
+
 function sendMsg(from, text) {
     stompClient.send("/app/chat/" + selectedUser, {}, JSON.stringify({
         fromLogin: from,
@@ -32,25 +71,6 @@ function sendMsg(from, text) {
     }));
 }
 
-function registration() {
-    let userName = document.getElementById("userName").value;
-    if(userName.length != 0 ){
-        var button = document.getElementById('RegBTN');
-        hideButton(button);
-        $.get(url + "/registration/" + userName, function (response) {
-            connectToChat(userName);
-        }).fail(function (error) {
-            if (error.status === 400) {
-                alert("Login is already busy!")
-            }
-        })
-    }
-}
-
-function hideButton(x)
- {
-  x.style.display = 'none';
- }
 
 function selectUser(userName) {
     console.log("selecting users: " + userName);
@@ -65,22 +85,6 @@ function selectUser(userName) {
     $('#selectedUserId').append('Chat with ' + userName);
 }
 
-function fetchAll() {
-    $.get(url + "/fetchAllUsers", function (response) {
-        let users = response;
-        let usersTemplateHTML = "";
-        for (let i = 0; i < users.length; i++) {
-            usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i] + '\')"><li class="clearfix">\n' +
-                '                <div class="about">\n' +
-                '                    <div id="userNameAppender_' + users[i] + '" class="name">' + users[i] + '</div>\n' +
-                '                    <div class="status">\n' +
-                '                    </div>\n' +
-                '                </div>\n' +
-                '            </li></a>';
-        }
-        $('#usersList').html(usersTemplateHTML);
-    });
-}
 function init() {
     cacheDOM();
     bindEvents();
@@ -153,5 +157,3 @@ function addMessageEnter(event) {
 }
 
 init();
-//Need to create a list with username and chatHistory
-//https://codepen.io/tamnv90/pen/yLyKeoj

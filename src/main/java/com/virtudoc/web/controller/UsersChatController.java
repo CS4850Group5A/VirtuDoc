@@ -11,7 +11,7 @@ import java.util.Set;
 
 @RestController
 @CrossOrigin
-public class UsersController {
+public class UsersChatController {
     @GetMapping("/registration/{userName}")
     public ResponseEntity<Void> register(@PathVariable String userName) {
         System.out.println("handling register user request: " + userName);
@@ -28,3 +28,6 @@ public class UsersController {
         return UserStorage.getInstance().getUsers();
     }
 }
+/*
+This will be changed to fit the current project
+ */
