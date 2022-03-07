@@ -112,7 +112,7 @@ function render(message, userName) {
         userName: userName
     };
 
-    setTimeout(function () {
+    s\etTimeout(function () {
         $chatHistoryList.append(templateResponse(contextResponse));
         scrollToBottom();
     }.bind(this), 1500);
@@ -130,8 +130,15 @@ function sendMessage(message) {
             time: getCurrentTime(),
             toUserName: selectedUser
         };
-
+        var contextResponse = {
+            messageOutput: getRandomItem(messageResponses),
+                      time: getCurrentTime(),
+                      userName: 'Doctor Smith'
+                      };
         $chatHistoryList.append(template(context));
+        scrollToBottom();
+        $textarea.val('');
+        $chatHistoryList.append(template(contextResponse));
         scrollToBottom();
         $textarea.val('');
     }
@@ -155,5 +162,10 @@ function addMessageEnter(event) {
         addMessage();
     }
 }
-
+const messageResponses = [
+      'Hello this is doctor smith'
+    ];
+    function getRandomItem(arr) {
+          return arr[0];
+        }
 init();
