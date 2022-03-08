@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
+@Profile(value={"prod", "test", "dev-managed"})
 public class CloudConfiguration {
     @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;

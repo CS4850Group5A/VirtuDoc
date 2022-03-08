@@ -2,7 +2,7 @@ spring:
   application:
     name: web
   datasource:
-    url: jdbc:h2:mem:virtudoc
+    url: "jdbc:h2:mem:"
     username: h2user
     password: virtudoc
     driverClassName: org.h2.Driver
