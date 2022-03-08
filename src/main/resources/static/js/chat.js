@@ -134,6 +134,7 @@ function sendMessage(message) {
         scrollToBottom();
         $textarea.val('');
 
+        //the autoResponse
         setTimeout(autoResponses, 1500);
     }
 }
@@ -169,9 +170,11 @@ var contextResponse = {
     $textarea.val('');
 }
 const messageResponses = [
-      'Hello this is doctor smith'
+      'Hello this is doctor smith.',
+      'How can I help you?'
     ];
-    function getRandomItem(arr) {
-          return arr[0];
+let index = 0;
+function getRandomItem(arr) {
+    return arr[0];
         }
 init();

@@ -30,5 +30,5 @@ public class UserStorage {
     }
 }
 /*
-This will be changed to fit the current project
+This will be fully removed after the changes to userschatcontroller are made.
  */
