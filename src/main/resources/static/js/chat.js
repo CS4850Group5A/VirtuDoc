@@ -173,8 +173,15 @@ const messageResponses = [
       'Hello this is doctor smith.',
       'How can I help you?'
     ];
-let index = 0;
+var count = 0;
 function getRandomItem(arr) {
-    return arr[0];
+    if(count >= arr.length){
+        count = 0;
+        count++;
+        return arr[count-1];
+    }else{
+        count++;
+        return arr[count-1];
         }
+    }
 init();
