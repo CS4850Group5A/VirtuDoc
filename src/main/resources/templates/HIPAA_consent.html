@@ -82,6 +82,16 @@
         }
 
     </style>
+    <script>
+        function confirmAction() {
+            let confirmAction = confirm("Are you sure you dont want to give consent?\n*Please note: Your account will be deactivated.*");
+            if (confirmAction) {
+                alert("Account Deactivated.");
+            } else {
+                alert("Deactivation canceled");
+            }
+            }
+    </script>
 </head>
 
 <body>
@@ -165,9 +175,10 @@
           <input type="text" name="full_name"/>
           <br><br>
 
-          <input class="buttons" type="button" value="E-Sign and Finish"/>
-          <input class="buttons" type="button" value="Do not consent and Deactivate">
-        </form>
+          <input class="buttons" type="button" onclick="window.location.href='/login'" value="E-Sign and Finish"/>
+
+          <input class="buttons" type="button" onclick="confirmAction()" value="Do not consent and Deactivate">
+
       </div>
       </div>
 
