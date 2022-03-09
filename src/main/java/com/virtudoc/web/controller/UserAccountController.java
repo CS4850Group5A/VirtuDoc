@@ -34,6 +34,17 @@ public class UserAccountController {
         return "register";
     }
 
+    @GetMapping("/HIPAA_consent")
+    String consent() {
+        return "HIPAA_consent.html";
+    }
+
+    @GetMapping("/checkEmail")
+    String check()
+    {
+        return "checkEmail";
+    }
+
     @PostMapping("/register")
     public String registerUser(@ModelAttribute NewUserDTO userDTO, Errors errors) {
         try {
@@ -49,8 +60,19 @@ public class UserAccountController {
             // also potentially delete the un-verified account.
             return "redirect:/register";
         }
-        return "redirect:/login"; // TODO: change to "check your emails" page
+        return "redirect:/checkEmail"; // TODO: change to "check your emails" page
     }
 
+    @PostMapping("/welcome")
+    public String emailVerify()
+    {
+        return "redirect:/HIPPA_consent.html";
+    }
+
+    @PostMapping("/HIPAA_consent")
+    public String submitConsent()
+    {
+        return "redirect:/login.html";
+    }
 
 }
