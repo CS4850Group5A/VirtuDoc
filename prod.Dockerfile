@@ -6,7 +6,7 @@ WORKDIR /src
 RUN chmod +x mvnw
 RUN ./mvnw clean package -Dmaven.test.skip=true
 
-FROM openjdk:11.0.14.1-jdk-bullseye
+FROM openjdk:11.0.14.1-jre-bullseye
 RUN mkdir /app
 WORKDIR /app
 COPY --from=build-stage /src/target/web-0.0.1-SNAPSHOT.jar /app/web.jar
