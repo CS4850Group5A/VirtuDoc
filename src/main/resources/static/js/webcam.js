@@ -4,6 +4,7 @@ const startButton = document.getElementById('startButton');
 const callButton = document.getElementById('callButton');
 const hangupButton = document.getElementById('endButton');
 const audioButton = document.getElementById('audioButton');
+const videoButton = document.getElementById('videoButton');
 
 callButton.disabled = true;
 hangupButton.disabled = true;
@@ -12,6 +13,7 @@ callButton.addEventListener('click', call);
 hangupButton.addEventListener('click', hangup);
 
 audioButton.addEventListener('click', mute);
+videoButton.addEventListener('click', videoOnOff);
 
 let startTime;
 const localVideo = document.getElementById('home1');
@@ -252,5 +254,9 @@ function mute(){
 localVideo.muted = !localVideo.muted;
 }
 function videoOnOff(){
-localVideo.muted = !localVideo.muted;
+if (localVideo.style.display === "none") {
+    localVideo.style.display = "block";
+  } else {
+    localVideo.style.display = "none";
+  }
 }
