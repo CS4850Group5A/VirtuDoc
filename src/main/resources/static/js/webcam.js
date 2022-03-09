@@ -3,10 +3,7 @@
 const startButton = document.getElementById('startButton');
 const callButton = document.getElementById('callButton');
 const hangupButton = document.getElementById('endButton');
-
-const videoButton = document.getElementById('videoButton');
 const audioButton = document.getElementById('audioButton');
-
 
 callButton.disabled = true;
 hangupButton.disabled = true;
@@ -14,10 +11,11 @@ startButton.addEventListener('click', start);
 callButton.addEventListener('click', call);
 hangupButton.addEventListener('click', hangup);
 
+audioButton.addEventListener('click', mute);
+
 let startTime;
 const localVideo = document.getElementById('home1');
 const remoteVideo = document.getElementById('home2');
-
 
 localVideo.addEventListener('loadedmetadata', function() {
   console.log(`Local video videoWidth: ${this.videoWidth}px,  videoHeight: ${this.videoHeight}px`);
@@ -248,4 +246,11 @@ function hangup() {
   hangupButton.disabled = true;
   callButton.disabled = false;
   codecPreferences.disabled = false;
+}
+
+function mute(){
+localVideo.muted = !localVideo.muted;
+}
+function videoOnOff(){
+localVideo.muted = !localVideo.muted;
 }
