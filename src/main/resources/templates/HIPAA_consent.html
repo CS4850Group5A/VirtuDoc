@@ -50,7 +50,7 @@
         }
 
         .sublist{
-            padding-left: 4em;
+            padding-left: 3em;
             text-align: left;
         }
         .section_2_list{
@@ -82,6 +82,16 @@
         }
 
     </style>
+    <script>
+        function confirmAction() {
+            let confirmAction = confirm("Are you sure you dont want to give consent?\n*Please note: Your account will be deactivated.*");
+            if (confirmAction) {
+                alert("Account Deactivated.");
+            } else {
+                alert("Deactivation canceled");
+            }
+            }
+    </script>
 </head>
 
 <body>
@@ -138,7 +148,7 @@
           I understand that:
           </p>
           <p>
-  <ul>
+  <ul class="section_2_list">
       <li>In the event that my information has already been shared by the time my
       authorization is revoked, it may be too late to cancel permission to share my health
       data.</li>
@@ -160,14 +170,14 @@
           <br>
       </div>
       <div>
-        <form action="#" class="Signature">
           <label>Full Name: </label>
           <input type="text" name="full_name"/>
           <br><br>
 
-          <input class="buttons" type="button" value="E-Sign and Finish"/>
-          <input class="buttons" type="button" value="Do not consent and Deactivate">
-        </form>
+          <input class="buttons" type="button" onclick="window.location.href='/login'" value="E-Sign and Finish"/>
+
+          <input class="buttons" type="button" onclick="confirmAction()" value="Do not consent and Deactivate">
+
       </div>
       </div>
 

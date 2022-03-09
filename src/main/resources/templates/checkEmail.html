@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIPAA Consent</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body{
+            height: 100%;
+            display:grid;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 10px 50px;
+            background: white;
+        }
+
+        .logo{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+        }
+
+        .welcome{
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #fcc629;
+        }
+        .thanks{
+            font-size: 20px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+<img class="logo" src="/img/logo.png" alt="logo"><br>
+<br><br><br>
+<div class="welcome">
+    <p class="thanks">Thanks for registering! Please check your e-mail for the next steps on getting your account created.</p>
+</div>
+</body>
+</html>
