@@ -6,7 +6,7 @@ let $chatHistory;
 let $button;
 let $textarea;
 let $chatHistoryList;
-
+var user = [[${message}]];
 //This will be removed
 function registration() {
     let userName = document.getElementById("userName").value;
@@ -14,7 +14,7 @@ function registration() {
         var button = document.getElementById('RegBTN');
         hideButton(button);
         $.get(url + "/registration/" + userName, function (response) {
-            connectToChat(userName);
+            connectToChat(userName);//////////////////////////////////////////
         }).fail(function (error) {
             if (error.status === 400) {
                 alert("Login is already busy!")
@@ -27,7 +27,7 @@ function hideButton(x)
  {
   x.style.display = 'none';
  }
-//This will be removed
+//This will be changed
 function fetchAll() {
     $.get(url + "/fetchAllUsers", function (response) {
         let users = response;

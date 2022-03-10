@@ -2,15 +2,13 @@ package com.virtudoc.web.controller;
 
 import com.virtudoc.storage.UserStorage;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @RestController
 @CrossOrigin
+@SessionAttributes("user")
 public class UsersChatController {
     @GetMapping("/registration/{userName}")
     public ResponseEntity<Void> register(@PathVariable String userName) {
@@ -25,7 +23,15 @@ public class UsersChatController {
 
     @GetMapping("/fetchAllUsers")
     public Set<String> fetchAll() {
+
         return UserStorage.getInstance().getUsers();
+    }
+
+    public void user(){
+
+    }
+    public void getApp(){
+
     }
 }
 /*
