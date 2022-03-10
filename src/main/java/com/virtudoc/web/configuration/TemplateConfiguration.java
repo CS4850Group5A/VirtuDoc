@@ -1,5 +1,7 @@
 package com.virtudoc.web.configuration;
 
+import com.virtudoc.web.rendering.dialect.EmailDialect;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -16,6 +18,9 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
  */
 @Configuration
 public class TemplateConfiguration {
+    @Autowired
+    private EmailDialect emailDialect;
+
     @Bean
     public ITemplateResolver templateResolver()
     {
@@ -23,7 +28,6 @@ public class TemplateConfiguration {
         templateResolver.setPrefix("templates/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
-
         return templateResolver;
     }
 
@@ -33,7 +37,7 @@ public class TemplateConfiguration {
     {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(this.templateResolver());
-
+        templateEngine.addDialect(emailDialect);
         return templateEngine;
     }
 }
