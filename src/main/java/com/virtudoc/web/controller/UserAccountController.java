@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+
 @Controller
 public class UserAccountController {
 
@@ -60,7 +61,7 @@ public class UserAccountController {
             // also potentially delete the un-verified account.
             return "redirect:/register";
         }
-        return "redirect:/checkEmail"; // TODO: change to "check your emails" page
+        return "redirect:/checkEmail";
     }
 
     @PostMapping("/welcome")
