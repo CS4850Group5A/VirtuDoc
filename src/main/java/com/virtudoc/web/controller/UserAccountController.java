@@ -46,6 +46,17 @@ public class UserAccountController {
         return "checkEmail";
     }
 
+    @GetMapping("/forgotMyPassword")
+    String forgot(){ return "forgotMyPassword"; }
+
+    @GetMapping("/resetEmail")
+    String resetEmail(){
+        return "resetEmail.html";
+    }
+
+    @GetMapping("/newPassword")
+    String newPassword() { return "newPassword"; }
+
     @PostMapping("/register")
     public String registerUser(@ModelAttribute NewUserDTO userDTO, Errors errors) {
         try {
@@ -64,6 +75,7 @@ public class UserAccountController {
         return "redirect:/checkEmail";
     }
 
+
     @PostMapping("/welcome")
     public String emailVerify()
     {
@@ -75,5 +87,25 @@ public class UserAccountController {
     {
         return "redirect:/login.html";
     }
+
+/*
+    @PostMapping("/newPassword")
+    public String confirmNewPassword(@ModelAttribute NewUserDTO userDTO, Errors errors) {
+
+        try {
+
+        } catch (Exception e) {
+            return "redirect:/forgotPassword";
+        }
+        EmailDTO newUserEmail = new EmailDTO(userDTO.getEmail(), "Reset Password", "/mail/resetEmail.html");
+        try {
+            mailService.SendEmail(newUserEmail);
+        } catch (Exception e) {
+            // TODO: merge in with the main branch and log an exception here using SLF4J that an error occured with the email service.
+            return "redirect:/forgotPassword";
+        }
+        return "redirect:/login";
+    }
+*/
 
 }
