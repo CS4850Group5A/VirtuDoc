@@ -4,6 +4,8 @@ com.virtudoc.web.controller
 com.virtudoc.web.dto
 com.virtudoc.web.entity
 com.virtudoc.web.exception
+com.virtudoc.web.rendering.dialect
+com.virtudoc.web.rendering.processor
 com.virtudoc.web.repository
 com.virtudoc.web.runner
 com.virtudoc.web.service
