@@ -257,14 +257,21 @@ body {
   <div class="aside left">
     <div class="list-wrapper">
       <div class="people-list" id="people-list">
-        <div class="search">
+        <div class="search"th:each="UserAccount: ${users}">
+          <p th:text="'Welcome '+${UserAccount.username}"/>
           <input id="userName" placeholder="search" type="text"/>
           <button id="RegBTN" onclick="registration()">Enter the chat</button>
           <button onclick="fetchAll()">Refresh</button>
         </div>
-        <ul class="list" id="usersList">
+        <ul class="list" id="usersList" th:each="UserAccount: ${users}">
 
-
+          <a href="#" th:onclick="'selectUser(\'${UserAccount.username}'\'"><li class="clearfix">
+                        <div class="about">
+                              <div th:id="'userNameAppender_'+${UserAccount.username}" class="name" th:text="${UserAccount.username}"></div>
+                              <div class="status">
+                                </div>
+                          </div>
+                    </li></a>
         </ul>
       </div>
     </div>
@@ -298,3 +305,9 @@ body {
 <script src="js/chat.js"></script>
 </body>
 </html>
+<!--
+-need to move js to html to be able to user thymeleaf
+-add a connect button that will take username from welcome text to open websocket. this will replace registration()
+-fix th:onlick not showing up correctly
+-remove fetchAll()
+-->

@@ -6,7 +6,6 @@ let $chatHistory;
 let $button;
 let $textarea;
 let $chatHistoryList;
-var user = [[${message}]];
 //This will be removed
 function registration() {
     let userName = document.getElementById("userName").value;

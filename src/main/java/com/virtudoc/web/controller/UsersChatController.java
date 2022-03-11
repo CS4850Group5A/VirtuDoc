@@ -38,4 +38,5 @@ public class UsersChatController {
 This will be removed.
 instead of registration the user will be pulled from the session.
 instead of fetchAllUsers the list will be pulled using AppointmentService
+all of this will be done in js
  */
