@@ -37,6 +37,9 @@ cloud:
       auto: false
     stack:
       auto: false
+devtools:
+  restart:
+    enabled: true
 
 ---
 spring:
@@ -89,6 +92,9 @@ cloud:
 file:
   bucket: ${AWS_BUCKET}
   endpoint: ${AWS_ENDPOINT}
+devtools:
+  restart:
+    enabled: true
 
 ---
 spring:
@@ -139,6 +145,9 @@ file:
 logging:
   file:
     name: /logs/web.log
+devtools:
+  restart:
+    enabled: false
 
 ---
 spring:
@@ -193,3 +202,6 @@ cloud:
 file:
   bucket: ${AWS_BUCKET}
   endpoint: ${AWS_ENDPOINT}
+devtools:
+  restart:
+    enabled: false
