@@ -9,6 +9,8 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -48,10 +50,12 @@ public class FaviconAssetTests {
         URL url = classLoader.getResource("static");
         String path = url.getPath();
         File[] files = new File(path).listFiles();
-        String[] fileNames = new String[files.length];
-        for (int i = 0; i < files.length; i++) {
-            fileNames[i] = files[i].getName();
+        List<String> fileNamesList = new ArrayList<>();
+        for (File file : files) {
+            if (file.isFile()) {
+                fileNamesList.add(file.getName());
+            }
         }
-        return fileNames;
+        return fileNamesList.toArray(String[]::new);
     }
 }
