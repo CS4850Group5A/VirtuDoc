@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
+import java.io.File;
 import java.net.URL;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -46,6 +47,11 @@ public class FaviconAssetTests {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         URL url = classLoader.getResource("static");
         String path = url.getPath();
-        return new java.io.File(path).list();
+        File[] files = new File(path).listFiles();
+        String[] fileNames = new String[files.length];
+        for (int i = 0; i < files.length; i++) {
+            fileNames[i] = files[i].getName();
+        }
+        return fileNames;
     }
 }
