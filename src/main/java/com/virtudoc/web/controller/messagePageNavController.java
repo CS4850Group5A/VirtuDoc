@@ -2,6 +2,7 @@ package com.virtudoc.web.controller;
 
 import com.virtudoc.web.entity.Appointment;
 import com.virtudoc.web.entity.UserAccount;
+import com.virtudoc.web.service.AuthenticationService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +20,10 @@ import java.util.List;
 public class messagePageNavController {
     @Autowired
     private AppointmentService service;
+    @Autowired
+    private HttpServletRequest request;
+    @Autowired
+    private AuthenticationService aaa;
 
     List<Appointment> allAppointments;
     @GetMapping("/message")
@@ -26,9 +32,10 @@ public class messagePageNavController {
         putin(session);
 
         //pull item for session
-        UserAccount sess = (UserAccount) session.getAttribute("user");
+        //UserAccount sess = (UserAccount) session.getAttribute("user");
+        UserAccount a = aaa.GetCurrentUser(request);
         model.addAttribute("users", Arrays.asList(
-                sess
+                a
         ));
 
         model.addAttribute("appintments", allAppointments);
@@ -39,6 +46,7 @@ public class messagePageNavController {
     public void putin(HttpSession session){
         UserAccount a1 = new UserAccount("Julian","123","doctor");
         session.setAttribute("user", a1);
+
     }
     public void fetchAccounts(UserAccount user){
         if (user.getRole().equals("patient")) {
@@ -51,4 +59,5 @@ public class messagePageNavController {
           allAppointments = service.listAll();
       }
     }
+
 }
