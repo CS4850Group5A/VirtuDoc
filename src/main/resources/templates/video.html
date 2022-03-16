@@ -49,7 +49,7 @@ video {
   height: auto;
 }
 
-#btn1 {
+#btn1, #btn2 {
 margin: 1px;
 width: 300px;
 height: 40px;
@@ -96,18 +96,19 @@ height: 40px;
 
       <div class="vid3">
         <center>
-          <video controls id="Video">
-            <source src="somefile.mp4" type="video/mp4">
-          </video>
+          <iframe id="btnVid" width="100%" height="300" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </center>
       </div>
     </div>
   </div>
 
   <aside class="aside left">
-    <button id="btn1" onclick="" type="button">Play Video one</button><br>
+    <button id="Add" type="button">Add Video</button><br>
+    <button id="btn1" type="button">Play Video one</button><br>
+    <button id="btn2" type="button">Play Video two</button><br>
   </aside>
 </div>
   <script src="js/webcam.js"></script>
 </body>
 </html>
+

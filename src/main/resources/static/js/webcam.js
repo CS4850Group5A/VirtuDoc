@@ -2,15 +2,18 @@
 
 const startButton = document.getElementById('startButton');
 const callButton = document.getElementById('callButton');
-
 const audioButton = document.getElementById('audioButton');
 const videoButton = document.getElementById('videoButton');
-
+const btn1 = document.getElementById('btn1');
+const btn2 = document.getElementById('btn2');
+const btnVid = document.getElementById('btnVid');
 callButton.disabled = true;
 
 startButton.addEventListener('click', start);
 audioButton.addEventListener('click', mute);
 videoButton.addEventListener('click', videoOnOff);
+btn1.addEventListener('click', video1);
+btn2.addEventListener('click', video2);
 
 let startTime;
 const localVideo = document.getElementById('home1');
@@ -188,10 +191,19 @@ function onAddIceCandidateError(pc, error) {
 function mute(){
 localVideo.muted = !localVideo.muted;
 }
+
 function videoOnOff(){
 if (localVideo.style.display === "none") {
     localVideo.style.display = "block";
   } else {
     localVideo.style.display = "none";
   }
+}
+
+function video1(){
+btnVid.src = "https://www.youtube.com/embed/7z0kzYpuqhw";
+}
+
+function video2(){
+btnVid.src = "https://www.youtube.com/embed/geQP_zYS-6s";
 }
