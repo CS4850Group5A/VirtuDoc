@@ -2,16 +2,13 @@
 
 const startButton = document.getElementById('startButton');
 const callButton = document.getElementById('callButton');
-const hangupButton = document.getElementById('endButton');
+
 const audioButton = document.getElementById('audioButton');
 const videoButton = document.getElementById('videoButton');
 
 callButton.disabled = true;
-hangupButton.disabled = true;
-startButton.addEventListener('click', start);
-callButton.addEventListener('click', call);
-hangupButton.addEventListener('click', hangup);
 
+startButton.addEventListener('click', start);
 audioButton.addEventListener('click', mute);
 videoButton.addEventListener('click', videoOnOff);
 
@@ -82,57 +79,6 @@ async function start() {
       codecPreferences.appendChild(option);
     });
     codecPreferences.disabled = false;
-  }
-}
-
-async function call() {
-  callButton.disabled = true;
-  hangupButton.disabled = false;
-  console.log('Starting call');
-  startTime = window.performance.now();
-  const videoTracks = localStream.getVideoTracks();
-  const audioTracks = localStream.getAudioTracks();
-  if (videoTracks.length > 0) {
-    console.log(`Using video device: ${videoTracks[0].label}`);
-  }
-  if (audioTracks.length > 0) {
-    console.log(`Using audio device: ${audioTracks[0].label}`);
-  }
-  const configuration = {};
-  console.log('RTCPeerConnection configuration:', configuration);
-  pc1 = new RTCPeerConnection(configuration);
-  console.log('Created local peer connection object pc1');
-  pc1.addEventListener('icecandidate', e => onIceCandidate(pc1, e));
-  pc2 = new RTCPeerConnection(configuration);
-  console.log('Created remote peer connection object pc2');
-  pc2.addEventListener('icecandidate', e => onIceCandidate(pc2, e));
-  pc2.addEventListener('track', gotRemoteStream);
-
-  localStream.getTracks().forEach(track => pc1.addTrack(track, localStream));
-  console.log('Added local stream to pc1');
-  if (supportsSetCodecPreferences) {
-    const preferredCodec = codecPreferences.options[codecPreferences.selectedIndex];
-    if (preferredCodec.value !== '') {
-      const [mimeType, sdpFmtpLine] = preferredCodec.value.split(' ');
-      const {codecs} = RTCRtpSender.getCapabilities('video');
-      const selectedCodecIndex = codecs.findIndex(c => c.mimeType === mimeType && c.sdpFmtpLine === sdpFmtpLine);
-      const selectedCodec = codecs[selectedCodecIndex];
-      codecs.splice(selectedCodecIndex, 1);
-      codecs.unshift(selectedCodec);
-      console.log(codecs);
-      const transceiver = pc1.getTransceivers().find(t => t.sender && t.sender.track === localStream.getVideoTracks()[0]);
-      transceiver.setCodecPreferences(codecs);
-      console.log('Preferred video codec', selectedCodec);
-    }
-  }
-  codecPreferences.disabled = true;
-
-  try {
-    console.log('pc1 createOffer start');
-    const offer = await pc1.createOffer(offerOptions);
-    await onCreateOfferSuccess(offer);
-  } catch (e) {
-    onCreateSessionDescriptionError(e);
   }
 }
 
@@ -237,17 +183,6 @@ function onAddIceCandidateSuccess(pc) {
 
 function onAddIceCandidateError(pc, error) {
   console.log(`${getName(pc)} failed to add ICE Candidate: ${error.toString()}`);
-}
-
-function hangup() {
-  console.log('Ending call');
-  pc1.close();
-  pc2.close();
-  pc1 = null;
-  pc2 = null;
-  hangupButton.disabled = true;
-  callButton.disabled = false;
-  codecPreferences.disabled = false;
 }
 
 function mute(){
