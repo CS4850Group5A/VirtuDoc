@@ -32,14 +32,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // By default, all requests must have authorization.
                 .authorizeRequests()
                 // The following endpoints do not require authentication.
-                .antMatchers("/", "/img/**","/js/**",
+                .antMatchers("/", "/img/**", "/*.png", "/js/**","/*.ico", "/site.webmanifest", "/forgotMyPassword","/newPassword","/resetEmail",
                         "/login", "/register", "/HIPAA_consent", "/checkEmail", "/notifications", "/debug/health","/message","/video", "/appointment",
-                        "/admin_records","/notifications/delete/{pathvariable:[0-9A-Za-z]+}"
-                        ,"/chat/{to}","/registration/{userName}","/message/**","/fetchAllUsers","/app/chat/**")
+                        "/admin_records","/notifications/delete/{pathvariable:[0-9A-Za-z]+}")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
-            .and()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticate")
@@ -49,4 +48,3 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password");
     }
 }
-//forgot to add my chat stuff -.-
