@@ -6,19 +6,17 @@ let $chatHistory;
 let $button;
 let $textarea;
 let $chatHistoryList;
-//This will be removed
+//This will be reduced and possable removed
 function registration() {
+    let name = document.getElementById("USER").textContent;
     let userName = document.getElementById("userName").value;
-    if(userName.length != 0 ){
+    if (name.includes(userName)) {
         var button = document.getElementById('RegBTN');
         hideButton(button);
-        $.get(url + "/registration/" + userName, function (response) {
-            connectToChat(userName);//////////////////////////////////////////
-        }).fail(function (error) {
-            if (error.status === 400) {
-                alert("Login is already busy!")
-            }
-        })
+        document.getElementById("userName").style.display = 'none'
+    	connectToChat(userName);
+    } else {
+    	alert("Sorry username does not match");
     }
 }
 //This will be removed
@@ -26,7 +24,7 @@ function hideButton(x)
  {
   x.style.display = 'none';
  }
-//This will be changed
+//This will be removed and replaced with controller
 function fetchAll() {
     $.get(url + "/fetchAllUsers", function (response) {
         let users = response;

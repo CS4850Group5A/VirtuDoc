@@ -253,20 +253,19 @@ body {
     <div class="list-wrapper">
       <div class="people-list" id="people-list">
         <div class="search"th:each="UserAccount: ${users}">
-          <p th:text="'Welcome '+${UserAccount.username}"/>
+          <p id="USER" th:text="'Welcome '+${UserAccount.username}"/>
           <input id="userName" placeholder="search" type="text"/>
-          <button id="RegBTN" onclick="registration()">Enter the chat</button>
-          <button onclick="fetchAll()">Refresh</button>
+          <button id="RegBTN" onclick="registration()">Connect</button>
+          <!--<button onclick="fetchAll()">Refresh</button>-->
         </div>
-        <ul class="list" id="usersList" th:each="UserAccount: ${users}">
+        <ul class="list" id="usersList" th:each="Appointment: ${appointments}">
 
-          <a href="#" th:onclick="'selectUser(\'${UserAccount.username}'\'"><li class="clearfix">
-                        <div class="about">
-                              <div th:id="'userNameAppender_'+${UserAccount.username}" class="name" th:text="${UserAccount.username}"></div>
-                              <div class="status">
-                                </div>
-                          </div>
-                    </li></a>
+          <a href="#" th:onclick="'${Appointment.getDoctorName()}'">
+            <li class="clearfix">
+              <div class="about">
+                <div th:id="'userNameAppender_'+${Appointment.getDoctorName()}" class="name" th:text="${Appointment.getDoctorName()}"></div>
+              </div>
+            </li></a>
         </ul>
       </div>
     </div>

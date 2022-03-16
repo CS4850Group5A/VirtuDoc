@@ -25,9 +25,10 @@ public class messagePageNavController {
     @Autowired
     private AuthenticationService aaa;
 
-    List<Appointment> allAppointments;
+
     @GetMapping("/message")
     public String getMessagePage(HttpSession session, Model model){
+
         //put userAccount object in session for testing
         putin(session);
 
@@ -37,27 +38,35 @@ public class messagePageNavController {
         model.addAttribute("users", Arrays.asList(
                 a
         ));
+        //Pull appointments from DB
+        List<Appointment> allAppointments;
 
-        model.addAttribute("appintments", allAppointments);
+
+        if (a.getRole().equals("patient")) {
+            allAppointments = service.listCustomerAppointments(a.getUsername());
+        }
+        else if (a.getRole().equals("doctor")) {
+            allAppointments = service.listDoctorAppointments(a.getUsername());
+        }
+        else {
+            allAppointments = service.listAll();
+        }
+        Appointment apt1 = new Appointment();
+        apt1.setEmail("test@test.com");
+        apt1.setPatientName("mockuser");
+        apt1.setSymptoms("Covid");
+        apt1.setDoctorName("Doctor Smith");
+        apt1.setLocation("Kennesaw Side Building");
+        apt1.setDate("2PM Feb 3");
+        apt1.setReasonForVisit("Covid-19 Test");
+        allAppointments.add(apt1);
+        model.addAttribute("appointments", allAppointments);
 
         return "message";
     }
 
-    public void putin(HttpSession session){
-        UserAccount a1 = new UserAccount("Julian","123","doctor");
+    public void putin(HttpSession session) {
+        UserAccount a1 = new UserAccount("Julian", "123", "doctor");
         session.setAttribute("user", a1);
-
     }
-    public void fetchAccounts(UserAccount user){
-        if (user.getRole().equals("patient")) {
-          allAppointments = service.listCustomerAppointments(user.getFirstName());
-      }
-      else if (user.getRole().equals("doctor")) {
-          allAppointments = service.listDoctorAppointments(user.getFirstName());
-      }
-      else {
-          allAppointments = service.listAll();
-      }
-    }
-
 }
