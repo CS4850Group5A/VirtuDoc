@@ -21,6 +21,7 @@ public abstract class IBlockStorageService {
     protected Logger logger;
 
     abstract String PutFile(MultipartFile uploadedFile) throws Exception;
+    abstract String PutFile(InputStream stream) throws Exception;
     abstract InputStream GetFile(String fileName) throws Exception;
     abstract void DeleteFile(String fileName) throws Exception;
     abstract Integer CountObjects();
