@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+
 @Controller
 public class UserAccountController {
 
@@ -34,6 +35,28 @@ public class UserAccountController {
         return "register";
     }
 
+    @GetMapping("/HIPAA_consent")
+    String consent() {
+        return "HIPAA_consent.html";
+    }
+
+    @GetMapping("/checkEmail")
+    String check()
+    {
+        return "checkEmail";
+    }
+
+    @GetMapping("/forgotMyPassword")
+    String forgot(){ return "forgotMyPassword"; }
+
+    @GetMapping("/resetEmail")
+    String resetEmail(){
+        return "resetEmail.html";
+    }
+
+    @GetMapping("/newPassword")
+    String newPassword() { return "newPassword"; }
+
     @PostMapping("/register")
     public String registerUser(@ModelAttribute NewUserDTO userDTO, Errors errors) {
         try {
@@ -49,8 +72,40 @@ public class UserAccountController {
             // also potentially delete the un-verified account.
             return "redirect:/register";
         }
-        return "redirect:/login"; // TODO: change to "check your emails" page
+        return "redirect:/checkEmail";
     }
 
+
+    @PostMapping("/welcome")
+    public String emailVerify()
+    {
+        return "redirect:/HIPPA_consent.html";
+    }
+
+    @PostMapping("/HIPAA_consent")
+    public String submitConsent()
+    {
+        return "redirect:/login.html";
+    }
+
+/*
+    @PostMapping("/newPassword")
+    public String confirmNewPassword(@ModelAttribute NewUserDTO userDTO, Errors errors) {
+
+        try {
+
+        } catch (Exception e) {
+            return "redirect:/forgotPassword";
+        }
+        EmailDTO newUserEmail = new EmailDTO(userDTO.getEmail(), "Reset Password", "/mail/resetEmail.html");
+        try {
+            mailService.SendEmail(newUserEmail);
+        } catch (Exception e) {
+            // TODO: merge in with the main branch and log an exception here using SLF4J that an error occured with the email service.
+            return "redirect:/forgotPassword";
+        }
+        return "redirect:/login";
+    }
+*/
 
 }

@@ -7,7 +7,6 @@
   flex-flow: row wrap;
   font-weight: bold;
   text-align: center;
-  min-width: 800px;
 }
 
 .wrapper > * {
@@ -24,7 +23,6 @@ margin-right: auto;
 .main {
   text-align: left;
   background: #f6f6f6;
-  min-width: 800px;
 }
 
 .left {
@@ -32,24 +30,26 @@ margin-right: auto;
 }
 
 #topVids {
-    width: 800px;
     height: auto;
     margin: 0 auto;
 }
 #home1 {
     width: 47.5%;
-    height: 300px;
     float: left;
     margin-right: 5%;
 }
 
 #home2 {
     width: 47.5%;
-    height: 300px;
     float: left;
 }
 
-#btn1 {
+video {
+  width: 100%;
+  height: auto;
+}
+
+#btn1, #btn2 {
 margin: 1px;
 width: 300px;
 height: 40px;
@@ -60,46 +60,56 @@ height: 40px;
 }
 @media all and (min-width: 800px) {
   .main    { flex: 3 0px; }
-  .left { order: 1; }
+  .left    { order: 1; }
   .main    { order: 2; }
 }
 </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <title>Video</title>
 <body>
 
-<div class="wrapper">
 
 
   <div th:replace="/fragments/navbar :: navbar">
 
   </div>
 
+  <div class="wrapper">
+    <div class="box">
+      <button id="startButton">Start</button>
+      <button id="callButton">Call</button>
+
+      <button id="videoButton">Video</button>
+      <button id="audioButton">Audio</button>
+    </div>
 
   <div class="main">
     <div id="topVids">
-      <video id="home1" width="500" height="400" poster="/img/placeholder.png" autoplay>
+      <video id="home1" poster="/img/placeholder.png" autoplay>
         <source type="video/mp4"  />
       </video>
-      <video id="home2" width="400" height="300" poster="/img/placeholder.png" autoplay>
+      <video id="home2" poster="/img/placeholder.png" autoplay>
         <source type="video/mp4" />
       </video>
 
       <div class="vid3">
         <center>
-          <video controls style="width: 80vh; height: 40vh; id=Video">
-            <source src="somefile.mp4" type="video/mp4">
-          </video>
+          <iframe id="btnVid" width="100%" height="300" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </center>
       </div>
     </div>
   </div>
 
   <aside class="aside left">
-    <button id="btn1" onclick="" type="button">Play Video one</button><br>
+    <button id="Add" type="button">Add Video</button><br>
+    <button id="btn1" type="button">Play Video one</button><br>
+    <button id="btn2" type="button">Play Video two</button><br>
   </aside>
 </div>
+  <script src="js/webcam.js"></script>
 </body>
 </html>
+

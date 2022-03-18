@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body{
+            height: 100%;
+            display:grid;
+            justify-content: center;
+            align-items: center;
+            padding: 10px 10px 50px;
+            background: white;
+        }
+
+        .logo{
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .container{
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px #fcc629;
+        }
+
+        .buttons:hover{
+            background: #ffc629;
+        }
+
+        .buttons{
+            height: 45px;
+            width: 49%;
+            background-color: #a7a7a7;
+            border-radius: 5px;
+            border: none;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+        .welcome{
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px #fcc629;
+        }
+        .verify{
+            text-align: center;
+        }
+        .mail_img{
+            max-height: 8%;
+            max-width: 8%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+        }
+    </style>
+</head>
+
+<body>
+<img class="logo" email:relink="${'/img/logo.png'}" alt="logo"><br>
+<div class="welcome">
+    <div class="verify">
+        <form action="#"  class="Signature">
+            <p> Hello! <br> You are receiving this e-mail because there was a request to change your password. </p>
+            <p> Click the link below to reset your password.</p>
+            <a email:relink="${'/newPassword'}">Reset Password</a>
+        </form>
+    </div>
+</div>
+<br><br><br>
+<div class="container">
+    <div>
+        <img class ="mail_img" email:relink="${'/img/mail_sent.png'}">
+        <p>You received this email because we received a request for password reset.
+            If you didn't request password reset you can safely delete this email.
+        </p><br>
+    </div>
+</div>
+</body>
+</html>

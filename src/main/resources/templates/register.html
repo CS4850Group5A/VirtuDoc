@@ -151,12 +151,28 @@
                 width: 100%;
             }
         }
-    </style>
-    <script type="text/javascript">
-        function showMessage() {
-            alert("Please check your email to verify your account. ");
+        @media all and (max-width: 414px)  {
+
+            .container{
+                max-width: 100%;
+            }
+
+            form .category::after{
+                display: compact;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: auto;
+                content: normal;
+                white-space: pre;
+            }
+
+            form .user_details .input_box{
+                width: 100%;
+            }
+
         }
-    </script>
+    </style>
+
 </head>
 
 <body>
@@ -164,7 +180,7 @@
     <img class="logo" src="/static/img/logo.png" alt="logo">
     <br>
     <div class="container">
-        <div class="title">Create New Account</div>
+        <div class="title">Create New Account</div><br>
         <div class="content">
             <form th:object="${user}" th:action="@{/register}" method="post">
                 <div class="status_details">
@@ -225,7 +241,7 @@
                     </div>
                 </div>
                 <div class="button_1">
-                    <input type="submit"  value="Create Account" onclick="showMessage()">
+                    <input type="submit"  value="Create Account">
                 </div>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>

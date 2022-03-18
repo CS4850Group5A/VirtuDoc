@@ -205,19 +205,16 @@ body {
 }
 
 </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <title>Message</title>
 <body>
+<div th:insert="fragments/navbar :: navbar">
+</div>
+
 <div class="wrapper">
-  <div class="header">
-
-
-    <div th:replace="/fragments/navbar :: navbar">
-
-
-    </div>
 
 
   <div class="main">
@@ -265,7 +262,7 @@ body {
     </div>
   </div>
 
-  <div class="aside left">
+  <aside class="aside left">
     <div class="list-wrapper">
       <div class="people-list" id="people-list">
         <ul id="usersList" class="list"><a href="#" onclick="selectUser('John')"><li class="clearfix">
@@ -285,7 +282,7 @@ body {
         </li></a></ul>
       </div>
     </div>
-  </div>
+  </aside>
 </div>
 </body>
 </html>
