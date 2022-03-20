@@ -117,7 +117,7 @@
 
     <div>
         <label for="symptoms">Symptoms</label>
-        <select id="symptoms" name="symptoms" th:field="*{symptoms}">
+        <select id="symptoms" name="symptoms" th:field="*{symptoms}" required>
             <option hidden selected value="-- Select Symptoms --"> -- Select Symptoms -- </option>
             <option value="Covid-19 Symptoms">Covid-19</option>
             <option value="Stomach Aches/Diarrhea/Chils">Stomach Aches/Diarrhea/Chills</option>

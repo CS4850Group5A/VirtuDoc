@@ -39,6 +39,8 @@ public class appointmentController {
 	//@RequestMapping(value = "/", method = RequestMethod.GET)
 	@GetMapping("/show")
 	public String getAppointment(Model model) {
+		Appointment appointment = new Appointment();
+
 		List<Appointment> apts = appointmentService.getAppointment();
 		model.addAttribute("appointments", apts);
 		model.addAttribute("appointment", new Appointment());
@@ -47,51 +49,15 @@ public class appointmentController {
 
 	//@RequestMapping(value = "/", method = RequestMethod.POST)
 	@PostMapping("/new")
-	public String createAppointment(Model model, @ModelAttribute Appointment appointment) throws Exception {
+	public String createAppointment(@ModelAttribute("appointment") Appointment appointment) throws Exception {
 		Appointment apt = appointmentService.createAppointment(appointment);
+
 		Map<String, Object> pdfModel = new HashMap<>();
 		pdfModel.put("appointment", apt);
-		ByteArrayOutputStream outputStream = (ByteArrayOutputStream)pdfGeneratorService.generatePDF(pdfModel, "test/pdftest.html");
+		ByteArrayOutputStream outputStream = (ByteArrayOutputStream)pdfGeneratorService.generatePDF(pdfModel, "pdfTest/pdfTestHTML.html");
 		InputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
 		fileService.CreateFile(inputStream);
 		return "redirect:/appointment/show";
 	}
 }
 
-/*
-public class appointmentController {
-	private final AppointmentService service;
-	public appointmentController(AppointmentService service) {
-		this.service = service;
-	}
-
-	@GetMapping("/new")
-	public String submit(Model model) {
-
-		model.addAttribute("appointment", new CreateAppointmentFormData());
-
-		List<String> listSymptoms = Arrays.asList("-- Select Symptoms --", "Covid-19", "Stomach Aches/Diarrhea/Chills",
-				"Backpain/Jointpain");
-		model.addAttribute("listSymptoms", listSymptoms);
-
-		List<String> listLocation = Arrays.asList( "-- Select Loation --", "Marietta", "Kennesaw",
-				"Buckhead");
-		model.addAttribute("listLocation", listLocation);
-
-
-		List<String> listDoctor = Arrays.asList( "-- Select Doctor --","John Smith", "Peggy Sue",
-				"Jane Doe");
-		model.addAttribute("listDoctor", listDoctor);
-
-
-
-		return "/appointment";
-	}
-
-	@PostMapping("/appointment")
-	public String submitForm(@ModelAttribute("appointment") Appointment appointment) {
-
-		return "/AppointmentCreation";
-		}
-	}
- */
