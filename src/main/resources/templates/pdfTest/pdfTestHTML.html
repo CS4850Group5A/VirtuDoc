@@ -16,6 +16,7 @@
         padding-top: 150px;
         padding-bottom: 150px;
     }
+
     span {
 
         text-align: center;
@@ -30,10 +31,7 @@
 
 <body>
 
-<div th:insert="fragments/navbar :: navbar">
 
-</div>
-  
 <div>
     <h2 style="padding: 50px; border: 5px white; text-align: center">
         Here is your appointment details. Keep this for your records.
@@ -43,14 +41,22 @@
 
 <div class="container">
 
-    <span th:text="'Patient Name: ' + ${appointment.patientName}"></span><br/>
-    <span th:text="'Email: ' + ${appointment.email}"></span><br/>
-    <span th:text="'Symptoms: ' + ${appointment.symptoms}"></span><br/>
-    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br/>
-    <span th:text="'Location: ' + ${appointment.location}"></span><br/>
-    <span th:text="'Date: ' + ${appointment.date}"></span><br/>
-    <span th:text="'Time: ' + ${appointment.time}"></span><br/>
-    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br/>
+    <span th:text="'Patient Name: ' + ${appointment.patientName}"></span><br>
+    <br>
+    <span th:text="'Email: ' + ${appointment.email}"></span><br>
+    <br>
+    <span th:text="'Symptoms: ' + ${appointment.symptoms}"></span><br>
+    <br>
+    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br>
+    <br>
+    <span th:text="'Location: ' + ${appointment.location}"></span><br>
+    <br>
+    <span th:text="'Date: ' + ${appointment.date}"></span><br>
+    <br>
+    <span th:text="'Time: ' + ${appointment.time}"></span><br>
+    <br>
+    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br>
+    <br>
 
 
 </div>

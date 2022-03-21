@@ -30,11 +30,19 @@ server:
 logging:
   level:
     root: DEBUG
+file:
+  bucket: "placeholder"
+  endpoint: "https://s3.amazonaws.com"
 cloud:
   aws:
+    credentials:
+      access-key: "AKIAXXXXXXXXXXXXXXXXXXXXXXXX"
+      secret-key: "XXXXXXXXXXXXXXXXX"
     region:
       static: us-east-1
       auto: false
+    s3:
+      endpoint: "https://localhost:4000"
     stack:
       auto: false
 devtools:
