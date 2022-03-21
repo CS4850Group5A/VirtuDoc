@@ -97,8 +97,8 @@ public class UserAccount {
         this.lastName = userDTO.getLastName();
         this.gender = userDTO.getGender();
         this.birthDate = userDTO.getBirthDate();
-        this.isVerified = userDTO.isVerified();
-        this.isDeactivated = userDTO.isDeactivated();
+        this.isVerified = true;
+        this.isDeactivated = false;
     }
 
     public String getUsername() {
