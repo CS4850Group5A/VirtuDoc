@@ -177,6 +177,7 @@ public class FileService {
      * FileRepository.delete().
      * @param file File to delete.
      */
+    @throws Exception exception
     public void DeleteFile(FileEntity file) throws Exception {
         if (file.getOwner() != null) {
             throw new FileAccessNotPermitted(file.getFilePath(), "PUBLIC");
