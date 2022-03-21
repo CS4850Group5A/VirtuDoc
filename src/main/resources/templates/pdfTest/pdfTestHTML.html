@@ -16,6 +16,7 @@
         padding-top: 150px;
         padding-bottom: 150px;
     }
+
     span {
 
         text-align: center;
@@ -29,24 +30,7 @@
 
 
 <body>
-<nav class="navbar navbar-expand-lg bg-warning navbar-dark py-1">
-    <div class="container-fluid">
-        <div class="col-md-1 text-center d-none d-md-block">
-            <img class="img-fluid" src="/img/doctors_symbol.png" />
-        </div>
-        <h1 ><a href="/templates/patient_records.html" class="navbar-brand">Virtudoc</a></h1>
-        <ul class="navbar-nav ms-auto">
-            <li>
-                <!-- Add navbar buttons here -->
-                <a href="/templates/appointment.html" class="btn btn-info btn-outline-dark bg-light">Appointment</a>
-                <a href="/templates/admin_records.html" class="btn btn-info btn-outline-dark bg-light">Records</a>
-                <a href="/templates/video.html" class="btn btn-info btn-outline-dark bg-light">Video</a>
-                <a href="/templates/message.html" class="btn btn-info btn-outline-dark bg-light">Message</a>
-                <a href="/templates/patient_records.html" class="btn btn-info btn-outline-dark bg-light">Home</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+
 
 <div>
     <h2 style="padding: 50px; border: 5px white; text-align: center">
@@ -57,14 +41,22 @@
 
 <div class="container">
 
-    <span th:text="'Patient Name: ' + ${appointment.patientName}"></span><br/>
-    <span th:text="'Email: ' + ${appointment.email}"></span><br/>
-    <span th:text="'Symptoms: ' + ${appointment.symptoms}"></span><br/>
-    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br/>
-    <span th:text="'Location: ' + ${appointment.location}"></span><br/>
-    <span th:text="'Date: ' + ${appointment.date}"></span><br/>
-    <span th:text="'Time: ' + ${appointment.time}"></span><br/>
-    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br/>
+    <span th:text="'Patient Name: ' + ${appointment.patientName}"></span><br>
+    <br>
+    <span th:text="'Email: ' + ${appointment.email}"></span><br>
+    <br>
+    <span th:text="'Symptoms: ' + ${appointment.symptoms}"></span><br>
+    <br>
+    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br>
+    <br>
+    <span th:text="'Location: ' + ${appointment.location}"></span><br>
+    <br>
+    <span th:text="'Date: ' + ${appointment.date}"></span><br>
+    <br>
+    <span th:text="'Time: ' + ${appointment.time}"></span><br>
+    <br>
+    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br>
+    <br>
 
 
 </div>
