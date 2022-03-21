@@ -77,8 +77,9 @@ public class AuthenticationService implements UserDetailsService {
     /**
      * Updates a UserAccount with a new password. Performs password hashing before saving.
      * @param user Existing UserAccount object with new password stored in password field.
+     * @throws Exception exception
      */
-    @throws Exception exception
+    
     public void SetNewUserPassword(UserAccount user) throws Exception {
         validateUserAccount(user);
 
