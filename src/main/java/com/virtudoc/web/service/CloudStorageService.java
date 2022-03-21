@@ -62,7 +62,7 @@ public class CloudStorageService extends IBlockStorageService {
     /**
      * Uploads a file to an S3-compatible datastore, and creates a corresponding
      * FileEntity entry in the database.
-     
+     *
      * @return Corresponding FileEntity entry in the database.
      * @throws Exception Error saving the temporary file or uploading to the cloud provider.
      */
