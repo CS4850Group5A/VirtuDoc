@@ -37,8 +37,9 @@ public class MailService {
      * Sends an email, using information from the given EmailDTO object. Automatically performs validation.
      * @param email Data Transfer Object with information needed to construct email message.
      * @see EmailDTO
+     * @throws Exception exception
      */
-    @throws Exception exception
+    
     public void SendEmail(final EmailDTO email) throws Exception {
         validateEmailDTO(email);
         emailSender.send(convertEmailDTO(email));
