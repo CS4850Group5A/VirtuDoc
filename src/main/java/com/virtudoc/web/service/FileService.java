@@ -176,8 +176,8 @@ public class FileService {
      * Deletes a file entry, and the corresponding file data from block storage. Use this method instead of
      * FileRepository.delete().
      * @param file File to delete.
+     * @throws Exception exception
      */
-    @throws Exception exception
     public void DeleteFile(FileEntity file) throws Exception {
         if (file.getOwner() != null) {
             throw new FileAccessNotPermitted(file.getFilePath(), "PUBLIC");
