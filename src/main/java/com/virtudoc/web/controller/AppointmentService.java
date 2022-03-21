@@ -14,17 +14,17 @@ public class AppointmentService {
 
     //List all appointments - for admins
     public List<Appointment> listAll() {
-        return (List<Appointment>) repo.findAll();
+        return repo.findAll();
     }
 
-    //List customer appointments, performs query using current user's name
+   // List customer appointments, performs query using current user's name
     public List<Appointment> listCustomerAppointments(String patientName) {
-        return (List<Appointment>) repo.listCustomerAppointments(patientName);
+        return repo.listCustomerAppointments(patientName);
     }
 
     //List doctor appointments, performs query using current user's name
     public List<Appointment> listDoctorAppointments(String doctorName) {
-        return (List<Appointment>) repo.listDoctorAppointments(doctorName);
+        return repo.listDoctorAppointments(doctorName);
     }
 
     public void delete(Integer id) {

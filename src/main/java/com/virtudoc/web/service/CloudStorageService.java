@@ -60,6 +60,32 @@ public class CloudStorageService extends IBlockStorageService {
     }
 
     /**
+     * Uploads a file to an S3-compatible datastore, and creates a corresponding
+     * FileEntity entry in the database.
+     *
+     * @return Corresponding FileEntity entry in the database.
+     * @throws Exception Error saving the temporary file or uploading to the cloud provider.
+     */
+    @Override
+    public String PutFile(InputStream stream) throws Exception {
+        String fileName = generateFileName();
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentLength(stream.available());
+        PutObjectRequest request = new PutObjectRequest(cloudFileBucket, fileName, stream, metadata);
+        try {
+            if (!amazonS3Client.doesBucketExistV2(cloudFileBucket)) {
+                amazonS3Client.createBucket(cloudFileBucket);
+            }
+            amazonS3Client.putObject(request);
+        } catch (Exception e) {
+            logger.error("error occurred when communicating with S3", e);
+            // Throwing a blanket exception to prevent internal infrastructure URIs from leaking in a fatal crash.
+            throw new Exception("error communicating with cloud block storage provider");
+        }
+        return fileName;
+    }
+
+    /**
      * Gets a MIME stream of the decrypted contents of a file from the underlying S3-backed datastore.
      * @param fileName Saved file to retrieve.
      * @return MIME stream to read file contents from.

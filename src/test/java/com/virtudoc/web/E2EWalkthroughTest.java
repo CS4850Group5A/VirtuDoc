@@ -45,7 +45,7 @@ public class E2EWalkthroughTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "", "/login", "/notifications" })
+    @ValueSource(strings = { "", "/login", "/notifications", "/appointment/show" })
     public void screenshotPublicPages(String uri) throws IOException {
         driver.get("http://localhost:" + port + uri);
         driver.manage().timeouts().implicitlyWait(1000, TimeUnit.MILLISECONDS);
