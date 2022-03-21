@@ -32,8 +32,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // By default, all requests must have authorization.
                 .authorizeRequests()
                 // The following endpoints do not require authentication.
+
                 .antMatchers("/", "/img/**", "/*.png", "/js/**","/*.ico", "/site.webmanifest", "/forgotMyPassword","/newPassword","/resetEmail",
                         "/login", "/register", "/HIPAA_consent", "/checkEmail", "/notifications", "/debug/health","/message","/video", "/appointment",
+
                         "/admin_records","/notifications/delete/{pathvariable:[0-9A-Za-z]+}")
                 .permitAll()
                 .anyRequest()

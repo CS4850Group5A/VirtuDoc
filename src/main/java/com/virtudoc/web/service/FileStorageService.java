@@ -24,6 +24,14 @@ public class FileStorageService extends IBlockStorageService {
     }
 
     @Override
+    public String PutFile(InputStream stream) throws Exception {
+        String fileName = generateFileName();
+        File destinationFile = new File("tmpfs/" + fileName);
+        Files.copy(stream, destinationFile.toPath());
+        return fileName;
+    }
+
+    @Override
     public InputStream GetFile(String fileName) throws Exception {
         return new FileInputStream("tmpfs/" + fileName);
     }

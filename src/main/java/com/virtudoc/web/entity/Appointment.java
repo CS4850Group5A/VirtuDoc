@@ -37,7 +37,28 @@ public class Appointment {
     @Column(nullable = false)
     private String reasonForVisit;
 
-    public Appointment() {
+    public Appointment(){
+
+    }
+
+    public Appointment(
+            String patientName,
+            String doctorName,
+            String email,
+            String location,
+            String symptoms,
+            String date,
+            String time,
+            String reasonForVisit
+    ){
+        this.patientName = patientName;
+        this.doctorName = doctorName;
+        this.email = email;
+        this.location = location;
+        this.date = date;
+        this.time = time;
+        this.symptoms = symptoms;
+        this.reasonForVisit = reasonForVisit;
     }
 
     public Long getAppointmentId() {
@@ -118,6 +139,8 @@ public class Appointment {
                 ", reasonForVisit='" + reasonForVisit + '\'' +
                 '}';
     }
+
+
 
 }
 

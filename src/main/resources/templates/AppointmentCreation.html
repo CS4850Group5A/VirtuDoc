@@ -43,14 +43,14 @@
 
 <div class="container">
 
-    <span>Full name:</span><span th:text="${appointment.patientName}"></span><br/>
-    <span>Email:</span><span th:text="${appointment.email}"></span><br/>
-    <span>Symptoms:</span><span th:text="${appointment.symptoms}"></span><br/>
-    <span>Doctor:</span><span th:text="${appointment.doctorName}"></span><br/>
-    <span>Location:</span><span th:text="${appointment.location}"></span><br/>
-    <span>Appointment Date:</span><span th:text="${appointment.date}"></span><br/>
-    <span>Appointment Time:</span><span th:text="${appointment.time}"></span><br/>
-    <span>Reason for Visit:</span><span th:text="${appointment.reasonForVisit}"></span><br/>
+    <span th:text="'Patient Name: ' + ${appointment.patientName}"></span><br/>
+    <span th:text="'Email: ' + ${appointment.email}"></span><br/>
+    <span th:text="'Symptoms: ' + ${appointment.symptoms}"></span><br/>
+    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br/>
+    <span th:text="'Location: ' + ${appointment.location}"></span><br/>
+    <span th:text="'Date: ' + ${appointment.date}"></span><br/>
+    <span th:text="'Time: ' + ${appointment.time}"></span><br/>
+    <span th:text="'Doctor Name: ' + ${appointment.doctorName}"></span><br/>
 
 
 </div>
