@@ -38,6 +38,7 @@ public class MailService {
      * @param email Data Transfer Object with information needed to construct email message.
      * @see EmailDTO
      */
+    @throws Exception exception
     public void SendEmail(final EmailDTO email) throws Exception {
         validateEmailDTO(email);
         emailSender.send(convertEmailDTO(email));
