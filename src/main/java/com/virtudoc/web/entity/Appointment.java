@@ -9,7 +9,7 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long appointmentId;
+    private int appointmentId;
 
     //Foreign Key, links appointments table to parent user table
     @Column(nullable = false)
@@ -37,6 +37,9 @@ public class Appointment {
     @Column(nullable = false)
     private String reasonForVisit;
 
+    @Column(nullable = false)
+    private boolean approved;
+
     public Appointment(){
 
     }
@@ -49,7 +52,8 @@ public class Appointment {
             String symptoms,
             String date,
             String time,
-            String reasonForVisit
+            String reasonForVisit,
+            boolean approved
     ){
         this.patientName = patientName;
         this.doctorName = doctorName;
@@ -59,9 +63,10 @@ public class Appointment {
         this.time = time;
         this.symptoms = symptoms;
         this.reasonForVisit = reasonForVisit;
+        this.approved = approved;
     }
 
-    public Long getAppointmentId() {
+    public int getAppointmentId() {
         return appointmentId;
     }
 
@@ -123,6 +128,14 @@ public class Appointment {
 
     public void setReasonForVisit(String reasonForVisit) {
         this.reasonForVisit = reasonForVisit;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     @Override
