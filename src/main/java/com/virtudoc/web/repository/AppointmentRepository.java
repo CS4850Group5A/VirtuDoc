@@ -12,10 +12,13 @@ import java.util.List;
 public interface AppointmentRepository extends CrudRepository<Appointment, Integer> {
     List<Appointment> findAll();
 
-    @Query(value = "select * from appointments where patient_name = :patientName", nativeQuery = true)
+    @Query(value = "select * from appointments where patient_name = :patientName and approved = true order by date", nativeQuery = true)
     List<Appointment> listCustomerAppointments(@Param("patientName") String patientName);
 
-    @Query(value = "select * from appointments where doctor_name = :doctorName", nativeQuery = true)
+    @Query(value = "select * from appointments where doctor_name = :doctorName and approved = true order by date", nativeQuery = true)
     List<Appointment> listDoctorAppointments(@Param("doctorName") String doctorName);
+
+    @Query(value = "select * from appointments where approved = false", nativeQuery = true)
+    List<Appointment> listAdminAppointments();
 
 }

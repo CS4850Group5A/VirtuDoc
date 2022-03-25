@@ -27,7 +27,12 @@ public class AppointmentService {
         return repo.listDoctorAppointments(doctorName);
     }
 
-    public void delete(Integer id) {
+    //List admin appointments, performs query where approved = false
+    public List<Appointment> listAdminAppointments() {
+        return repo.listAdminAppointments();
+    }
+
+    public void delete(int id) {
         repo.deleteById(id);
     }
 
