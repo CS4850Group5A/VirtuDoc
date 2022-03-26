@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -58,19 +59,21 @@ public class CurrentAppointmentsController {
         List<Appointment> allAppointments;
 
         //Logged in user's role - either patient/doctor/admin
-        String role = "patient";
+        String role = "admin";
 
         //Logged in user's name, used to query appointments
         String name = "Jane Smith";
 
-        if (role.equals("patient")) {
-            allAppointments = service.listCustomerAppointments(name);
+        Date currDate = new Date();
+
+        if (role.equalsIgnoreCase("patient")) {
+            allAppointments = service.listCustomerAppointments(name, currDate);
         }
-        else if (role.equals("doctor")) {
-            allAppointments = service.listDoctorAppointments(name);
+        else if (role.equalsIgnoreCase("doctor")) {
+            allAppointments = service.listDoctorAppointments(name, currDate);
         }
         else {
-            allAppointments = service.listAdminAppointments();
+            allAppointments = service.listAdminAppointments(currDate);
         }
         model.addAttribute("role", role);
         model.addAttribute("name", name);
@@ -87,10 +90,9 @@ public class CurrentAppointmentsController {
     }
 
     //Approve by id
-    //Unfinished
     @GetMapping("/notifications/approve/{id}")
     public String approveAppointment(@PathVariable("id") int id, Model model, RedirectAttributes ra) {
-        service.delete(id);
+        service.approve(id);
         return "redirect:/notifications";
     }
 }

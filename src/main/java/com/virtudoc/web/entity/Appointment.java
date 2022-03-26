@@ -1,6 +1,7 @@
 package com.virtudoc.web.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "appointments")
@@ -26,13 +27,9 @@ public class Appointment {
 
     @Column(nullable = false)
     private String location;
-    //    todo: convert to Date object
 
     @Column(nullable = false)
-    private String date;
-
-    @Column(nullable = false) //Added time var
-    private String time;
+    private Date date;
 
     @Column(nullable = false)
     private String reasonForVisit;
@@ -50,8 +47,7 @@ public class Appointment {
             String email,
             String location,
             String symptoms,
-            String date,
-            String time,
+            Date date,
             String reasonForVisit,
             boolean approved
     ){
@@ -60,7 +56,6 @@ public class Appointment {
         this.email = email;
         this.location = location;
         this.date = date;
-        this.time = time;
         this.symptoms = symptoms;
         this.reasonForVisit = reasonForVisit;
         this.approved = approved;
@@ -110,17 +105,13 @@ public class Appointment {
         this.location = location;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
-
-    public String getTime() { return time; }
-
-    public void setTime(String time) { this.time=time; }
 
     public String getReasonForVisit() {
         return reasonForVisit;
@@ -148,13 +139,7 @@ public class Appointment {
                 ", doctorName='" + doctorName + '\'' +
                 ", location='" + location + '\'' +
                 ", date='" + date + '\'' +
-                ", time='" + time + '\'' +
                 ", reasonForVisit='" + reasonForVisit + '\'' +
                 '}';
     }
-
-
-
 }
-
-
