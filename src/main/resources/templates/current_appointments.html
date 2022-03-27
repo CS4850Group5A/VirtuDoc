@@ -26,18 +26,19 @@
                     <div class="row">
                         <div class="col-sm">
                             <p th:text="'Patient Name: ' + ${appointment.patientName}" />
-                            <p th:text="'Date: ' + ${appointment.date}" />
+                            <p th:text="'Date: ' + ${#dates.monthName(appointment.date)} + ' ' + ${#dates.day(appointment.date)}" />
                             <p th:text="'Location: ' + ${appointment.location}" />
                         </div>
                         <div class="col-sm">
                             <p th:text="'Doctor: ' + ${appointment.doctorName}" />
-                            <p th:text="'Time: ' + ${appointment.time}" />
+                            <p th:text="'Time: ' + ${#dates.hour(appointment.date)} + ':' + ${#dates.minute(appointment.date)}"/>
                             <p th:text="'Symptoms: ' + ${appointment.symptoms}" />
                         </div>
                         <p th:text="'Reason for Visit: ' + ${appointment.reasonForVisit}" />
                     </div>
+                    <a th:href="@{'/notifications/approve/' + ${appointment.appointmentId}}" th:if="${role == 'admin'}" class="btn btn-success">Approve</a>
+                    <a th:if="${role != 'admin'}" href="/video" class="btn btn-secondary">Join Virtual Call</a>
                     <a th:href="@{'/notifications/delete/' + ${appointment.appointmentId}}" class="btn btn-danger">Cancel Appointment</a>
-                    <a href="/video" class="btn btn-secondary">Join Virtual Call</a>
                 </blockquote>
             </div>
         </div>

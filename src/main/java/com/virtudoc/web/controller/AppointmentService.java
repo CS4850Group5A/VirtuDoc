@@ -5,6 +5,7 @@ import com.virtudoc.web.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,23 +19,27 @@ public class AppointmentService {
     }
 
    // List customer appointments, performs query using current user's name
-    public List<Appointment> listCustomerAppointments(String patientName) {
-        return repo.listCustomerAppointments(patientName);
+    public List<Appointment> listCustomerAppointments(String patientName, Date currDate) {
+        return repo.listCustomerAppointments(patientName, currDate);
     }
 
     //List doctor appointments, performs query using current user's name
-    public List<Appointment> listDoctorAppointments(String doctorName) {
-        return repo.listDoctorAppointments(doctorName);
+    public List<Appointment> listDoctorAppointments(String doctorName, Date currDate) {
+        return repo.listDoctorAppointments(doctorName, currDate);
     }
 
     //List admin appointments, performs query where approved = false
-    public List<Appointment> listAdminAppointments() {
-        return repo.listAdminAppointments();
+    public List<Appointment> listAdminAppointments(Date currDate) {
+        return repo.listAdminAppointments(currDate);
     }
 
     public void delete(int id) {
         repo.deleteById(id);
     }
 
-
+    public void approve(int id) {
+        Appointment apt = repo.findById(id).orElse(null);
+        apt.setApproved(true);
+        repo.save(apt);
+    }
 }
