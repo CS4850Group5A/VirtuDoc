@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,30 +26,31 @@ public class UsersChatController {
     private AuthenticationService aaa;
 
     @GetMapping("/fetchAllUsers")
-    public Set<Appointment> fetchAll() {
+    public Set<String> fetchAll() {
         //Pull appointments from DB
-        List<Appointment> allAppointments;
-        UserAccount a = aaa.GetCurrentUser(request);
+        List<Appointment> allAppointments = null;
+        Set<String> ChatList = new HashSet<String>();
 
-        if (a.getRole().equals("patient")) {
-            allAppointments = service.listCustomerAppointments(a.getUsername());
+        UserAccount a = new UserAccount("mockuser", "mockuser", "patient");
+        //UserAccount a = aaa.GetCurrentUser(request);
+
+        Date currDate = new Date();
+        if (a.getRole().equalsIgnoreCase("patient")) {
+            allAppointments = service.listCustomerAppointments(a.getUsername(), currDate);
+            for (Appointment app : allAppointments) {
+                ChatList.add(app.getDoctorName());
+            }
+            ChatList.add("Doctor Smith");
+        } else if (a.getRole().equalsIgnoreCase("doctor")) {
+            allAppointments = service.listDoctorAppointments(a.getUsername(), currDate);
+            for (Appointment app : allAppointments) {
+                ChatList.add(app.getPatientName());
+            }
         }
-        else if (a.getRole().equals("doctor")) {
-            allAppointments = service.listDoctorAppointments(a.getUsername());
+        if (ChatList.size() == 0) {
+            ChatList.add("NO APPOINTMENTS");
         }
-        else {
-            allAppointments = service.listAll();
-        }
-        Appointment apt1 = new Appointment();
-        apt1.setEmail("test@test.com");
-        apt1.setPatientName("mockuser");
-        apt1.setSymptoms("Covid");
-        apt1.setDoctorName("Doctor Smith");
-        apt1.setLocation("Kennesaw Side Building");
-        apt1.setDate("2PM Feb 3");
-        apt1.setReasonForVisit("Covid-19 Test");
-        allAppointments.add(apt1);
-        Set<Appointment> targetSet = new HashSet<>(allAppointments);
-        return targetSet;
+
+        return ChatList;
     }
 }

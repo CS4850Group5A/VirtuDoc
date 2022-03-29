@@ -31,9 +31,9 @@ function fetchAll() {
         let users = response;
         let usersTemplateHTML = "";
         for (let i = 0; i < users.length; i++) {
-            usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i].doctorName + '\')"><li class="clearfix">\n' +
+            usersTemplateHTML = usersTemplateHTML + '<a href="#" onclick="selectUser(\'' + users[i]+ '\')"><li class="clearfix">\n' +
                 '                <div class="about">\n' +
-                '                    <div id="userNameAppender_' + users[i].doctorName + '" class="name">' + users[i].doctorName + '</div>\n' +
+                '                    <div id="userNameAppender_' + users[i]+ '" class="name">' + users[i]+ '</div>\n' +
                 '                    <div class="status">\n' +
                 '                    </div>\n' +
                 '                </div>\n' +

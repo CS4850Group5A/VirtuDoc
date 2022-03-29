@@ -33,16 +33,18 @@ public class messagePageNavController {
         putin(session);
 
         //pull item for session
-        //UserAccount sess = (UserAccount) session.getAttribute("user");
-        UserAccount a = aaa.GetCurrentUser(request);
+        UserAccount sess = (UserAccount) session.getAttribute("user");
+        //UserAccount a = aaa.GetCurrentUser(request);
+
         model.addAttribute("users", Arrays.asList(
-                a
+                sess
+                //a
         ));
         return "message";
     }
 
     public void putin(HttpSession session) {
-        UserAccount a1 = new UserAccount("Julian", "123", "doctor");
+        UserAccount a1 = new UserAccount("Julian", "123", "patient");
         session.setAttribute("user", a1);
     }
 }
