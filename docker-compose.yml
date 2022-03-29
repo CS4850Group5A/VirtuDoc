@@ -38,8 +38,7 @@ services:
     image: postgres:13.5-alpine
     ports:
       - "55432:5432"
-    volumes:
-      - dbdata:/var/lib/mysql
+
     restart: unless-stopped
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]

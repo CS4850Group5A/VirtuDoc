@@ -1,6 +1,7 @@
 package com.virtudoc.web.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "appointments")
@@ -9,7 +10,7 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long appointmentId;
+    private int appointmentId;
 
     //Foreign Key, links appointments table to parent user table
     @Column(nullable = false)
@@ -26,21 +27,41 @@ public class Appointment {
 
     @Column(nullable = false)
     private String location;
-    //    todo: convert to Date object
 
     @Column(nullable = false)
-    private String date;
-
-    @Column(nullable = false) //Added time var
-    private String time;
+    private Date date;
 
     @Column(nullable = false)
     private String reasonForVisit;
 
-    public Appointment() {
+    @Column(nullable = false)
+    private boolean approved;
+
+    public Appointment(){
+
     }
 
-    public Long getAppointmentId() {
+    public Appointment(
+            String patientName,
+            String doctorName,
+            String email,
+            String location,
+            String symptoms,
+            Date date,
+            String reasonForVisit,
+            boolean approved
+    ){
+        this.patientName = patientName;
+        this.doctorName = doctorName;
+        this.email = email;
+        this.location = location;
+        this.date = date;
+        this.symptoms = symptoms;
+        this.reasonForVisit = reasonForVisit;
+        this.approved = approved;
+    }
+
+    public int getAppointmentId() {
         return appointmentId;
     }
 
@@ -84,17 +105,13 @@ public class Appointment {
         this.location = location;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
-
-    public String getTime() { return time; }
-
-    public void setTime(String time) { this.time=time; }
 
     public String getReasonForVisit() {
         return reasonForVisit;
@@ -102,6 +119,14 @@ public class Appointment {
 
     public void setReasonForVisit(String reasonForVisit) {
         this.reasonForVisit = reasonForVisit;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     @Override
@@ -114,11 +139,7 @@ public class Appointment {
                 ", doctorName='" + doctorName + '\'' +
                 ", location='" + location + '\'' +
                 ", date='" + date + '\'' +
-                ", time='" + time + '\'' +
                 ", reasonForVisit='" + reasonForVisit + '\'' +
                 '}';
     }
-
 }
-
-

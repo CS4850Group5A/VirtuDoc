@@ -95,7 +95,24 @@ public class FileService {
     }
 
     /**
-     * Gets the contents of the specified public file from the underlying ephemeral or block storage layer. For an example of
+
+     * Creates a file from a MIME stream from a user after submitting an HTML form with a file upload function. Use this
+     * method instead of FileRepository.create().
+     * @param stream File stream from another service.
+     * @return Saved FileEntity entry with file location details.
+     * @throws Exception Error with underlying ephemeral or block storage layer.
+     */
+    public FileEntity CreateFile(InputStream stream) throws Exception {
+        String filePath = blockStorageInterface.PutFile(stream);
+        FileEntity newFile = new FileEntity(filePath, blockStorageInterface.GetStorageId(), new Date());
+        fileRepository.save(newFile);
+        // TODO: This should have the actual user ID once authentication/ACL/RBA is fully implemented.
+        logger.info("AUDIT: User uploaded file {} to {} storage", filePath, blockStorageInterface.GetStorageId());
+        return newFile;
+    }
+
+    /**
+     * Gets the contents of the specified file from the underlying ephemeral or block storage layer. For an example of
      * how to use the output of this function in a controller, see this answer on StackOverflow:
      * https://stackoverflow.com/a/5673356 Don't forget to close the stream when you are done!
      * @param file File contents to retrieve.
@@ -159,6 +176,7 @@ public class FileService {
      * Deletes a file entry, and the corresponding file data from block storage. Use this method instead of
      * FileRepository.delete().
      * @param file File to delete.
+     * @throws Exception exception
      */
     public void DeleteFile(FileEntity file) throws Exception {
         if (file.getOwner() != null) {
