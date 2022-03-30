@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 
 /**
- * Temporary mitigation for zero-day RCE vulnerability in a serializer used by Spring Boot in JRE versions > 8.
+ * Temporary mitigation for zero-day RCE vulnerability in a serializer used by Spring Boot in JRE versions 9+.
  * This class must be in the same package as our controllers.
  *
  * @author ARMmaster17
