@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@CrossOrigin
 @SessionAttributes("user")
 public class UsersChatController {
     @Autowired
