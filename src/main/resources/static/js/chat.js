@@ -55,7 +55,6 @@ function connectToChat(userName) {
                 render(data.message, data.fromLogin);
             } else {
                 newMessages.set(data.fromLogin, data.message);
-                $('#userNameAppender_' + data.fromLogin).append('<span id="newMessage_' + data.fromLogin + '" style="color: red">+1</span>');
             }
         });
     });
@@ -69,10 +68,12 @@ function sendMsg(from, text) {
     }));
 }
 
-
 function selectUser(userName) {
     console.log("selecting users: " + userName);
     selectedUser = userName;
+    if(selectedUser.includes('NO APPOINTMENTS')){
+            location.href = "/appointment/show";
+            }
     let isNew = document.getElementById("newMessage_" + userName) !== null;
     if (isNew) {
         let element = document.getElementById("newMessage_" + userName);
@@ -81,6 +82,7 @@ function selectUser(userName) {
     }
     $('#selectedUserId').html('');
     $('#selectedUserId').append('Chat with ' + userName);
+    $chatHistoryList.empty();
 }
 
 function init() {
@@ -131,9 +133,14 @@ function sendMessage(message) {
         $chatHistoryList.append(template(context));
         scrollToBottom();
         $textarea.val('');
-
+        if(selectedUser.includes('Doctor Smith')){
         //the autoResponse
-        setTimeout(autoResponses, 1500);
+            setTimeout(autoResponsesDoc, 1500);
+        }
+        else if(selectedUser.includes('Patient John')){
+        //the autoResponse
+            setTimeout(autoResponsesPat, 1500);
+        }
     }
 }
 
@@ -155,10 +162,11 @@ function addMessageEnter(event) {
         addMessage();
     }
 }
-function autoResponses(){
+//auto stuff for the doc
+function autoResponsesPat(){
 var template = Handlebars.compile($("#message-response-template").html());
 var contextResponse = {
-    response: getRandomItem(messageResponses),
+    response: getItemDoc(DocMessageResponses),
     time: getCurrentTime(),
     userName: 'Doctor Smith'
     };
@@ -167,22 +175,59 @@ var contextResponse = {
     scrollToBottom();
     $textarea.val('');
 }
-const messageResponses = [
+const DocMessageResponses = [
       'Hello this is doctor smith. How can I help you?',
       'You can either e-mail them to me or upload them to in the records tab.',
       'Is there anything else?',
       'Your welcome.',
       'You too.'
     ];
-var count = 0;
-function getRandomItem(arr) {
-    if(count >= arr.length){
-        count = 0;
-        count++;
-        return arr[count-1];
+var countDoc = 0;
+function getItemDoc(arr) {
+    if(countDoc >= arr.length){
+        countDoc = 0;
+        countDoc++;
+        return arr[countDoc-1];
     }else{
-        count++;
-        return arr[count-1];
+        countDoc++;
+        return arr[countDoc-1];
+        }
+    }
+
+
+
+
+
+
+//auto stuff for patient
+function autoResponsesPat(){
+var template = Handlebars.compile($("#message-response-template").html());
+var contextResponse = {
+    response: getItemPat(PatMessageResponses),
+    time: getCurrentTime(),
+    userName: 'Patient John'
+    };
+
+    $chatHistoryList.append(template(contextResponse));
+    scrollToBottom();
+    $textarea.val('');
+}
+
+const PatMessageResponses = [
+      'Hey doc I need help',
+      'Where do I submit my documents?',
+      'ok thank you.'
+    ];
+
+var countPat = 0;
+function getItemPat(arr) {
+    if(countPat >= arr.length){
+        countPat = 0;
+        countPat++;
+        return arr[countPat-1];
+    }else{
+        countPat++;
+        return arr[countPat-1];
         }
     }
 init();

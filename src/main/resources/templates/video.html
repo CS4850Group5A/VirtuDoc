@@ -72,18 +72,18 @@ height: 40px;
 <body>
 
 
-  <div th:insert="fragments/navbar :: navbar">
+<div th:insert="fragments/navbar :: navbar">
 
+</div>
+
+<div class="wrapper">
+  <div class="box">
+    <button id="startButton">Start</button>
+    <button id="callButton">Call</button>
+
+    <button id="videoButton">Video</button>
+    <button id="audioButton">Audio</button>
   </div>
-
-  <div class="wrapper">
-    <div class="box">
-      <button id="startButton">Start</button>
-      <button id="callButton">Call</button>
-
-      <button id="videoButton">Video</button>
-      <button id="audioButton">Audio</button>
-    </div>
 
   <div class="main">
     <div id="topVids">
@@ -104,11 +104,12 @@ height: 40px;
 
   <aside class="aside left">
     <button id="Add" type="button">Add Video</button><br>
-    <button id="btn1" type="button">Play Video one</button><br>
-    <button id="btn2" type="button">Play Video two</button><br>
+    <button id="btn1" type="button">Play Video 1</button><br>
+    <button id="btn2" type="button">Play Video 2</button><br>
+    <div id='something'></div>
   </aside>
 </div>
-  <script src="js/webcam.js"></script>
+<script src="js/webcam.js"></script>
 </body>
 </html>
 
