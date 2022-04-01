@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -19,7 +20,7 @@ public class CurrentAppointmentsController {
 
     @GetMapping("/notifications")
     String getNotifications(Model model) {
-        //Manually add 3 appointments
+//        //Manually add 3 appointments
 //        Appointment apt1 = new Appointment();
 //        apt1.setEmail("test@test.com");
 //        apt1.setPatientName("John Smith");
@@ -27,6 +28,7 @@ public class CurrentAppointmentsController {
 //        apt1.setDoctorName("Dr. Mary Jane");
 //        apt1.setLocation("Kennesaw Side Building");
 //        apt1.setDate("2PM Feb 3");
+//        apt1.setTime("test");
 //        apt1.setReasonForVisit("Covid-19 Test");
 //
 //        Appointment apt2 = new Appointment();
@@ -36,6 +38,7 @@ public class CurrentAppointmentsController {
 //        apt2.setDoctorName("Dr. Phil Johnson");
 //        apt2.setLocation("Kennesaw Main Building");
 //        apt2.setDate("3PM Feb 4");
+//        apt2.setTime("test");
 //        apt2.setReasonForVisit("Covid-19 Test");
 //
 //        Appointment apt3 = new Appointment();
@@ -45,6 +48,7 @@ public class CurrentAppointmentsController {
 //        apt3.setDoctorName("Dr. Mary Jane");
 //        apt3.setLocation("Marietta Main Building");
 //        apt3.setDate("1PM Feb 7");
+//        apt3.setTime("test");
 //        apt3.setReasonForVisit("Annual Exam");
 //
 //        model.addAttribute("appointments", Arrays.asList(
@@ -55,21 +59,24 @@ public class CurrentAppointmentsController {
         List<Appointment> allAppointments;
 
         //Logged in user's role - either patient/doctor/admin
-        String role = "doctor";
+        String role = "admin";
 
         //Logged in user's name, used to query appointments
-        String name = "doctor1";
+        String name = "Jane Smith";
 
-        if (role.equals("patient")) {
-            allAppointments = service.listCustomerAppointments(name);
+        Date currDate = new Date();
+
+        if (role.equalsIgnoreCase("patient")) {
+            allAppointments = service.listCustomerAppointments(name, currDate);
         }
-        else if (role.equals("doctor")) {
-            allAppointments = service.listDoctorAppointments(name);
+        else if (role.equalsIgnoreCase("doctor")) {
+            allAppointments = service.listDoctorAppointments(name, currDate);
         }
         else {
-            allAppointments = service.listAll();
+            allAppointments = service.listAdminAppointments(currDate);
         }
-
+        model.addAttribute("role", role);
+        model.addAttribute("name", name);
         model.addAttribute("appointments", allAppointments);
 
         return "current_appointments";
@@ -77,8 +84,15 @@ public class CurrentAppointmentsController {
 
     //Delete by id
     @GetMapping("/notifications/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id, Model model, RedirectAttributes ra) {
+    public String deleteUser(@PathVariable("id") int id, Model model, RedirectAttributes ra) {
         service.delete(id);
+        return "redirect:/notifications";
+    }
+
+    //Approve by id
+    @GetMapping("/notifications/approve/{id}")
+    public String approveAppointment(@PathVariable("id") int id, Model model, RedirectAttributes ra) {
+        service.approve(id);
         return "redirect:/notifications";
     }
 }
