@@ -28,6 +28,13 @@ public class UserAccountController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout(Model model, HttpServletRequest request) {
+        // Invalidate the user session and their cookies through the Spring Security framework.
+        request.getSession().invalidate();
+        // Redirect to login page.
+        return "redirect:/login?logout";
+    }
 
     @GetMapping("/register")
     String register(Model model) {
