@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>File Name</th>
+        <th>Date Uploaded</th>
+        <th>Download</th>
+    </tr>
+    <tr th:each="file: ${files}">
+        <td>
+            <p>
+                ${file.getId()}
+            </p>
+        </td>
+        <td>
+            <p>
+                ${file.getUploadDate()}
+            </p>
+        </td>
+        <td>
+            <a th:href="@{/files/${file.id}}">
+                Download
+            </a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
