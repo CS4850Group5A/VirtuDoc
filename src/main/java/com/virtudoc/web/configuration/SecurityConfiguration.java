@@ -35,8 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/", "/img/**", "/*.png", "/js/**","/*.ico", "/site.webmanifest", "/forgotMyPassword","/newPassword","/resetEmail",
                         "/login", "/register", "/HIPAA_consent", "/checkEmail", "/notifications", "/debug/health","/message","/video", "/appointment/*",
-
-                        "/admin_records","/notifications/delete/{pathvariable:[0-9A-Za-z]+}")
+                        "/chat/{to}","/message/**","/fetchAllUsers","/app/chat/**","/chat/**",
+                        "/admin_records","/notifications/delete/{pathvariable:[0-9A-Za-z]+}", "/notifications/approve/{pathvariable:[0-9A-Za-z]+}")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
