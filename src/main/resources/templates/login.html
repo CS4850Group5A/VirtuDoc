@@ -135,6 +135,12 @@
   <img class="logo" src="/img/logo.png" alt="logo">
   <br>
   <div class="container">
+    <div th:if="${error}">
+      <div class="msg">[[${error}]]</div>
+    </div>
+    <div th:if="${msg}">
+      <div class="msg">[[${msg}]]</div>
+    </div>
     <div class="title">Login</div>
     <div class="content">
       <form th:action="@{/authenticate}" method="post">
