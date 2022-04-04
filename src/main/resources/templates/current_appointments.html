@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <title>VirtuDoc</title>
+    <style>
+        table {
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
 
@@ -18,8 +24,29 @@
 
 <div class="container">
     <h3 th:text="'Welcome ' + ${name} + ' - ' + ${role} + ' view'" />
-    <h3>Upcoming Appointments:</h3>
+    <h3>Quick View</h3>
+    <table th:if="${role} == 'doctor'" class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Sunday</th>
+                <th scope="col">Monday</th>
+                <th scope="col">Tuesday</th>
+                <th scope="col">Wednesday</th>
+                <th scope="col">Thursday</th>
+                <th scope="col">Friday</th>
+                <th scope="col">Saturday</th>
+            </tr>
+        </thead>
+        <tbody th:each="row: ${schedule}">
+            <tr th:with="mycounter = ${count.incrementAndGet()}">
+                <th th:text="${mycounter}"></th>
+                <td th:each="cell : ${row}" th:classappend="${cell} ? 'bg-success' : ''"></td>
+            </tr>
+        </tbody>
 
+    </table>
+    <h3>Upcoming Appointments:</h3>
     <div th:each="appointment: ${appointments}">
         <div class="card">
             <div class="card-body">
