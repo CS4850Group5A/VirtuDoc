@@ -28,11 +28,6 @@ public class UserAccountController {
     @Autowired
     private MailService mailService;
 
-   /* @GetMapping("/login")
-    String login() {
-        return "login";
-    }*/
-
     @GetMapping("/login")
     public String login(Model model, @RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout) {
         // Check if we were redirected from POST:/login with an error.
@@ -41,7 +36,7 @@ public class UserAccountController {
         }
         // Check if we were redirected from GET:/logout.
         if (logout != null) {
-            model.addAttribute("msg", "You have been successfully logged out");
+            model.addAttribute("msg", "You have been successfully logged out!");
         }
         // Return the login.html template.
         return "login";
