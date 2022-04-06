@@ -1,5 +1,7 @@
 package com.virtudoc.web.entity;
 
+import com.virtudoc.web.dto.appointmentDTO;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -60,6 +62,17 @@ public class Appointment {
         this.reasonForVisit = reasonForVisit;
         this.approved = approved;
     }
+
+    public Appointment(appointmentDTO appointmentDTO){
+        this.patientName = appointmentDTO.getPatientName();
+        this.doctorName = appointmentDTO.getDoctorName();
+        this.email = appointmentDTO.getEmail();
+        this.location = appointmentDTO.getLocation();
+        this.date = appointmentDTO.getDate();
+        this.symptoms = appointmentDTO.getSymptoms();
+        this.reasonForVisit = appointmentDTO.getReasonForVisit();
+    }
+
 
     public int getAppointmentId() {
         return appointmentId;

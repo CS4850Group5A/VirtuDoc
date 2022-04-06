@@ -97,12 +97,7 @@ public class AuthenticationService implements UserDetailsService {
      */
     public UserAccount GetCurrentUser(HttpServletRequest request) {
         String username;
-        if (Arrays.asList(environment.getActiveProfiles()).contains("prod")) {
-            username = request.getRemoteUser();
-        } else {
-            username = "mockuser";
-        }
-
+        username = request.getRemoteUser();
         return userAccountRepository.findByUsername(username).get(0);
     }
 
