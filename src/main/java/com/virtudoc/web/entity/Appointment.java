@@ -3,6 +3,9 @@ package com.virtudoc.web.entity;
 import com.virtudoc.web.dto.appointmentDTO;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 @Entity
@@ -60,7 +63,7 @@ public class Appointment {
         this.date = date;
         this.symptoms = symptoms;
         this.reasonForVisit = reasonForVisit;
-        this.approved = approved;
+        this.approved = false;
     }
 
     public Appointment(appointmentDTO appointmentDTO){
@@ -68,9 +71,10 @@ public class Appointment {
         this.doctorName = appointmentDTO.getDoctorName();
         this.email = appointmentDTO.getEmail();
         this.location = appointmentDTO.getLocation();
-        this.date = appointmentDTO.getDate();
+        this.date = Date.from(LocalDateTime.parse(appointmentDTO.getDate()).toInstant(ZoneOffset.UTC));
         this.symptoms = appointmentDTO.getSymptoms();
         this.reasonForVisit = appointmentDTO.getReasonForVisit();
+        this.approved = false;
     }
 
 

@@ -1,5 +1,6 @@
 package com.virtudoc.web.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class appointmentDTO {
@@ -7,8 +8,7 @@ public class appointmentDTO {
     private String email;
     private String location;
     private String doctorName;
-    private Date date;
-    private String time;
+    private String date;
     private String reasonForVisit;
     private String symptoms;
 
@@ -55,11 +55,11 @@ public appointmentDTO() {
         this.location = location;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -69,13 +69,5 @@ public appointmentDTO() {
 
     public void setReasonForVisit(String reasonForVisit) {
         this.reasonForVisit = reasonForVisit;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 }
