@@ -22,7 +22,7 @@ public class UsersChatController {
     @Autowired
     private HttpServletRequest request;
     @Autowired
-    private AuthenticationService aaa;
+    private AuthenticationService authenticationService;
 
     @GetMapping("/fetchAllUsers")
     public Set<String> fetchAll() {
@@ -30,8 +30,8 @@ public class UsersChatController {
         List<Appointment> allAppointments = null;
         Set<String> ChatList = new HashSet<String>();
 
-        UserAccount a = new UserAccount("mockuser", "mockuser", "doctor");
-        //UserAccount a = aaa.GetCurrentUser(request);
+        //UserAccount a = new UserAccount("mockuser", "mockuser", "doctor");
+        UserAccount a = authenticationService.GetCurrentUser(request);
 
         Date currDate = new Date();
         if (a.getRole().equalsIgnoreCase("patient")) {
@@ -40,14 +40,14 @@ public class UsersChatController {
                 ChatList.add(app.getDoctorName());
             }
             ChatList.add("Doctor Smith");
-            ChatList.add("Not SMITH");
+            //ChatList.add("Not SMITH");
         } else if (a.getRole().equalsIgnoreCase("doctor")) {
             allAppointments = service.listDoctorAppointments(a.getUsername(), currDate);
             for (Appointment app : allAppointments) {
                 ChatList.add(app.getPatientName());
             }
             ChatList.add("Patient John");
-            ChatList.add("Not John");
+            //ChatList.add("Not John");
         }
         if (ChatList.size() == 0) {
             ChatList.add("NO APPOINTMENTS");

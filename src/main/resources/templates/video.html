@@ -33,13 +33,13 @@ margin-right: auto;
     height: auto;
     margin: 0 auto;
 }
-#home1 {
+#localVideo {
     width: 47.5%;
     float: left;
     margin-right: 5%;
 }
 
-#home2 {
+#remoteVideo {
     width: 47.5%;
     float: left;
 }
@@ -55,6 +55,10 @@ width: 300px;
 height: 40px;
 }
 
+#url, #addVid {
+  display: none;
+}
+
 @media all and (min-width: 500px) {
   .aside { flex: 1 0 0; }
 }
@@ -67,6 +71,7 @@ height: 40px;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
 </head>
 <title>Video</title>
 <body>
@@ -78,21 +83,14 @@ height: 40px;
 
 <div class="wrapper">
   <div class="box">
-    <button id="startButton">Start</button>
-    <button id="callButton">Call</button>
-
     <button id="videoButton">Video</button>
     <button id="audioButton">Audio</button>
   </div>
 
   <div class="main">
     <div id="topVids">
-      <video id="home1" poster="/img/placeholder.png" autoplay>
-        <source type="video/mp4"  />
-      </video>
-      <video id="home2" poster="/img/placeholder.png" autoplay>
-        <source type="video/mp4" />
-      </video>
+      <video id="localVideo" autoplay muted></video>
+      <video id="remoteVideo" autoplay></video>
 
       <div class="vid3">
         <center>
@@ -104,6 +102,8 @@ height: 40px;
 
   <aside class="aside left">
     <button id="Add" type="button">Add Video</button><br>
+    <input type="text" id="url" name="url">
+    <input type="submit" id="addVid" value="add">
     <button id="btn1" type="button">Play Video 1</button><br>
     <button id="btn2" type="button">Play Video 2</button><br>
     <div id='something'></div>
