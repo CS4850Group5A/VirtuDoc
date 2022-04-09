@@ -84,6 +84,66 @@ services:
       interval: 30s
       timeout: 20s
       retries: 3
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    environment:
+      - ES_JAVA_OPTS=-Xms2g -Xmx2g
+      - xpack.license.self_generated.type=basic
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=elastic
+      - xpack.security.enabled=false
+      - xpack.security.authc.api_key.enabled=false
+      - xpack.monitoring.collection.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    restart: always
+    profiles:
+      - debug
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.17.0
+    environment:
+      - ELASTICSEARCH_USERNAME=elastic
+      - ELASTICSEARCH_PASSWORD=elastic
+      - xpack.security.enabled=false
+      - xpack.ingestManager.fleet.tlsCheckDisabled=true
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+    profiles:
+      - debug
+    restart: always
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:7.17.0
+    volumes:
+      - ./dev/elk/logstash/pipeline/:/usr/share/logstash/pipeline/
+    environment:
+      - xpack.security.enabled=false
+      - xpack.monitoring.enabled=false
+    depends_on:
+      - elasticsearch
+    profiles:
+      - debug
+    restart: always
+  filebeat:
+    container_name: filebeat
+    image: docker.elastic.co/beats/filebeat:7.17.0
+    restart: always
+    command: filebeat -e --strict.perms=false
+    environment:
+      LS_JAVA_OPTS: -Xms256m -Xmx256m
+    depends_on:
+      - logstash
+      - kibana
+    volumes:
+      - logdata:/logs
+      - ./dev/elk/filebeat.yml:/usr/share/filebeat/filebeat.yml
+    profiles:
+      - debug
 volumes:
   dbdata:
   logdata:
