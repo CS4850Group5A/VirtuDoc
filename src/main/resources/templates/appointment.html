@@ -147,16 +147,9 @@
 
     <div>
         <label for="date"> Date</label>
-        <input type="date" id="date" name="date" th:field="*{date}"
-               value="Select a date"
-               min="2022-02-01" max="2023-4-31" required>
+        <input type="datetime-local" id="date" name="date" th:field="*{date}"
+               value="Select a date" required>
 
-    </div>
-
-    <div>
-        <label for="time">Time</label>
-        <input type="time" id="time" name="time" th:field="*{time}"
-               value="Select a time slot" required>
     </div>
 
     <div>
@@ -166,7 +159,7 @@
     </div>
 
 
-    <button type="submit">Submit></button>
+    <button type="submit">Submit</button>
 
 </form>
 
@@ -178,7 +171,6 @@
         <th>Symptoms</th>
         <th>Location</th>
         <th>Date</th>
-        <th>Time</th>
         <th>Reasons</th>
 
     </tr>
@@ -192,7 +184,6 @@
         <td th:text="${appo.symptoms}"></td>
         <td th:text="${appo.location}"></td>
         <td th:text="${appo.date}"></td>
-        <td th:text="${appo.time}"></td>
         <td th:text="${appo.reasonForVisit}"></td>
     </tr>
 </table>

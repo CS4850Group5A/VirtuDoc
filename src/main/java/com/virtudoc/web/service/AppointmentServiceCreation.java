@@ -1,5 +1,6 @@
 package com.virtudoc.web.service;
 
+import com.virtudoc.web.dto.appointmentDTO;
 import com.virtudoc.web.entity.Appointment;
 import com.virtudoc.web.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,8 @@ public class AppointmentServiceCreation {
         return appointmentRepository.findAll();
     }
 
-    public Appointment createAppointment(Appointment appointment) {
-
-        return appointmentRepository.save(appointment);
+    public Appointment createAppointment(appointmentDTO appointment) {
+        Appointment appointment2 = new Appointment(appointment);
+        return appointmentRepository.save(appointment2);
     }
 }

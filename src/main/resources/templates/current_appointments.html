@@ -23,8 +23,8 @@
 
 <div class="container">
     <h3 th:text="'Welcome ' + ${name} + ' - ' + ${role} + ' view'" />
-    <h3>Quick View</h3>
-    <table th:if="${role} == 'doctor'" class="table table-bordered">
+    <h3 th:if="${role} == 'DOCTOR'">Quick View</h3>
+    <table th:if="${role} == 'DOCTOR'" class="table table-bordered">
         <thead>
             <tr>
                 <th scope="col"></th>
@@ -58,13 +58,19 @@
                         </div>
                         <div class="col-sm">
                             <p th:text="'Doctor: ' + ${appointment.doctorName}" />
-                            <p th:text="'Time: ' + ${#dates.hour(appointment.date)} + ':' + ${#dates.minute(appointment.date)}"/>
+<!--                            <p th:text="'Time: ' + ${#dates.hour(appointment.date)} + ':' + ${#dates.minute(appointment.date)}"/>-->
+                            <span th:if="${#dates.hour(appointment.date) <= 12}">
+                                <p th:text="'Time: ' + ${#dates.format(appointment.date, 'HH:mm')} + 'AM'"></p>
+                            </span>
+                            <span th:unless="${#dates.hour(appointment.date) <= 12}">
+                                <p th:text="'Time: ' + ${#dates.format(appointment.date, 'HH:mm')} + 'PM'"></p>
+                            </span>
                             <p th:text="'Symptoms: ' + ${appointment.symptoms}" />
                         </div>
                         <p th:text="'Reason for Visit: ' + ${appointment.reasonForVisit}" />
                     </div>
-                    <a th:href="@{'/notifications/approve/' + ${appointment.appointmentId}}" th:if="${role == 'admin'}" class="btn btn-success">Approve</a>
-                    <a th:if="${role != 'admin'}" href="/video" class="btn btn-secondary">Join Virtual Call</a>
+                    <a th:href="@{'/notifications/approve/' + ${appointment.appointmentId}}" th:if="${role == 'ADMIN'}" class="btn btn-success">Approve</a>
+                    <a th:if="${role != 'ADMIN'}" href="/video" class="btn btn-secondary">Join Virtual Call</a>
                     <a th:href="@{'/notifications/delete/' + ${appointment.appointmentId}}" class="btn btn-danger">Cancel Appointment</a>
                 </blockquote>
             </div>

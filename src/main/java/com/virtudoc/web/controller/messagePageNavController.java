@@ -19,21 +19,18 @@ import java.util.List;
 @SessionAttributes("user")
 public class messagePageNavController {
     @Autowired
-    private AppointmentService service;
-
-    @Autowired
     private AuthenticationService authenticationService;
 
 
     @GetMapping("/message")
-    public String getMessagePage(HttpServletRequest request, Model model){
+    public String getMessagePage(HttpServletRequest session, Model model){
 
         //put userAccount object in session for testing
         //putin(session);
 
         //pull item for session
         //UserAccount sess = (UserAccount) session.getAttribute("user");
-        UserAccount a = authenticationService.GetCurrentUser(request);
+        UserAccount a = authenticationService.GetCurrentUser(session);
 
         model.addAttribute("users", Arrays.asList(
                 //sess
