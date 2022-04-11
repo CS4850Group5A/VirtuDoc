@@ -194,11 +194,6 @@ function getItemDoc(arr) {
         }
     }
 
-
-
-
-
-
 //auto stuff for patient
 function autoResponsesPat(){
 var template = Handlebars.compile($("#message-response-template").html());

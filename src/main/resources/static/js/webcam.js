@@ -13,8 +13,8 @@ videoButton.addEventListener('click', videoOnOff);
 
 btn1.addEventListener('click', video1);
 btn2.addEventListener('click', video2);
-AddButton.addEventListener('click', addVideo);
-
+AddButton.addEventListener('click', OpenBox);
+addVid.addEventListener('click', addVideo);
 // Generate random room name if needed
 if (!location.hash) {
   location.hash = "Virtudoc-conf"
@@ -150,27 +150,32 @@ btnVid.src = "https://www.youtube.com/embed/7z0kzYpuqhw";
 function video2(){
 btnVid.src = "https://www.youtube.com/embed/geQP_zYS-6s";
 }
+
+function OpenBox(){
+ urlbox.style.display = "inline";
+ addVid.style.display = "inline";
+}
+
 var count = 2;
 function addVideo(){
  count++;
  var x = document.createElement("button");
  var t = document.createTextNode("Play Video "+count);
 
- urlbox.style.display = "inline";
- addVid.style.display = "inline";
-
- var URL = "https://www.youtube.com/watch?v=-txW8dPStfs";
+ var URL = document.getElementById("url").value;
+ URL = URL.replace("watch?v=","embed/");
 
  x.appendChild(t);
  x.style.cssText ='margin: 1px;width: 300px;height: 40px;'
-
  x.setAttribute('onclick','myFunction('+"'"+URL+"'"+')');
 
  var div = document.getElementById('something');
  div.appendChild(x);
+
+ document.getElementById("url").value = "";
+ urlbox.style.display = 'none';
+ addVid.style.display = 'none';
 }
  function myFunction(url) {
        btnVid.src = url;
  }
-//"https://www.youtube.com/embed/-txW8dPStfs" <-- GOOD
-//"https://www.youtube.com/watch?v=-txW8dPStfs"; <--BAD
