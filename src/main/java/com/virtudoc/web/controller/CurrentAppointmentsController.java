@@ -1,6 +1,8 @@
 package com.virtudoc.web.controller;
 
 import com.virtudoc.web.entity.Appointment;
+import com.virtudoc.web.entity.UserAccount;
+import com.virtudoc.web.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,28 +19,37 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class CurrentAppointmentsController {
     //Used for timekeeping in the table calendar
     public class Counter {
         int counter = 7;
+        String modifier = "AM";
 
         public int getCounter() {
             return counter;
         }
 
-        public int incrementAndGet() {
+        public String incrementAndGet() {
+            if (counter == 12) {
+                counter = 0;
+                modifier = "PM";
+            }
             counter++;
-            return counter;
+            return counter + modifier;
         }
     }
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     @Autowired
     private AppointmentService service;
 
     @GetMapping("/notifications")
-    String getNotifications(Model model) {
+    String getNotifications(HttpServletRequest httpServeletRequest, Model model) {
 //        //Manually add 3 appointments
 //        Appointment apt1 = new Appointment();
 //        apt1.setEmail("test@test.com");
@@ -117,10 +128,11 @@ public class CurrentAppointmentsController {
             }
         }
         Counter count = new Counter();
+        UserAccount ua = authenticationService.GetCurrentUser(httpServeletRequest);
         model.addAttribute("count", count);
         model.addAttribute("schedule", schedule);
-        model.addAttribute("role", role);
-        model.addAttribute("name", name);
+        model.addAttribute("role", ua.getRole());
+        model.addAttribute("name", ua.getFirstName() + " " + ua.getLastName());
         model.addAttribute("appointments", allAppointments);
 
         return "current_appointments";

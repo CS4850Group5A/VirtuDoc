@@ -2,8 +2,10 @@ package com.virtudoc.web.controller;
 
 
 import com.lowagie.text.DocumentException;
+import com.virtudoc.web.dto.appointmentDTO;
 import com.virtudoc.web.entity.Appointment;
 import com.virtudoc.web.service.AppointmentServiceCreation;
+import com.virtudoc.web.service.AuthenticationService;
 import com.virtudoc.web.service.FileService;
 import com.virtudoc.web.service.PDFGeneratorService;
 import org.bouncycastle.cert.ocsp.Req;
@@ -17,6 +19,7 @@ import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import org.thymeleaf.context.Context;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.nio.file.FileSystems;
@@ -36,20 +39,24 @@ public class appointmentController {
 	@Autowired
 	private FileService fileService;
 
+	@Autowired
+	private AuthenticationService authenticationService;
+
 	//@RequestMapping(value = "/", method = RequestMethod.GET)
 	@GetMapping("/show")
-	public String getAppointment(Model model) {
+	public String getAppointment(HttpServletRequest request, Model model) {
 		Appointment appointment = new Appointment();
 
 		List<Appointment> apts = appointmentService.getAppointment();
+		model.addAttribute("user", authenticationService.GetCurrentUser(request));
 		model.addAttribute("appointments", apts);
-		model.addAttribute("appointment", new Appointment());
+		model.addAttribute("appointment", new appointmentDTO());
 		return "appointment";
 	}
 
 	//@RequestMapping(value = "/", method = RequestMethod.POST)
 	@PostMapping("/new")
-	public String createAppointment(@ModelAttribute("appointment") Appointment appointment) throws Exception {
+	public String createAppointment(@ModelAttribute("appointment") appointmentDTO appointment) throws Exception {
 		Appointment apt = appointmentService.createAppointment(appointment);
 
 		Map<String, Object> pdfModel = new HashMap<>();
