@@ -34,11 +34,16 @@ services:
       timeout: 10s
       retries: 3
       start_period: 60s
+  web-cday:
+    image: nginx:1.21.6-alpine
+    ports:
+      - '8081:80'
+    volumes:
+      - ./site:/usr/share/nginx/html
   db:
     image: postgres:13.5-alpine
     ports:
       - "55432:5432"
-
     restart: unless-stopped
     healthcheck:
       test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "root" ]
@@ -111,8 +116,6 @@ services:
       - xpack.ingestManager.fleet.tlsCheckDisabled=true
     ports:
       - "5601:5601"
-    depends_on:
-      - elasticsearch
     profiles:
       - debug
     restart: always
@@ -124,8 +127,6 @@ services:
     environment:
       - xpack.security.enabled=false
       - xpack.monitoring.enabled=false
-    depends_on:
-      - elasticsearch
     profiles:
       - debug
     restart: always
@@ -136,9 +137,6 @@ services:
     command: filebeat -e --strict.perms=false
     environment:
       LS_JAVA_OPTS: -Xms256m -Xmx256m
-    depends_on:
-      - logstash
-      - kibana
     volumes:
       - logdata:/logs
       - ./dev/elk/filebeat.yml:/usr/share/filebeat/filebeat.yml
