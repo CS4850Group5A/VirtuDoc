@@ -163,7 +163,7 @@ function addMessageEnter(event) {
     }
 }
 //auto stuff for the doc
-function autoResponsesPat(){
+function autoResponsesDoc(){
 var template = Handlebars.compile($("#message-response-template").html());
 var contextResponse = {
     response: getItemDoc(DocMessageResponses),
@@ -193,11 +193,6 @@ function getItemDoc(arr) {
         return arr[countDoc-1];
         }
     }
-
-
-
-
-
 
 //auto stuff for patient
 function autoResponsesPat(){
