@@ -2,6 +2,7 @@ package com.virtudoc.web.controller;
 
 import com.virtudoc.web.dto.EmailDTO;
 import com.virtudoc.web.dto.NewUserDTO;
+import com.virtudoc.web.dto.resetPasswordDTO;
 import com.virtudoc.web.entity.UserAccount;
 import com.virtudoc.web.repository.UserAccountRepository;
 import com.virtudoc.web.service.AuthenticationService;
@@ -121,25 +122,5 @@ public class UserAccountController {
     {
         return "redirect:/login.html";
     }
-
-/*
-    @PostMapping("/newPassword")
-    public String confirmNewPassword(@ModelAttribute NewUserDTO userDTO, Errors errors) {
-
-        try {
-
-        } catch (Exception e) {
-            return "redirect:/forgotPassword";
-        }
-        EmailDTO newUserEmail = new EmailDTO(userDTO.getEmail(), "Reset Password", "/mail/resetEmail.html");
-        try {
-            mailService.SendEmail(newUserEmail);
-        } catch (Exception e) {
-            // TODO: merge in with the main branch and log an exception here using SLF4J that an error occured with the email service.
-            return "redirect:/forgotPassword";
-        }
-        return "redirect:/login";
-    }
-*/
 
 }
