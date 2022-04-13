@@ -19,7 +19,9 @@ public interface AppointmentRepository extends CrudRepository<Appointment, Integ
     @Query(value = "select * from appointments where doctor_name = :doctorName and date >= :currDate and approved = true order by date", nativeQuery = true)
     List<Appointment> listDoctorAppointments(@Param("doctorName") String doctorName, @Param("currDate") Date currDate);
 
+    @Query(value = "select * from appointments where doctor_name = :doctorName and approved = true order by date", nativeQuery = true)
+    List<Appointment> listAllDoctorAppointments(@Param("doctorName") String doctorName);
+
     @Query(value = "select * from appointments where date >= :currDate and approved = false order by date", nativeQuery = true)
     List<Appointment> listAdminAppointments(@Param("currDate") Date currDate);
-
 }
