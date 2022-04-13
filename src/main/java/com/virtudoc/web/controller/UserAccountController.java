@@ -69,12 +69,16 @@ public class UserAccountController {
     }
 
     @GetMapping("/forgotMyPassword")
-    String forgot(){ return "forgotMyPassword"; }
+    String forgot(Model model)
+    {
+        model.addAttribute("reset",new resetPasswordDTO());
+        return "forgotMyPassword";
+    }
 
     @PostMapping("/forgotMyPassword")
-    public String submitForgot(@RequestParam("email") String email, @RequestParam("username") String username)
+    public String submitForgot(@ModelAttribute resetPasswordDTO reset)
     {
-        EmailDTO fmpEmail = new EmailDTO(email, "Reset Password", "/mail/resetEmail.html");
+        EmailDTO fmpEmail = new EmailDTO(reset.getEmail(), "Reset Password", "/mail/resetEmail.html");
         try {
             mailService.SendEmail(fmpEmail);
         } catch (Exception e){
