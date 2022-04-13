@@ -33,6 +33,11 @@ public class AppointmentService {
         return repo.listAdminAppointments(currDate);
     }
 
+    //List all doctor appointments, for doctor calendar
+    public List<Appointment> listAllDoctorAppointments(String doctorName) {
+        return repo.listAllDoctorAppointments(doctorName);
+    }
+
     public void delete(int id) {
         repo.deleteById(id);
     }
