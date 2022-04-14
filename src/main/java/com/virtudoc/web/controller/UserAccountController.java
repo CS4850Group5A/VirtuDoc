@@ -30,7 +30,8 @@ public class UserAccountController {
     private MailService mailService;
 
     @GetMapping("/login")
-    public String login(Model model, @RequestParam(value = "error", required = false) String error, @RequestParam(value = "logout", required = false) String logout) {
+    public String login(Model model, @RequestParam(value = "error", required = false) String error,
+                        @RequestParam(value = "logout", required = false) String logout) {
         // Check if we were redirected from POST:/login with an error.
         if (error != null) {
             model.addAttribute("error", "Invalid Credentials");
@@ -94,7 +95,23 @@ public class UserAccountController {
     }
 
     @GetMapping("/newPassword")
-    String newPassword() { return "newPassword"; }
+    String newPassword(Model model) {
+        model.addAttribute("newReset", new resetPasswordDTO());
+        return "newPassword";
+    }
+
+    @PostMapping("/newPassword")
+    public String newUserPassword(@ModelAttribute NewUserDTO resetDTO, Errors errors) {
+        try {
+            assert (resetDTO.getPassword() == resetDTO.getConfirmedPassword());
+            UserAccount user = userAccountRepository.findByUsername(resetDTO.getUsername()).get(0);
+            user.setPassword(resetDTO.getPassword());
+            authenticationService.SetNewUserPassword(user);
+        } catch (Exception e) {
+            return "redirect:/newPassword";
+        }
+        return "redirect:/login";
+    }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute NewUserDTO userDTO, Errors errors) {
