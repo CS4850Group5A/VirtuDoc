@@ -1,4 +1,3 @@
-const url = 'https://localhost';
 let stompClient;
 let selectedUser;
 let newMessages = new Map();
@@ -27,7 +26,7 @@ function hideButton(x)
  }
 //This will be removed and replaced with controller
 function fetchAll() {
-    $.get(url + "/fetchAllUsers", function (response) {
+    $.get("/fetchAllUsers", function (response) {
         let users = response;
         let usersTemplateHTML = "";
         for (let i = 0; i < users.length; i++) {
@@ -45,8 +44,8 @@ function fetchAll() {
 
 function connectToChat(userName) {
     console.log("connecting to chat...")
-    let socket = new SockJS(url + '/chat');
-    stompClient = Stomp.over(socket);
+    var socket = new SockJS('/websocket');
+            stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log("connected to: " + frame);
         stompClient.subscribe("/topic/messages/" + userName, function (response) {
