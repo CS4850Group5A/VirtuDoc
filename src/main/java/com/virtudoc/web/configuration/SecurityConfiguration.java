@@ -40,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // The following endpoints do not require authentication.
 
                 .antMatchers("/", "/img/**", "/*.png", "/js/**","/*.ico", "/site.webmanifest", "/forgotMyPassword","/newPassword","/resetEmail",
-                        "/login", "/register", "/HIPAA_consent", "/checkEmail", "/debug/health")
+                        "/login", "/register", "/registerDoctorAdmin", "/HIPAA_consent", "/checkEmail", "/debug/health")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
