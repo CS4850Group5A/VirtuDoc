@@ -66,6 +66,12 @@ public class UserAccountController {
         return "register";
     }
 
+    @GetMapping("/registerDoctorAdmin")
+    String registerDoctorAdmin(Model models) {
+        models.addAttribute("userDA", new NewUserDTO());
+        return "registerDoctorAdmin";
+    }
+
     @GetMapping("/HIPAA_consent")
     String consent() {
         return "HIPAA_consent.html";
@@ -124,6 +130,7 @@ public class UserAccountController {
     @PostMapping("/register")
     public String registerUser(@ModelAttribute NewUserDTO userDTO, Errors errors) {
         try {
+            userDTO.setRole("PATIENT");
             authenticationService.RegisterNewAccount(new UserAccount(userDTO));
         } catch (Exception e) {
             return "redirect:/register";
@@ -139,6 +146,23 @@ public class UserAccountController {
         return "redirect:/checkEmail";
     }
 
+    @PostMapping("/registerDoctorAdmin")
+    public String registerNewUser(@ModelAttribute NewUserDTO newUserDTO, Errors errors) {
+        try {
+            authenticationService.RegisterNewAccount(new UserAccount(newUserDTO));
+        } catch (Exception e) {
+            return "redirect:/registerDoctorAdmin";
+        }
+        EmailDTO UserEmail = new EmailDTO(newUserDTO.getEmail(), "Verify your E-mail", "/mail/welcome.html");
+        try {
+            mailService.SendEmail(UserEmail);
+        } catch (Exception e) {
+            // TODO: merge in with the main branch and log an exception here using SLF4J that an error occured with the email service.
+            // also potentially delete the un-verified account.
+            return "redirect:/registerDoctorAdmin";
+        }
+        return "redirect:/checkEmail";
+    }
 
     @PostMapping("/welcome")
     public String emailVerify()
