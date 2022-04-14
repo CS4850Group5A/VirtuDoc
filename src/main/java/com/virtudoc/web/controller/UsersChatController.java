@@ -40,14 +40,14 @@ public class UsersChatController {
                 ChatList.add(app.getDoctorName());
             }
             ChatList.add("Doctor Smith");
-            //ChatList.add("doctor1");
+            //ChatList.add("Not SMITH");
         } else if (a.getRole().equalsIgnoreCase("doctor")) {
             allAppointments = service.listDoctorAppointments(a.getUsername(), currDate);
             for (Appointment app : allAppointments) {
                 ChatList.add(app.getPatientName());
             }
             ChatList.add("Patient John");
-            //ChatList.add("patient1");
+            //ChatList.add("Not John");
         }
         if (ChatList.size() == 0) {
             ChatList.add("NO APPOINTMENTS");
