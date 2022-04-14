@@ -7,7 +7,9 @@ import com.virtudoc.web.entity.UserAccount;
 import com.virtudoc.web.repository.UserAccountRepository;
 import com.virtudoc.web.service.AuthenticationService;
 import com.virtudoc.web.service.MailService;
+import com.virtudoc.web.service.UserAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +30,12 @@ public class UserAccountController {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private UserAuthenticationService userAuthenticationService;
+
+    @Autowired
+    private UserAccountRepository userAccountRepository;
 
     @GetMapping("/login")
     public String login(Model model, @RequestParam(value = "error", required = false) String error,
