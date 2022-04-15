@@ -12,7 +12,9 @@ import org.bouncycastle.cert.ocsp.Req;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.w3c.tidy.Tidy;
 import org.xhtmlrenderer.pdf.ITextRenderer;
@@ -23,6 +25,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.nio.file.FileSystems;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,8 +61,13 @@ public class appointmentController {
 	}
 
 	//@RequestMapping(value = "/", method = RequestMethod.POST)
+	// Thymeleaf notification created through redirectAttributes
 	@PostMapping("/new")
-	public String createAppointment(@ModelAttribute("appointment") appointmentDTO appointment) throws Exception {
+	public String createAppointment(@ModelAttribute("appointment") appointmentDTO appointment, BindingResult result, RedirectAttributes redirectAttributes) throws Exception {
+		redirectAttributes.addFlashAttribute("message","Success");
+		//redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+
 		Appointment apt = appointmentService.createAppointment(appointment);
 
 		Map<String, Object> pdfModel = new HashMap<>();
@@ -66,5 +77,8 @@ public class appointmentController {
 		fileService.CreateFile(inputStream);
 		return "redirect:/appointment/show";
 	}
+
+
+
 }
 
