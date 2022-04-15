@@ -29,13 +29,13 @@
         <thead>
             <tr>
                 <th scope="col"></th>
-                <th scope="col">Sunday</th>
-                <th scope="col">Monday</th>
-                <th scope="col">Tuesday</th>
-                <th scope="col">Wednesday</th>
-                <th scope="col">Thursday</th>
-                <th scope="col">Friday</th>
-                <th scope="col">Saturday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'SUNDAY' ? 'bg-info' : ''">Sunday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'MONDAY' ? 'bg-info' : ''">Monday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'TUESDAY' ? 'bg-info' : ''">Tuesday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'WEDNESDAY' ? 'bg-info' : ''">Wednesday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'THURSDAY' ? 'bg-info' : ''">Thursday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'FRIDAY' ? 'bg-info' : ''">Friday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'SATURDAY' ? 'bg-info' : ''">Saturday</th>
             </tr>
         </thead>
         <tbody th:each="row: ${schedule}">
@@ -59,13 +59,7 @@
                         </div>
                         <div class="col-sm">
                             <p th:text="'Doctor: ' + ${appointment.doctorName}" />
-<!--                            <p th:text="'Time: ' + ${#dates.hour(appointment.date)} + ':' + ${#dates.minute(appointment.date)}"/>-->
-                            <span th:if="${#dates.hour(appointment.date) <= 12}">
-                                <p th:text="'Time: ' + ${#dates.format(appointment.date, 'HH:mm')} + 'AM'"></p>
-                            </span>
-                            <span th:unless="${#dates.hour(appointment.date) <= 12}">
-                                <p th:text="'Time: ' + ${#dates.format(appointment.date, 'HH:mm')} + 'PM'"></p>
-                            </span>
+                            <p th:text="'Time: ' + ${#dates.format(appointment.date, 'hh:mm a')}"></p>
                             <p th:text="'Symptoms: ' + ${appointment.symptoms}" />
                         </div>
                         <p th:text="'Reason for Visit: ' + ${appointment.reasonForVisit}" />

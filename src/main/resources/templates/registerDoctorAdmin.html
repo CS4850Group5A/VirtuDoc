@@ -182,15 +182,27 @@
 
 <body>
 <div class="logo_img">
-    <img class="logo" src="/static/img/logo.png" alt="logo">
+    <img class="logo" src="/img/logo.png" alt="logo">
     <br>
     <div class="container">
         <div class="title">Create New Account</div><br>
-        <h4>Patients</h4>
+        <h4>Doctors and Administrators</h4><br>
         <div class="content">
-            <form th:object="${user}" th:action="@{/register}" method="post">
+            <form th:object="${userDA}" th:action="@{/registerDoctorAdmin}" method="post">
                 <div class="status_details">
-                    <input type="radio" name="status" id="dot_1" value="PATIENT" checked th:field="*{role}">
+                    <input type="radio" name="status" id="dot_2" value="DOCTOR" th:field="*{role}">
+                    <input type="radio" name="status" id="dot_3" value="ADMIN" th:field="*{role}">
+                    <span class="status_title">Who Are You?</span>
+                    <div class="category">
+                        <label for="dot_2">
+                            <span class="dot two"></span>
+                            <span class="status">Doctor</span>
+                        </label>
+                        <label for="dot_3">
+                            <span class="dot three"></span>
+                            <span class="status">Administrator</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="user_details">
                     <div class="input_box">
