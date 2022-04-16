@@ -31,6 +31,16 @@
 
     </div>
 </nav>
+<section>
+    <td><form class="form" id="file-upload-form" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+            <input type="file" name="file" class="form-control" id="inputGroupFile02">
+            <label class="input-group-text" for="inputGroupFile02"><i class="bi bi-file-earmark-pdf"></i></label>
+            <input type="submit" value="Upload" />
+        </div>
+    </form><script src="data:text/javascript;base64,JChmdW5jdGlvbigpeyQoIiNmaWxlLXVwbG9hZC1mb3JtIikuc3VibWl0KGZ1bmN0aW9uKCl7JCh0aGlzKS5hamF4U3VibWl0KHtiZWZvcmVTdWJtaXQ6ZnVuY3Rpb24oKXtyZXR1cm4gJCgnI2ZpbGUtdXBsb2FkLWZvcm0nKS52YWxpZCgpfSxzdWNjZXNzOmZ1bmN0aW9uKHJlc3BvbnNlKXthbGVydCgiU3VjY2Vzc2Z1bGx5IHVwbG9hZGVkIHRoZSBmaWxlcyIpfSxlcnJvcjpmdW5jdGlvbigpe2FsZXJ0KCJFcnJvciBvY2N1cnJlZCB3aGlsZSB1cGxvYWRpbmcgdGhlIGZpbGVzIil9LHVybDonL2FwaS9maWxlcy91cGxvYWQnLHR5cGU6J1BPU1QnfSk7cmV0dXJuITF9KX0p" defer=""></script>
+    </td>
+</section>
 
 <!-- Table -->
 <section class="text-light bg-darkp-5 p-lg-0 pt-lg-4 text-center text-sm-start">
@@ -43,26 +53,15 @@
                         <thead>
                         <tr>
                             <th scope="col">Patient</th>
-                            <th scope="col">Symptoms </th>
-                            <th scope="col">Prescriptions</th>
                             <th scope="col">View Report</th>
                             <th scope="col">Upload Report</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="appointment : ${appointments}">
-                            <th scope="row" th:text="${appointment.patientName}" />John Doe</th>
-                            <td th:text="${appointment.symptoms}" />Coughing, Sore Throat</th>
-                            <td th:text="${appointment.prescriptions}" />None</th>
-                            <td><a href="sample.png">J_Doe_Report_1.pdf</a></td>
-                            <td><form class="form" id="file-upload-form" enctype="multipart/form-data">
-                                <div class="input-group mb-3">
-                                    <input type="file" name="file" class="form-control" id="inputGroupFile02">
-                                    <label class="input-group-text" for="inputGroupFile02"><i class="bi bi-file-earmark-pdf"></i></label>
-                                    <input type="submit" value="Upload" />
-                                </div>
-                            </form><script src="data:text/javascript;base64,JChmdW5jdGlvbigpeyQoIiNmaWxlLXVwbG9hZC1mb3JtIikuc3VibWl0KGZ1bmN0aW9uKCl7JCh0aGlzKS5hamF4U3VibWl0KHtiZWZvcmVTdWJtaXQ6ZnVuY3Rpb24oKXtyZXR1cm4gJCgnI2ZpbGUtdXBsb2FkLWZvcm0nKS52YWxpZCgpfSxzdWNjZXNzOmZ1bmN0aW9uKHJlc3BvbnNlKXthbGVydCgiU3VjY2Vzc2Z1bGx5IHVwbG9hZGVkIHRoZSBmaWxlcyIpfSxlcnJvcjpmdW5jdGlvbigpe2FsZXJ0KCJFcnJvciBvY2N1cnJlZCB3aGlsZSB1cGxvYWRpbmcgdGhlIGZpbGVzIil9LHVybDonL2FwaS9maWxlcy91cGxvYWQnLHR5cGU6J1BPU1QnfSk7cmV0dXJuITF9KX0p" defer=""></script>
-                            </td>
+                        <th th:each="file : ${files}">
+                            <th scope="row" th:text="${file.owner.username}" /></th>
+                            <td><a th:href="/files/${file.id}">Download</a></td>
+
                             
                         </tr>
                         <tr th:each="appointment : ${appointments}">
