@@ -31,7 +31,7 @@ public class FileEntity {
 
     private Date uploadDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private UserAccount owner;
 
     /**
