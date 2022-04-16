@@ -26,7 +26,9 @@ public class AdminRecordsController {
 	private FileRepository fileRepository;
 
     @GetMapping("/admin_records")
-    public String getMessagePage(){
+    public String getMessagePage(HttpServletRequest request, Model model){
+        model.addAttribute("user", authenticationService.GetCurrentUser(request));
+        model.addAttribute("files", fileRepository.findAll());
         return "admin_records";
     }
 

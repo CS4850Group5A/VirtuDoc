@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="style.css">
     <title>VirtuDoc</title>
+    <style>
+        table {
+            table-layout: fixed;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
 <!-- Navbar -->
@@ -17,8 +23,29 @@
 
 <div class="container">
     <h3 th:text="'Welcome ' + ${name} + ' - ' + ${role} + ' view'" />
-    <h3>Upcoming Appointments:</h3>
+    <h3 th:if="${role} == 'DOCTOR'">Quick View</h3>
+    <table th:if="${role} == 'DOCTOR'" class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'SUNDAY' ? 'bg-info' : ''">Sunday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'MONDAY' ? 'bg-info' : ''">Monday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'TUESDAY' ? 'bg-info' : ''">Tuesday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'WEDNESDAY' ? 'bg-info' : ''">Wednesday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'THURSDAY' ? 'bg-info' : ''">Thursday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'FRIDAY' ? 'bg-info' : ''">Friday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'SATURDAY' ? 'bg-info' : ''">Saturday</th>
+            </tr>
+        </thead>
+        <tbody th:each="row: ${schedule}">
+            <tr th:with="mycounter = ${count.incrementAndGet()}">
+                <th th:text="${mycounter}"></th>
+                <td th:each="cell : ${row}" th:classappend="${cell} ? 'bg-success' : ''"></td>
+            </tr>
+        </tbody>
 
+    </table>
+    <h3>Upcoming Appointments:</h3>
     <div th:each="appointment: ${appointments}">
         <div class="card">
             <div class="card-body">
@@ -31,13 +58,13 @@
                         </div>
                         <div class="col-sm">
                             <p th:text="'Doctor: ' + ${appointment.doctorName}" />
-                            <p th:text="'Time: ' + ${#dates.hour(appointment.date)} + ':' + ${#dates.minute(appointment.date)}"/>
+                            <p th:text="'Time: ' + ${#dates.format(appointment.date, 'hh:mm a')}"></p>
                             <p th:text="'Symptoms: ' + ${appointment.symptoms}" />
                         </div>
                         <p th:text="'Reason for Visit: ' + ${appointment.reasonForVisit}" />
                     </div>
-                    <a th:href="@{'/notifications/approve/' + ${appointment.appointmentId}}" th:if="${role == 'admin'}" class="btn btn-success">Approve</a>
-                    <a th:if="${role != 'admin'}" href="/video" class="btn btn-secondary">Join Virtual Call</a>
+                    <a th:href="@{'/notifications/approve/' + ${appointment.appointmentId}}" th:if="${role == 'ADMIN'}" class="btn btn-success">Approve</a>
+                    <a th:if="${role != 'ADMIN'}" href="/video" class="btn btn-secondary">Join Virtual Call</a>
                     <a th:href="@{'/notifications/delete/' + ${appointment.appointmentId}}" class="btn btn-danger">Cancel Appointment</a>
                 </blockquote>
             </div>

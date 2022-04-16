@@ -3,11 +3,14 @@ package com.virtudoc.web.configuration;
 import com.virtudoc.web.service.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Configures how authentication, user sessions, and user profiles are stored in the application. Defines the ACL
@@ -22,8 +25,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private AuthenticationService authenticationService;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(authenticationService).passwordEncoder(PasswordEncoderFactories.createDelegatingPasswordEncoder());
+        auth.userDetailsService(authenticationService).passwordEncoder(passwordEncoder);
     }
 
     @Override
@@ -34,9 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // The following endpoints do not require authentication.
 
                 .antMatchers("/", "/img/**", "/*.png", "/js/**","/*.ico", "/site.webmanifest", "/forgotMyPassword","/newPassword","/resetEmail",
-                        "/login", "/register", "/HIPAA_consent", "/checkEmail", "/notifications", "/debug/health","/message","/video", "/appointment/*",
-                        "/chat/{to}","/message/**","/fetchAllUsers","/app/chat/**","/chat/**",
-                        "/admin_records","/notifications/delete/{pathvariable:[0-9A-Za-z]+}", "/notifications/approve/{pathvariable:[0-9A-Za-z]+}")
+                        "/login", "/register", "/registerDoctorAdmin", "/HIPAA_consent", "/checkEmail", "/debug/health")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -44,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticate")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/notifications",true)
                 .failureUrl("/login?error")
                 .usernameParameter("username")
                 .passwordParameter("password");
