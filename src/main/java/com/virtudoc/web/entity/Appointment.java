@@ -3,9 +3,7 @@ package com.virtudoc.web.entity;
 import com.virtudoc.web.dto.appointmentDTO;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.util.Date;
 
 @Entity
@@ -160,3 +158,4 @@ public class Appointment {
                 '}';
     }
 }
+

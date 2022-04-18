@@ -79,9 +79,16 @@
 
 <body>
 
-<div th:insert="fragments/navbar :: navbar">
+<div th:replace="/fragments/navbar :: navbar">
 
 </div>
+
+<div th:switch="${message}">
+    <div th:case="'Success'" class="alert alert-success">
+        <strong>Success!</strong>
+        Your appointment has been booked! See you soon!
+    <!------Click <a th:href="@{/admin_records?id=${file.getId()}"><span th:text="${file.getUploadDate()}">Here</a> to go to your records to download this appointment booking. -->
+    </div>
 
 
 
@@ -163,30 +170,10 @@
 
 </form>
 
-<table class="table table-striped table-bordered">
-    <tr>
-        <th>Patient Name</th>
-        <th>Email</th>
-        <th>Doctor Name</th>
-        <th>Symptoms</th>
-        <th>Location</th>
-        <th>Date</th>
-        <th>Reasons</th>
 
-    </tr>
-    <tr th:if="${#lists.isEmpty(appointments)}">
-        <td colspan="5">No Records found. Add some...!</td>
-    </tr>
-    <tr th:each="appo : ${appointments}">
-        <td th:text="${appo.patientName}"></td>
-        <td th:text="${appo.email}"></td>
-        <td th:text="${appo.doctorName}"></td>
-        <td th:text="${appo.symptoms}"></td>
-        <td th:text="${appo.location}"></td>
-        <td th:text="${appo.date}"></td>
-        <td th:text="${appo.reasonForVisit}"></td>
-    </tr>
-</table>
+
+
+
 
 </body>
 </html>
