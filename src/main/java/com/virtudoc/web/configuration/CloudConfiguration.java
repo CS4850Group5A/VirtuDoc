@@ -37,7 +37,7 @@ public class CloudConfiguration {
                 .standard()
                 .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(
                         endpoint,
-                        Regions.US_EAST_1.name()
+                        "us-east-1"
                 ))
                 .withPathStyleAccessEnabled(true)
                 .withClientConfiguration(clientConfiguration)
