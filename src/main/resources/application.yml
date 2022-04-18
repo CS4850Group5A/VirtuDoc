@@ -202,7 +202,8 @@ cloud:
       access-key: ${AWS_ACCESS_KEY_ID}
       secret-key: ${AWS_SECRET_ACCESS_KEY}
     region:
-      auto: true
+      auto: false
+      static: us-west-2
     s3:
       endpoint: ${AWS_ENDPOINT}
     stack:
