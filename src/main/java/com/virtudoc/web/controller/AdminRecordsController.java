@@ -2,13 +2,14 @@ package com.virtudoc.web.controller;
 
 import com.virtudoc.web.repository.FileRepository;
 import com.virtudoc.web.service.AuthenticationService;
-import com.virtudoc.web.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 
 @Controller
 public class AdminRecordsController {
@@ -18,10 +19,17 @@ public class AdminRecordsController {
     @Autowired
     private FileRepository fileRepository;
 
-    @GetMapping("/admin_records")
-    public String getMessagePage(HttpServletRequest request, Model model){
-        model.addAttribute("user", authenticationService.GetCurrentUser(request));
+    @GetMapping("/files")
+    public String listUploadedFiles(HttpServletRequest request, Model model) throws IOException {
+
         model.addAttribute("files", fileRepository.findAll());
+        model.addAttribute("user", authenticationService.GetCurrentUser(request));
+
         return "admin_records";
+    }
+
+    @PostMapping("/files")
+    public String returnHack() {
+        return "redirect:/files";
     }
 }
