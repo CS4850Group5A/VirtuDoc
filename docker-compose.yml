@@ -39,7 +39,7 @@ services:
     ports:
       - '8081:80'
     volumes:
-      - ./site:/usr/share/nginx/html
+      - ./docs:/usr/share/nginx/html
   db:
     image: postgres:13.5-alpine
     ports:
