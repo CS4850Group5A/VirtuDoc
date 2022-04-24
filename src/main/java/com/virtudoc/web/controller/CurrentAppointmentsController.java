@@ -35,6 +35,10 @@ public class CurrentAppointmentsController {
                 counter = 0;
                 modifier = "PM";
             }
+            if (counter == 5) {
+                counter = 7;
+                modifier = "AM";
+            }
             counter++;
             return counter + modifier;
         }
@@ -111,6 +115,10 @@ public class CurrentAppointmentsController {
         //2D array used for schedule, true indicates there is an appointment
         boolean[][] schedule = new boolean[10][7];
 
+        //List of schedules, used for admins
+        List<boolean[][]> schedules = new ArrayList<>();
+        List<String> doctors = new ArrayList<>();
+
         if (role.equalsIgnoreCase("patient")) {
             allAppointments = service.listCustomerAppointments(name, currDate);
         }
@@ -120,6 +128,20 @@ public class CurrentAppointmentsController {
         }
         else {
             allAppointments = service.listAdminAppointments(currDate);
+            doctors = new ArrayList<>();
+            schedules = new ArrayList<>();
+            //Get a list of all doctors in unapproved appointments
+            for (Appointment apt : allAppointments) {
+                if (!doctors.contains(apt.getDoctorName())) {
+                    doctors.add(apt.getDoctorName());
+                }
+            }
+            //Populate list of doctor schedules
+            for (String doctor : doctors) {
+                List<Appointment> allDocAppointments = service.listAllDoctorAppointments(doctor);
+                schedules.add(populateCalendar(allDocAppointments));
+            }
+
         }
 
         //Populate the 2d array
@@ -139,6 +161,8 @@ public class CurrentAppointmentsController {
         Counter count = new Counter();
         model.addAttribute("count", count);
         model.addAttribute("schedule", schedule);
+        model.addAttribute("allSchedules", schedules);
+        model.addAttribute("doctorNames", doctors);
         model.addAttribute("role", ua.getRole());
         model.addAttribute("name", ua.getFirstName() + " " + ua.getLastName());
 //        model.addAttribute("role", "ADMIN");
@@ -162,5 +186,30 @@ public class CurrentAppointmentsController {
     public String approveAppointment(@PathVariable("id") int id, Model model, RedirectAttributes ra) {
         service.approve(id);
         return "redirect:/notifications";
+    }
+
+    public boolean[][] populateCalendar(List<Appointment> allDoctorAppointments) {
+        boolean[][] schedule = new boolean[10][7];
+        LocalDate date = LocalDate.now(ZoneId.of("America/New_York"));
+        DayOfWeek todayAsDayOfWeek = date.getDayOfWeek();
+        LocalDate prevSunday = todayAsDayOfWeek == DayOfWeek.SUNDAY ? date : date.with(TemporalAdjusters.previous(DayOfWeek.SUNDAY));
+        //Get the next Saturday, inclusive of today
+        LocalDate nextSaturday = todayAsDayOfWeek == DayOfWeek.SATURDAY ? date : date.with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+        //Get current day of week, used for highlighting todays day in calendar
+        String dayOfWeek = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("America/New_York")).getDayOfWeek().name();
+        for (int i = 0; i < allDoctorAppointments.size(); i++) {
+            LocalDate currApptDate = allDoctorAppointments.get(i).getDate().toInstant().atZone(ZoneId.of("America/New_York")).toLocalDate();
+            //If current appointment is within the current week
+            //Add it to the schedule array
+            if (currApptDate.compareTo(prevSunday) >= 0 && currApptDate.compareTo(nextSaturday) <= 0) {
+                //Extract the indices based on appointment time, currently rounds down
+                int col = allDoctorAppointments.get(i).getDate().getDay();
+                int row = allDoctorAppointments.get(i).getDate().getHours() - 8;
+                if (row >= 0 && row < schedule.length && col >= 0 && col < schedule[0].length) {
+                    schedule[row][col] = true;
+                }
+            }
+        }
+        return schedule;
     }
 }

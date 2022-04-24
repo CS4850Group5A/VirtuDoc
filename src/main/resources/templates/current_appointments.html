@@ -46,6 +46,32 @@
         </tbody>
 
     </table>
+
+    <div th:if="${role} == 'ADMIN'" th:each="index : ${#numbers.sequence(0, #arrays.length(allSchedules)-1)}">
+        <h4 th:text="${doctorNames[index]} + ' schedule'" />
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'SUNDAY' ? 'bg-info' : ''">Sunday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'MONDAY' ? 'bg-info' : ''">Monday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'TUESDAY' ? 'bg-info' : ''">Tuesday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'WEDNESDAY' ? 'bg-info' : ''">Wednesday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'THURSDAY' ? 'bg-info' : ''">Thursday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'FRIDAY' ? 'bg-info' : ''">Friday</th>
+                <th scope="col" th:classappend="${dayOfWeek} == 'SATURDAY' ? 'bg-info' : ''">Saturday</th>
+            </tr>
+            </thead>
+            <tbody th:each="row: ${allSchedules[index]}">
+            <tr th:with="mycounter = ${count.incrementAndGet()}">
+                <th th:text="${mycounter}"></th>
+                <td th:each="cell : ${row}" th:classappend="${cell} ? 'bg-success' : ''"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
     <h3>Upcoming Appointments:</h3>
     <div th:each="appointment: ${appointments}">
         <div class="card">
