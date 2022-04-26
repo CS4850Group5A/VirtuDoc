@@ -1,4 +1,4 @@
-FROM openjdk:11.0.14.1-jdk-slim-bullseye
+FROM openjdk:11.0.15-jdk-slim-bullseye
 RUN apt-get update
 RUN apt-get install dos2unix -y
 WORKDIR /
