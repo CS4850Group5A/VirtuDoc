@@ -47,7 +47,7 @@
 
     </table>
 
-    <div th:if="${role} == 'ADMIN'" th:each="index : ${#numbers.sequence(0, #arrays.length(allSchedules)-1)}">
+    <div th:if="${role} == 'ADMIN' and ${not #lists.isEmpty(appointments)}" th:each="index : ${#numbers.sequence(0, #arrays.length(allSchedules)-1)}">
         <h4 th:text="${doctorNames[index]} + ' schedule'" />
         <table class="table table-bordered">
             <thead>
